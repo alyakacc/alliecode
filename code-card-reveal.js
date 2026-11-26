@@ -50,7 +50,7 @@
     if(seen.has(el)||stopped)return;
     const w=el.clientWidth,h=el.clientHeight;if(!w||!h)return;
     seen.add(el);observer.unobserve(el);
-    if(!el.closest('.hero-v2')){
+    if(!el.closest('.hero-v2')||el.matches('.hero-rows .hr')){
       if(el.classList.contains('rv-up'))el.classList.add('in');
       const delay=Array.from(el.parentElement.children).filter(n=>n.matches(selector)).indexOf(el)%3*70+80;
       if(typeof el.animate==='function'){
