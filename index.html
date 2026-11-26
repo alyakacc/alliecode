@@ -1220,17 +1220,10 @@ input,textarea,select{border-radius:var(--panel-radius)}
 </div>
 </div>
 <div class="quiz-box" hidden="" id="quizBox">
-<div class="quiz-step" data-q="who">
-<p class="q-n">Вопрос 1 из 3</p><h3>Ваша сфера?</h3>
-<div class="q-opts"><button data-v="Путешествия" type="button"><span class="emo"><span class="emoji-icon " aria-hidden="true" style="--emoji-size:23px" data-glow="true"><span class="emoji-fallback">🧳</span><img class="emoji-image" alt="" width="28" height="28" loading="lazy" decoding="async" src="https://elk.sh/%F0%9F%A7%B3?style=apple" onload="this.parentElement.classList.add('emoji-ready')" onerror="this.hidden=true;this.parentElement.classList.remove('emoji-ready')"></span></span>Путешествия: гиды, туры, отели, трансферы</button><button data-v="Релокация и образование" type="button"><span class="emo"><span class="emoji-icon " aria-hidden="true" style="--emoji-size:23px" data-glow="true"><span class="emoji-fallback">🏡</span><img class="emoji-image" alt="" width="28" height="28" loading="lazy" decoding="async" src="https://elk.sh/%F0%9F%8F%A1?style=apple" onload="this.parentElement.classList.add('emoji-ready')" onerror="this.hidden=true;this.parentElement.classList.remove('emoji-ready')"></span></span>Релокация, визы, недвижимость, образование</button><button data-v="Языки и премиум-сервис" type="button"><span class="emo"><span class="emoji-icon " aria-hidden="true" style="--emoji-size:23px" data-glow="true"><span class="emoji-fallback">🥂</span><img class="emoji-image" alt="" width="28" height="28" loading="lazy" decoding="async" src="https://elk.sh/%F0%9F%A5%82?style=apple" onload="this.parentElement.classList.add('emoji-ready')" onerror="this.hidden=true;this.parentElement.classList.remove('emoji-ready')"></span></span>Языковая школа или VIP-сервис</button></div>
-</div>
-<div class="quiz-step" data-q="need" hidden="">
-<p class="q-n">Вопрос 2 из 3</p><h3>Что сейчас важнее всего?</h3>
-<div class="q-opts"><button data-v="site" type="button"><span class="emo"><span class="emoji-icon " aria-hidden="true" style="--emoji-size:23px" data-glow="true"><span class="emoji-fallback">💻</span><img class="emoji-image" alt="" width="28" height="28" loading="lazy" decoding="async" src="https://elk.sh/%F0%9F%92%BB?style=apple" onload="this.parentElement.classList.add('emoji-ready')" onerror="this.hidden=true;this.parentElement.classList.remove('emoji-ready')"></span></span>Красивый сайт, которому доверяют</button><button data-v="shop" type="button"><span class="emo"><span class="emoji-icon " aria-hidden="true" style="--emoji-size:23px" data-glow="true"><span class="emoji-fallback">🛍️</span><img class="emoji-image" alt="" width="28" height="28" loading="lazy" decoding="async" src="https://elk.sh/%F0%9F%9B%8D%EF%B8%8F?style=apple" onload="this.parentElement.classList.add('emoji-ready')" onerror="this.hidden=true;this.parentElement.classList.remove('emoji-ready')"></span></span>Продавать туры, услуги или товары онлайн</button><button data-v="promo" type="button"><span class="emo"><span class="emoji-icon " aria-hidden="true" style="--emoji-size:23px" data-glow="true"><span class="emoji-fallback">📈</span><img class="emoji-image" alt="" width="28" height="28" loading="lazy" decoding="async" src="https://elk.sh/%F0%9F%93%88?style=apple" onload="this.parentElement.classList.add('emoji-ready')" onerror="this.hidden=true;this.parentElement.classList.remove('emoji-ready')"></span></span>Больше заявок и клиентов</button></div>
-</div>
-<div class="quiz-step" data-q="stage" hidden="">
-<p class="q-n">Вопрос 3 из 3</p><h3>Сайт у вас уже есть?</h3>
-<div class="q-opts"><button data-v="none" type="button"><span class="emo"><span class="emoji-icon " aria-hidden="true" style="--emoji-size:23px" data-glow="true"><span class="emoji-fallback">✨</span><img class="emoji-image" alt="" width="28" height="28" loading="lazy" decoding="async" src="https://elk.sh/%E2%9C%A8?style=apple" onload="this.parentElement.classList.add('emoji-ready')" onerror="this.hidden=true;this.parentElement.classList.remove('emoji-ready')"></span></span>Пока нет</button><button data-v="old" type="button"><span class="emo"><span class="emoji-icon " aria-hidden="true" style="--emoji-size:23px" data-glow="true"><span class="emoji-fallback">🕰️</span><img class="emoji-image" alt="" width="28" height="28" loading="lazy" decoding="async" src="https://elk.sh/%F0%9F%95%B0%EF%B8%8F?style=apple" onload="this.parentElement.classList.add('emoji-ready')" onerror="this.hidden=true;this.parentElement.classList.remove('emoji-ready')"></span></span>Есть, но устарел</button><button data-v="works" type="button"><span class="emo"><span class="emoji-icon " aria-hidden="true" style="--emoji-size:23px" data-glow="true"><span class="emoji-fallback">✅</span><img class="emoji-image" alt="" width="28" height="28" loading="lazy" decoding="async" src="https://elk.sh/%E2%9C%85?style=apple" onload="this.parentElement.classList.add('emoji-ready')" onerror="this.hidden=true;this.parentElement.classList.remove('emoji-ready')"></span></span>Есть и работает</button></div>
+<div class="quiz-step" data-q="adaptive">
+<p class="q-n" aria-live="polite"></p><h3 tabindex="-1"></h3>
+<div class="q-opts"></div>
+<button class="q-again q-back" type="button" hidden>← Назад</button>
 </div>
 <div class="quiz-res" hidden="">
 <p class="q-n">Вам подойдёт</p>
@@ -1328,39 +1321,78 @@ input,textarea,select{border-radius:var(--panel-radius)}
 
   // Тест: сфера → что важнее → есть ли сайт → какие услуги
   const QUIZ = {
-    site:  {none:['turnkey','seo'],  old:['redesign','support'], works:['support','seo']},
-    shop:  {none:['shop','turnkey'], old:['shop','support'],    works:['shop','ads']},
-    promo: {none:['turnkey','ads'],  old:['seo','ads'],         works:['ads','seo']}
+    start:{title:'С чего хотите начать?',options:[['new','✨','Создать новый сайт или онлайн-сервис','type'],['redo','🎨','Обновить или доработать существующий сайт','redotype'],['grow','📈','Привлечь больше клиентов','growth'],['care','🛠️','Поддерживать сайт или чат-бот','support'],['bot','🤖','Автоматизировать общение и заявки','botstage'],['audit','🤝','Разобраться, что нужно моему бизнесу','auditstage']]},
+    type:{title:'Что должен делать ваш сайт?',options:[['landing','🎯','Продавать одну услугу, продукт или предложение','extra'],['quiz','❔','Подбирать решение через вопросы и собирать заявки','extra'],['visit','💼','Представлять меня или мою компанию','extra'],['multi','📑','Представлять несколько направлений и услуг','extra'],['online','⚙️','Бронировать, рассчитывать стоимость или работать с личным кабинетом','extra'],['shop','🛍️','Продавать товары через каталог и корзину','extra'],['media','📰','Публиковать статьи и развивать бренд-медиа','extra'],['unsure','🤔','Пока не знаю','extra']]},
+    redotype:{title:'Что хочется улучшить?',options:[['design','🎨','Дизайн, структуру и удобство','extra'],['function','⚙️','Функциональность, формы и интеграции','extra'],['conversion','📈','Конверсию и количество заявок','extra'],['unknown','🔍','Не знаю, нужен анализ сайта','extra']]},
+    growth:{title:'Откуда хотите получать больше клиентов?',options:[['ads','📣','Из платной рекламы','presence'],['seo','🔍','Из органического поиска','presence'],['maps','🧭','Из Яндекс Карт или Google Бизнес','presence'],['all','📈','Из нескольких каналов','presence'],['unknown','🤝','Нужна помощь с выбором каналов','presence']]},
+    presence:{title:'У вас уже есть сайт или чат-бот для приёма заявок?',options:[['ready','✅','Да, работает','growthnext'],['old','🛠️','Есть, но требует доработки','growthnext'],['none','✨','Пока нет','growthnext']]},
+    support:{title:'Какая помощь нужна?',options:[['basic','🛠️','Исправлять ошибки и обновлять готовый контент','finish'],['standard','📝','Поддержка и SEO-статьи из моих материалов','finish'],['plus','🔍','Поддержка и экспертные SEO-статьи с нуля','finish'],['unknown','🤝','Пока не знаю, какой объём нужен','finish']]},
+    botstage:{title:'У вас уже есть чат-бот?',options:[['none','✨','Нет, нужен новый','extra'],['old','🛠️','Есть, хочу улучшить или заменить','extra'],['ready','✅','Есть, нужна техническая поддержка','support']]},
+    auditstage:{title:'Что хотите обсудить на консультации?',options:[['new','💻','Создание нового сайта','type'],['old','🔍','Аудит существующего сайта','finish'],['growth','📈','Продвижение и привлечение клиентов','growth'],['unknown','🤝','Хочу вместе определить приоритеты','finish']]},
+    extra:{title:'Нужна ли дополнительная помощь после запуска или доработки?',options:[['none','✅','Пока только основной проект','finish'],['basic','🛠️','Техническая поддержка','finish'],['standard','📝','Поддержка и SEO на основе моих материалов','finish'],['plus','🔍','Поддержка и SEO-контент с нуля','finish'],['ads','📣','Настройка контекстной рекламы','finish'],['maps','🧭','Настройка карточки компании на картах','finish'],['unknown','🤝','Хочу обсудить варианты','finish']]}
   };
-  const qz = document.getElementById('quiz'), qOpen = qz.querySelector('.quiz-open'), qBox = qz.querySelector('.quiz-box'),
-        qSteps = qz.querySelectorAll('.quiz-step'), qRes = qz.querySelector('.quiz-res'), qAns = {};
-  const qShow = i => { qSteps.forEach((st, k) => st.hidden = k !== i); qRes.hidden = true; };
-  qOpen.addEventListener('click', () => {
-    const open = qBox.hidden; qBox.hidden = !open; qOpen.setAttribute('aria-expanded', open);
-    if (open) { qShow(0); qBox.scrollIntoView({behavior:'smooth', block:'nearest'}); }
-  });
-  qSteps.forEach((st, i) => st.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
-    qAns[st.dataset.q] = b.dataset.v;
-    if (i < qSteps.length - 1) return qShow(i + 1);
-    qSteps.forEach(x => x.hidden = true);
-    const list = qRes.querySelector('.q-res-list'); list.innerHTML = '';
-    QUIZ[qAns.need][qAns.stage].forEach(id => {
-      const card = document.getElementById('r-' + id);
-      const title = card.querySelector('h3').textContent, meta = card.querySelector('.for')?.textContent || ''; 
-      const el = document.createElement('div'); el.className = 'q-card';
-      el.innerHTML = '<h4></h4><div class="q-meta"></div><div class="q-btns"><a class="btn btn-ghost" href="#">Обсудить</a></div>';
-      el.querySelector('h4').textContent = title; el.querySelector('.q-meta').textContent = meta;
-
-      el.querySelector('.btn-ghost').addEventListener('click', ev => {
-        ev.preventDefault(); setFilter('all');
-        card.scrollIntoView({behavior:'smooth', block:'center'});
-        card.classList.add('pulse'); setTimeout(() => card.classList.remove('pulse'), 2200);
-      });
+  const qz=document.getElementById('quiz'),qOpen=qz.querySelector('.quiz-open'),qBox=qz.querySelector('.quiz-box'),qStep=qBox.querySelector('.quiz-step'),qRes=qBox.querySelector('.quiz-res'),qBack=qStep.querySelector('.q-back');
+  let qHistory=[],qCurrent='start';
+  const qTypes={landing:'Лендинг',quiz:'Одностраничный квиз-сайт',visit:'Сайт-визитка',multi:'Многостраничный сайт',online:'Онлайн-сервис'};
+  const qSupport={basic:'support',standard:'seo',plus:'plus',unknown:'audit'};
+  function qRecommend(ans){
+    const out=[];
+    const add=(id,title,reason)=>{if(!out.some(x=>x.id===id))out.push({id,title,reason});};
+    const type=ans.type;
+    if(ans.start==='audit')add('audit',null,'Поможет определить приоритеты и объём работ до старта.');
+    if(type){
+      if(type==='unsure')add('audit',null,'Помогу выбрать подходящую структуру и функциональность.');
+      else {add('turnkey',null,'Проектирование, дизайн, разработка и запуск нового сайта.');add(qTypes[type]?'classic':type,qTypes[type]||null,'Подходит под выбранную задачу вашего сайта.');}
+    }
+    if(ans.start==='redo')add(ans.redotype==='unknown'?'audit':'redesign',null,'Начнём с вашей текущей версии сайта и определим необходимые улучшения.');
+    if(ans.start==='bot'&&ans.botstage!=='ready')add('bot',null,ans.botstage==='old'?'Проработаем улучшение или замену текущего бота.':'Автоматизируем ответы, запись и приём заявок.');
+    if(ans.growth){
+      if(ans.growth==='unknown'||ans.growth==='all')add('audit',null,'Определим приоритетные каналы привлечения клиентов.');
+      if(ans.presence==='old')add('redesign',null,'Подготовим существующий сайт к приёму заявок.');
+      if(ans.presence==='none'&&ans.growth!=='maps')add('turnkey',null,'Подберём посадочную страницу для приёма заявок перед продвижением.');
+      if(['ads','all'].includes(ans.growth))add('ads',null,'Настроим платное привлечение целевых клиентов.');
+      if(['maps','all'].includes(ans.growth))add('maps',null,'Повысим видимость компании в локальном поиске.');
+    }
+    if(ans.support)add(qSupport[ans.support],null,'Подходящий объём регулярной помощи по вашим ответам.');
+    if(ans.extra&&ans.extra!=='none')add(qSupport[ans.extra]||ans.extra,null,'Дополнительная услуга по вашему выбору.');
+    if(!out.length)add('audit',null,'Обсудим задачу и подберём решение.');
+    return out;
+  }
+  function qFinish(){
+    const ans=Object.fromEntries(qHistory.map(x=>[x.key,x.value]));
+    const list=qRes.querySelector('.q-res-list');list.replaceChildren();
+    qRecommend(ans).forEach(({id,title,reason})=>{
+      const card=document.getElementById('r-'+id);if(!card)return;
+      const el=document.createElement('div');el.className='q-card';
+      el.innerHTML='<h4></h4><div class="q-meta"></div><div class="q-btns"><a class="btn btn-ghost">Подробнее</a><a class="btn btn-bordo" href="#contact">Обсудить</a></div>';
+      el.querySelector('h4').textContent=title||card.querySelector('h3').innerText.replace(/\s+/g,' ');
+      el.querySelector('.q-meta').textContent=reason;
+      const link=el.querySelector('.btn-ghost');link.href='#r-'+id;
+      link.addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();setFilter('all');card.scrollIntoView({behavior:'smooth',block:'center'});card.classList.add('pulse');setTimeout(()=>card.classList.remove('pulse'),2200);});
       list.appendChild(el);
     });
-    qRes.hidden = false;
-  })));
-  qRes.querySelector('.q-again').addEventListener('click', () => qShow(0));
+    qStep.hidden=true;qRes.hidden=false;
+  }
+  function qShow(key,focus=true){
+    qCurrent=key;qStep.hidden=false;qRes.hidden=true;
+    const data=QUIZ[key];qStep.querySelector('.q-n').textContent='Вопрос '+(qHistory.length+1);
+    const heading=qStep.querySelector('h3');heading.textContent=data.title;
+    const opts=qStep.querySelector('.q-opts');opts.replaceChildren();
+    data.options.forEach(([value,emoji,label,next])=>{
+      const btn=document.createElement('button');btn.type='button';
+      const icon=document.createElement('span');icon.className='emo';icon.setAttribute('aria-hidden','true');icon.textContent=emoji;
+      btn.append(icon,document.createTextNode(label));
+      btn.addEventListener('click',()=>{
+        qHistory.push({key,value});
+        if(next==='growthnext'){const growth=qHistory.find(x=>x.key==='growth')?.value;next=['seo','all'].includes(growth)?'support':'finish';}
+        if(next==='finish')qFinish();else qShow(next);
+      });opts.appendChild(btn);
+    });
+    qBack.hidden=!qHistory.length;if(focus)heading.focus({preventScroll:true});
+  }
+  qOpen.addEventListener('click',()=>{const open=qBox.hidden;qBox.hidden=!open;qOpen.setAttribute('aria-expanded',String(open));if(open){qHistory=[];qShow('start');qBox.scrollIntoView({behavior:'smooth',block:'nearest'});}});
+  qBack.addEventListener('click',()=>{const prev=qHistory.pop();if(prev)qShow(prev.key);});
+  qRes.querySelector('.q-again').addEventListener('click',()=>{qHistory=[];qShow('start');});
 
   // Нижняя панель на телефоне: после первого экрана, кроме блока заявки
   const mbar = document.getElementById('mbar'), hero = document.querySelector('.hero'), contact = document.getElementById('contact');
