@@ -17,7 +17,7 @@
     .code-soon-badge{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:104px;height:76%;pointer-events:none;z-index:1;overflow:visible}
     .code-soon-badge text{font-family:monospace;font-weight:800;text-anchor:middle;dominant-baseline:central;filter:drop-shadow(0 0 1px currentColor)}
     .code-soon-badge .soon-code{opacity:0}
-    .code-soon-badge .soon-letter{font-family:"Fraunces",Georgia,serif;font-weight:300;font-size:60px;fill:#F4E6C8;filter:none;opacity:1}
+    .code-soon-badge .soon-letter{font-family:"Fraunces",Georgia,serif;font-weight:300;font-style:italic;font-size:60px;fill:#F4E6C8;filter:none;opacity:1}
     .code-soon-badge.is-pending text{opacity:0}
     .code-soon-badge.is-revealing .soon-code{animation:codeSoonIn 560ms ease-in-out both;animation-delay:var(--soon-delay)}
     .code-soon-badge.is-revealing .soon-letter{animation:soonLetterIn 480ms ease-out both;animation-delay:var(--soon-delay)}
