@@ -1168,6 +1168,7 @@ input,textarea,select{border-radius:var(--panel-radius)}
 <main>
 <!-- 1. Первый экран: портрет в круге -->
 <section class="hero hero-v2">
+<div class="hero-ambient-glow" aria-hidden="true"></div>
 <div class="wrap hero-grid">
 <div class="hero-text">
 <div class="eyebrow hero-brand-line">ALLIECODE · ДИЗАЙН, РАЗРАБОТКА, ПРОДВИЖЕНИЕ</div>
@@ -1909,6 +1910,9 @@ p, li, .eyebrow, .hr span, .route .body p, .service-list, .service-list li, .rv 
 
 /* White luminous header wordmark */
 #top .nav .logo{color:#fff;text-shadow:0 0 7px rgba(255,255,255,.65),0 0 20px rgba(255,255,255,.28)}
+
+/* Ambient light at the upper-left edge of the first screen */
+.hero-v2 .hero-ambient-glow{position:absolute;top:-120px;left:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(255,94,0,.16) 0%,rgba(181,0,42,.08) 42%,transparent 70%);filter:blur(90px);pointer-events:none;z-index:0}
 </style>
 <script>
 /* Local service-card alignment: match headings and list starts within each visible grid row. */
