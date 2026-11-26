@@ -1871,6 +1871,23 @@ p, li, .eyebrow, .hr span, .route .body p, .service-list, .service-list li, .rv 
 #quiz .q-multi-hint{font-size:14px;color:var(--gold-300)}
 #quiz .q-multi-next,#quiz .q-complex,#quiz .q-result-group{grid-column:1/-1}
 #quiz .q-result-group{font-size:18px;color:var(--gold-300);margin:12px 0 0}
+
+/* Quiz-only responsive layout safeguards */
+#quiz .quiz-box,#quiz .quiz-step,#quiz .quiz-res,#quiz .q-opts,#quiz .q-res-list,#quiz .q-card{min-width:0;max-width:100%;height:auto;box-sizing:border-box}
+#quiz [hidden]{display:none!important}
+#quiz .quiz-step h3,#quiz .q-result-group,#quiz .q-card h4,#quiz .q-meta,#quiz .q-multi-hint{position:static;white-space:normal;overflow-wrap:anywhere;line-height:1.4;height:auto}
+#quiz .q-opts,#quiz .q-res-list{gap:16px;grid-auto-rows:auto;align-items:stretch}
+#quiz .q-opts button{position:relative;min-width:0;max-width:100%;height:auto;min-height:64px;white-space:normal;overflow-wrap:anywhere;line-height:1.45;justify-content:flex-start;box-sizing:border-box}
+#quiz .q-opts button .emo{flex-shrink:0}
+#quiz .q-opts .q-multi-choice{padding-right:36px}
+#quiz .q-multi-choice[aria-pressed="true"]::after{position:absolute;right:12px;top:12px;margin:0;line-height:1}
+#quiz .q-multi-hint{grid-column:1/-1;margin:4px 0;text-align:center}
+#quiz .q-opts .q-multi-next{min-height:44px;justify-content:center;align-items:center;text-align:center;flex-direction:row}
+#quiz .q-back{margin-top:20px}
+#quiz .q-card .q-btns{display:flex;flex-wrap:wrap;gap:12px;align-items:stretch}
+#quiz .q-card .q-btns .btn,#quiz .q-complex,#quiz .q-again{min-width:0;max-width:100%;height:auto;white-space:normal;overflow-wrap:anywhere;box-sizing:border-box;line-height:1.4}
+#quiz .q-result-group{margin:12px 0 0}
+@media(max-width:880px){#quiz .q-opts,#quiz .q-res-list{grid-template-columns:minmax(0,1fr)}#quiz .q-opts button{flex-direction:row;text-align:left;align-items:center}#quiz .q-card .q-btns .btn{flex:1 1 100%}}
 </style>
 <script>
 /* Local service-card alignment: match headings and list starts within each visible grid row. */
