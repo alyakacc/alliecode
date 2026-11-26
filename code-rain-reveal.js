@@ -12,8 +12,13 @@
   if (!ctx) return;
   canvas.className = 'code-rain-canvas';
   canvas.setAttribute('aria-hidden', 'true');
+  const matrix = document.createElement('canvas');
+  const mx = matrix.getContext('2d');
+  if (!mx) return;
+  matrix.className = 'code-rain-matrix';
+  matrix.setAttribute('aria-hidden','true');
   const style = document.createElement('style');
-  style.textContent = '.hero-v2>.code-rain-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}.hero-v2.code-rain-active .hero-text,.hero-v2.code-rain-active .hero-photo{z-index:1}.hero-v2.code-rain-active .hero-text{position:relative}.hero-v2.code-rain-revealing .hero-photo{animation:none!important;opacity:1!important}.hero-v2.code-rain-revealing .ph-card{clip-path:inset(0 0 var(--code-rain-clip,100%) 0)}.hero-v2.code-rain-revealing .photo-emoji-badge,.hero-v2.code-rain-revealing .ph-cap,.hero-v2.code-rain-revealing .ph-glow{opacity:var(--code-rain-detail,0)}';
+  style.textContent = '.hero-v2>.code-rain-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}.hero-v2.code-rain-active .hero-text,.hero-v2.code-rain-active .hero-photo{z-index:1}.hero-v2.code-rain-active .hero-text{position:relative}.hero-v2.code-rain-active .hero-photo{animation:none!important;opacity:1!important;translate:none!important;transform:none!important}.hero-v2.code-rain-active .ph-card{animation:none!important}.hero-v2 .code-rain-matrix{position:absolute;inset:0;width:100%;height:100%;border-radius:inherit;pointer-events:none;z-index:3}.hero-v2.code-rain-revealing .ph-card{opacity:var(--code-rain-card,0)}.hero-v2.code-rain-revealing .ph-card>img{opacity:var(--code-rain-image,0);mask-image:linear-gradient(to bottom,#000 0%,#000 var(--code-rain-edge,0%),transparent var(--code-rain-clip,0%),transparent 100%)}.hero-v2.code-rain-revealing .photo-emoji-badge,.hero-v2.code-rain-revealing .ph-cap,.hero-v2.code-rain-revealing .ph-glow{opacity:var(--code-rain-detail,0)}';
   const glyphs = ['0','1','{','}','</>','=>','*','#','const','return',';'];
   const colors = ['#F5EBD6','#E13B5A','#ffffff'];
   const rand = (a,b) => a + Math.random()*(b-a);
@@ -39,12 +44,14 @@
     ctx.setTransform(dpr,0,0,dpr,0,0);
     const mobile=innerWidth<=640, gap=mobile?38:25;
     columns=Array.from({length:Math.ceil(w/gap)},(_,i)=>({x:i*gap+rand(0,8),y:rand(-h,0),speed:rand(250,800),size:rand(11,14),alpha:rand(.12,.35),color:colors[i%3],chars:Array.from({length:mobile?5:8},glyph)}));
-    drift=Array.from({length:mobile?10:14},()=>({x:rand(0,w),y:rand(0,h),speed:rand(8,20),char:glyph(),color:colors[Math.floor(rand(0,3))]}));
+    drift=Array.from({length:mobile?18:25},(_,i)=>({x:rand(0,w),y:rand(0,h),speed:rand(12,27),alpha:i%9===0?.35:rand(.18,.28),char:glyph(),color:colors[Math.floor(rand(0,3))]}));
+    matrix.width=Math.max(1,Math.round(card.clientWidth*dpr));matrix.height=Math.max(1,Math.round(card.clientHeight*dpr));mx.setTransform(dpr,0,0,dpr,0,0);
   }
   function finish(){
     hero.classList.remove('code-rain-revealing');
     hero.style.removeProperty('--code-rain-clip');
     hero.style.removeProperty('--code-rain-detail');
+    hero.style.removeProperty('--code-rain-card');hero.style.removeProperty('--code-rain-image');hero.style.removeProperty('--code-rain-edge');matrix.remove();
   }
   function cleanup(){
     stopped=true; cancelAnimationFrame(frame); finish();
@@ -65,6 +72,9 @@
     ctx.clearRect(0,0,w,h);
     ctx.textBaseline='top';
     const fade=Math.max(0,Math.min(1,(1.8-t)/1.2));
+    const idle=Math.max(0,Math.min(1,(t-1.2)/.6));
+    ctx.font='12px monospace';
+    for(const d of drift){d.y+=d.speed*dt;if(d.y>h+16)d.y=-16;ctx.globalAlpha=d.alpha*idle;ctx.fillStyle=d.color;ctx.fillText(d.char,d.x,d.y);}
     if(t<1.8){
       for(const col of columns){
         col.y+=col.speed*dt;if(col.y>h+150)col.y=-rand(40,180);
@@ -72,35 +82,37 @@
         col.chars.forEach((ch,j)=>{ctx.globalAlpha=col.alpha*fade*(1-j/col.chars.length);ctx.fillText(ch,col.x,col.y-j*18);});
       }
       const p=Math.max(0,Math.min(1,(t-.4)/1.4));
-      const hr=hero.getBoundingClientRect(),r=card.getBoundingClientRect();
-      const x=r.left-hr.left,y=r.top-hr.top,cw=r.width,ch=r.height;
-      hero.style.setProperty('--code-rain-clip',(100*(1-p))+'%');
+      const x=0,y=0,cw=card.clientWidth,ch=card.clientHeight;
+      mx.clearRect(0,0,cw,ch);
+      hero.style.setProperty('--code-rain-card',String(Math.min(1,p*4)));
+      hero.style.setProperty('--code-rain-image',String(Math.min(1,p*5)));
+      hero.style.setProperty('--code-rain-edge',Math.max(0,Math.min(100,p*112-12))+'%');
+      hero.style.setProperty('--code-rain-clip',Math.min(100,p*112)+'%');
       hero.style.setProperty('--code-rain-detail',String(Math.max(0,(p-.7)/.3)));
       if(t>=.4&&cw>0&&ch>0){
-        ctx.save();ctx.beginPath();ctx.roundRect?ctx.roundRect(x,y,cw,ch,20):ctx.rect(x,y,cw,ch);ctx.clip();
+        mx.save();mx.beginPath();mx.rect(x,y,cw,ch);mx.clip();
         const step=innerWidth<=640?13:11;
-        ctx.font='11px monospace';
+        mx.font='11px monospace';
         for(let yy=Math.floor(ch*p/step)*step;yy<ch;yy+=step){
           for(let xx=0;xx<cw;xx+=step){
             const ix=Math.min(47,Math.floor(xx/cw*48)),iy=Math.min(63,Math.floor(yy/ch*64)),i=(iy*48+ix)*4;
             const lum=bitmap?(bitmap[i]*.2126+bitmap[i+1]*.7152+bitmap[i+2]*.0722)/255:.4;
-            ctx.globalAlpha=(.10+lum*.65)*Math.min(1,(t-.4)*4)*fade;
-            ctx.fillStyle=lum>.55?colors[0]:colors[1];
-            ctx.fillText(glyphs[(ix*7+iy*3)%glyphs.length],x+xx,y+yy);
+            mx.globalAlpha=(.10+lum*.65)*Math.min(1,(t-.4)*4)*fade;
+            mx.fillStyle=lum>.55?colors[0]:colors[1];
+            mx.fillText(glyphs[(ix*7+iy*3)%glyphs.length],x+xx,y+yy);
           }
         }
-        const sy=y+ch*p,grad=ctx.createLinearGradient(0,sy-18,0,sy+18);
+        const sy=y+ch*p,grad=mx.createLinearGradient(0,sy-18,0,sy+18);
         grad.addColorStop(0,'transparent');grad.addColorStop(.5,'rgba(225,59,90,.7)');grad.addColorStop(1,'transparent');
-        ctx.globalAlpha=fade;ctx.fillStyle=grad;ctx.fillRect(x,sy-18,cw,36);ctx.restore();
+        mx.globalAlpha=fade;mx.fillStyle=grad;mx.fillRect(x,sy-18,cw,36);mx.restore();
       }
     }else{
-      finish();
-      ctx.font='12px monospace';ctx.globalAlpha=.09;
-      for(const d of drift){d.y+=d.speed*dt;if(d.y>h)d.y=-16;ctx.fillStyle=d.color;ctx.fillText(d.char,d.x,d.y);}
+      if(hero.classList.contains('code-rain-revealing'))finish();
     }
     ctx.globalAlpha=1;schedule();
   }
-  document.head.append(style);hero.prepend(canvas);
+  photo.classList.remove('hb-rise');
+  document.head.append(style);hero.prepend(canvas);card.append(matrix);
   hero.classList.add('code-rain-active','code-rain-revealing');
   sample();img.addEventListener('load',sample,{once:true});
   resize();addEventListener('resize',resize,{passive:true});
