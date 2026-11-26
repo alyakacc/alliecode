@@ -603,7 +603,7 @@
   .ph-glow{inset:-8%;background:radial-gradient(circle at 50% 45%,rgba(181,0,42,.28) 0%,rgba(255,106,0,.08) 45%,transparent 70%);filter:blur(10px)}
   .ph-card{position:relative;aspect-ratio:3/4;border-radius:30px;overflow:hidden;background:radial-gradient(circle at 50% 35%,#651028,#2A0510);transform:rotateY(-12deg) rotateX(4deg) rotate(1.5deg);transform-style:preserve-3d;
     box-shadow:0 0 0 1.5px rgba(181,123,255,.85),0 0 22px rgba(181,123,255,.55),0 0 60px rgba(142,59,217,.35),24px 34px 60px -20px rgba(0,0,0,.75),-6px 0 0 -1px rgba(244,230,200,.55);animation:cardFloat 7s ease-in-out infinite}
-  @keyframes cardFloat{50%{transform:rotateY(-8deg) rotateX(2deg) rotate(.5deg) translateY(-8px)}}
+  @keyframes cardFloat{50%{translate:0 calc(-1 * clamp(7px,1.2vw,16px))}}
   .ph-card img{width:100%;height:100%;object-fit:cover;object-position:50% 22%}
   .ph-card::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(115deg,rgba(181,123,255,.22) 0%,rgba(181,123,255,0) 35%),linear-gradient(290deg,rgba(244,230,200,.18) 0%,rgba(244,230,200,0) 30%);mix-blend-mode:screen;pointer-events:none}
   .ph-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,2,8,0) 48%,rgba(14,2,8,.85) 100%)}
@@ -613,7 +613,7 @@
   .ph-cap small{display:block;font-family:var(--sans);font-size:13px;color:rgba(255,240,246,.75);margin-top:8px}
   .hero-photo .ph-badge{left:-14%;top:12%}
   .hero-photo .ph-badge.b2{left:auto;right:-10%;top:auto;bottom:24%}
-  @media (max-width:600px){.hero-photo{max-width:300px}.ph-card{transform:rotate(1.5deg);animation:none}.hero-photo .ph-badge{left:-6%;top:6%}}
+  @media (max-width:600px){.hero-photo{max-width:300px}.ph-card{transform:rotate(1.5deg)}.hero-photo .ph-badge{left:-6%;top:6%}}
   @media (prefers-reduced-motion:reduce){.ph-card{animation:none}}
 
   /* ===== Живые эмодзи ===== */
@@ -631,7 +631,6 @@
     box-shadow:0 0 0 1.5px rgba(255,92,140,.9),0 0 20px rgba(214,51,108,.7),0 0 56px rgba(160,24,64,.5),
       1px 1px 0 #6E1430,2px 2px 0 #651028,3px 3px 0 #5A0E26,4px 4px 0 #4F0A1D,5px 5px 0 #460A1A,6px 6px 0 #3A0715,7px 7px 0 #300612,8px 8px 0 #2A0510,9px 9px 0 #22040C,
       30px 40px 60px -16px rgba(0,0,0,.8),inset 0 0 0 1px rgba(255,255,255,.08),inset 0 0 30px rgba(214,51,108,.25)}
-  @keyframes cardFloat{50%{transform:rotateY(-12deg) rotateX(3deg) rotate(.5deg) translateY(-10px)}}
   .ph-card::before{background:linear-gradient(115deg,rgba(255,92,140,.28) 0%,rgba(255,92,140,0) 34%),linear-gradient(300deg,rgba(244,230,200,.16) 0%,rgba(244,230,200,0) 28%),linear-gradient(180deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,0) 18%)}
   .ph-chip{box-shadow:inset 0 0 0 1px rgba(255,92,140,.7),0 0 12px rgba(214,51,108,.45)}
   .ph-cap em{color:#FF6A97;text-shadow:0 0 8px rgba(255,92,140,.9),0 0 22px rgba(214,51,108,.6)}
@@ -674,7 +673,7 @@
     .hero-v2 .hero-grid{display:block;position:relative}
     .hero-photo{position:absolute;top:2px;right:16px;width:116px;max-width:none;margin:0;z-index:2}
     .hero-photo .ph-badge,.ph-cap,.ph-glow{display:none}
-    .ph-card{border-radius:18px;transform:rotateY(-10deg) rotate(2deg);animation:none}
+    .ph-card{border-radius:18px;transform:rotateY(-10deg) rotate(2deg)}
     .ph-card::after{background:linear-gradient(180deg,rgba(14,2,8,0) 70%,rgba(14,2,8,.5) 100%)}
     .ph-chip.ph-hand{width:34px;height:34px;font-size:17px;top:8px;left:8px}
     .hero-v2 .eyebrow,.hero-v2 h1{padding-right:128px}
