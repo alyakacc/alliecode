@@ -12,14 +12,14 @@
   const motion=matchMedia('(prefers-reduced-motion: reduce)');
   const style=document.createElement('style');
   style.textContent=`
-    #r-app .cover,#r-pr .cover{padding-right:calc(var(--card-pad) + 68px)}
+    #r-app .cover,#r-pr .cover{padding-right:var(--card-pad);min-height:300px}
     #r-app .cover h3,#r-pr .cover h3{width:100%;min-width:0}
-    .code-soon-badge{position:absolute;right:8px;top:6px;bottom:6px;width:64px;height:calc(100% - 12px);pointer-events:none;z-index:1;overflow:visible}
-    .code-soon-badge text{font-family:monospace;font-weight:600;text-anchor:middle;dominant-baseline:central;filter:drop-shadow(0 0 1px currentColor)}
+    .code-soon-badge{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:104px;height:76%;pointer-events:none;z-index:1;overflow:visible}
+    .code-soon-badge text{font-family:monospace;font-weight:800;text-anchor:middle;dominant-baseline:central;filter:drop-shadow(0 0 1px currentColor)}
     .code-soon-badge.is-pending text{opacity:0}
     .code-soon-badge.is-revealing text{animation:codeSoonIn 280ms ease-out both;animation-delay:var(--soon-delay)}
     @keyframes codeSoonIn{from{opacity:0}to{opacity:1}}
-    @media(max-width:640px){.code-soon-badge{width:56px;right:6px}#r-app .cover,#r-pr .cover{padding-right:calc(var(--card-pad) + 60px)}}
+    @media(max-width:640px){.code-soon-badge{width:96px;height:72%}#r-app .cover,#r-pr .cover{min-height:280px}}
     @media(prefers-reduced-motion:reduce){.code-soon-badge text{animation:none!important;opacity:1!important}}
   `;
   document.head.append(style);
@@ -49,8 +49,8 @@
       const yy=7+k*64+y*8;
       t.setAttribute('x',String(9+x*13));
       t.setAttribute('y',String(yy));
-      t.setAttribute('font-size',glyph.length>2?'4.6':glyph.length===2?'6.2':'8');
-      t.setAttribute('fill',i%4===0?'#E13B5A':'#F5EBD6');
+      t.setAttribute('font-size',glyph.length>2?'6':glyph.length===2?'8':'11');
+      t.setAttribute('fill',i%6===0?'#E13B5A':'#F5EBD6');
       t.style.setProperty('--soon-delay',Math.round(yy/254*820)+'ms');
       t.textContent=glyph;
       svg.append(t);i++;
