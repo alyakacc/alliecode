@@ -1919,6 +1919,19 @@ p, li, .eyebrow, .hr span, .route .body p, .service-list, .service-list li, .rv 
 .hero-v2 .ph-card{box-shadow:-12px -8px 40px rgba(244,230,200,.24),-5px 4px 32px rgba(255,85,0,.24),12px 14px 50px rgba(214,0,54,.25),0 0 12px rgba(214,0,54,.35),24px 34px 60px -20px rgba(0,0,0,.75)}
 .hero-v2 .ph-card::after{background:linear-gradient(135deg,#FFF6E9 0%,#F4E6C8 18%,#FFD6BA 32%,#FF6A00 52%,#D60036 85%)}
 .hero-v2 .photo-emoji-top{border:1px solid transparent;background:linear-gradient(#16090e,#16090e) padding-box,linear-gradient(135deg,#F4E6C8,#D9B98C 55%,#B88B70) border-box;box-shadow:0 0 12px rgba(244,230,200,.20),0 0 20px rgba(217,185,140,.10)}
+
+/* Unified digital transitions: feather section backgrounds into the common page canvas. */
+.hero.hero-v2{background:radial-gradient(55% 65% at 80% 35%,rgba(142,59,217,.28),transparent 62%),radial-gradient(45% 55% at 0% 83%,rgba(125,26,53,.26),transparent 70%)}
+main>.how{border-top-color:transparent;border-bottom-color:transparent;background:linear-gradient(180deg,transparent,rgba(101,16,40,.27) 9%,rgba(42,5,16,.18) 90%,transparent)}
+main>.about,main>.faq{background:linear-gradient(180deg,transparent,rgba(255,255,255,.015) 9%,rgba(255,255,255,.015) 91%,transparent)}
+#contact{border-top-color:transparent}
+.ac-code-seam{position:relative;height:0;pointer-events:none;z-index:2}
+.ac-code-seam svg{position:absolute;left:0;top:0;width:100%;height:76px;transform:translateY(-50%);overflow:hidden;opacity:.8}
+.ac-code-seam .ac-glyph{opacity:.38}
+.ac-code-seam.ac-in .ac-glyph{animation:ac-seam-reveal 1.25s ease both;animation-delay:var(--delay)}
+@keyframes ac-seam-reveal{0%{opacity:0;transform:translateY(-5px)}60%{opacity:.72}100%{opacity:.38;transform:translateY(0)}}
+@media(max-width:640px){.ac-code-seam svg{height:54px}}
+@media(prefers-reduced-motion:reduce){.ac-code-seam.ac-in .ac-glyph{animation:none}}
 </style>
 <script>
 /* Local service-card alignment: match headings and list starts within each visible grid row. */
@@ -1963,5 +1976,28 @@ p, li, .eyebrow, .hr span, .route .body p, .service-list, .service-list li, .rv 
 <script src="./code-card-reveal.js"></script>
 <script src="./code-soon-badge.js"></script>
 <script src="./code-rain-site-trial.js"></script>
+
+<script>
+/* Decorative section seams, independent of existing code rain and card animations. */
+(()=>{
+ const ns='http://www.w3.org/2000/svg', sections=[...document.querySelectorAll('main > section')], footer=document.getElementById('contact');
+ const targets=[...sections.slice(1),footer].filter(Boolean);
+ const chars=['0','1','{','}','=>',';','const','</>','return','#'];
+ let seed=271; const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
+ const io='IntersectionObserver' in window?new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('ac-in');io.unobserve(e.target)}}),{threshold:0}):null;
+ targets.forEach((target,i)=>{
+  const seam=document.createElement('div');seam.className='ac-code-seam';seam.setAttribute('aria-hidden','true');
+  const svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox','0 0 1200 76');svg.setAttribute('preserveAspectRatio','xMidYMid slice');
+  const add=(tag,attrs)=>{const el=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,v));svg.appendChild(el);return el;};
+  const colors=['#F4E6C8','#D9B98C','#B85A51','#A73350'];
+  for(let j=0;j<78;j++){
+   const x=j*16+rnd()*8,y=38+Math.sin(j*.26+i)*9+(rnd()-.5)*27;
+   if(rnd()<.38)add('rect',{x,y:y-5,width:5+rnd()*10,height:4+rnd()*7,fill:colors[Math.floor(rnd()*4)],opacity:.045+rnd()*.09,rx:.5});
+   if(rnd()<.8){const t=add('text',{x,y,fill:colors[Math.floor(rnd()*4)],'font-family':'monospace','font-size':8+rnd()*3,class:'ac-glyph',style:'--delay:'+Math.round(rnd()*430)+'ms'});t.textContent=chars[Math.floor(rnd()*chars.length)];}
+  }
+  seam.appendChild(svg);target.before(seam);if(io)io.observe(svg.parentElement);
+ });
+})();
+</script>
 </body>
 </html>
