@@ -21,6 +21,15 @@
       const p=Math.min(1,(now-a.start)/a.duration);
       if(p>=1){finish(el);continue;}
       const ease=p*p*(3-2*p),ctx=a.ctx;
+      if(!a.hero){
+        el.style.setProperty('--code-card-opacity',String(.55+.45*ease));
+        ctx.clearRect(0,0,a.w,a.h);
+        const edge=a.h*ease, band=Math.max(45,a.h*.35);
+        const glass=ctx.createLinearGradient(0,edge-band,0,edge+band);
+        glass.addColorStop(0,'rgba(245,235,214,0)');glass.addColorStop(.38,'rgba(245,235,214,.035)');glass.addColorStop(.5,'rgba(255,255,255,.17)');glass.addColorStop(.62,'rgba(225,59,90,.065)');glass.addColorStop(1,'rgba(245,235,214,0)');
+        ctx.globalAlpha=Math.sin(Math.PI*p);ctx.fillStyle=glass;ctx.fillRect(0,0,a.w,a.h);ctx.globalAlpha=1;
+        continue;
+      }
       el.style.setProperty('--code-card-opacity',String(.32+.68*ease));
       ctx.clearRect(0,0,a.w,a.h);
       const edge=a.h*ease;
@@ -45,11 +54,12 @@
     const dpr=Math.min(devicePixelRatio||1,2),step=innerWidth<=640?30:23;
     canvas.width=Math.ceil(w*dpr);canvas.height=Math.ceil(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
     canvas.className='code-card-canvas';canvas.setAttribute('aria-hidden','true');
+    const hero=!!el.closest('.hero-v2');
     const cells=[];
-    for(let y=0;y<h;y+=step)for(let x=0;x<w;x+=step)cells.push({x:x+Math.random()*5,y,i:Math.floor(Math.random()*glyphs.length),alpha:.25+Math.random()*.45,color:Math.random()<.3?'#E13B5A':'#F5EBD6'});
+    if(hero)for(let y=0;y<h;y+=step)for(let x=0;x<w;x+=step)cells.push({x:x+Math.random()*5,y,i:Math.floor(Math.random()*glyphs.length),alpha:.25+Math.random()*.45,color:Math.random()<.3?'#E13B5A':'#F5EBD6'});
     el.classList.remove('hb-rise');if(el.classList.contains('rv-up'))el.classList.add('in');
-    el.classList.add('code-card-reveal','code-card-running');el.style.setProperty('--code-card-opacity','.32');el.append(canvas);
-    active.set(el,{canvas,ctx,w,h,cells,start:performance.now(),duration:850});
+    el.classList.add('code-card-reveal','code-card-running');el.style.setProperty('--code-card-opacity',hero?'.32':'.55');el.append(canvas);
+    active.set(el,{canvas,ctx,w,h,cells,hero,start:performance.now(),duration:hero?850:780});
     if(!raf)raf=requestAnimationFrame(draw);
   }
   const observer=new IntersectionObserver(entries=>{for(const e of entries)if(e.isIntersecting)begin(e.target);},{threshold:0,rootMargin:'0px 0px -24px 0px'});
