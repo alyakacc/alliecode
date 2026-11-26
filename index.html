@@ -1673,6 +1673,9 @@ p, li, .eyebrow, .hr span, .route .body p, .service-list, .service-list li, .rv 
 <style id="format-grid-alignment">
 .service-group[data-group="format"] > .routes.stack {width:100%;max-width:none;margin-inline:0;justify-content:start;}
 .service-group[data-group="format"] > .routes.stack > .route {position:relative;top:auto;margin:0;align-self:stretch;}
+.service-group[data-group="format"] > .routes > .route {display:flex;flex-direction:column;height:auto;}
+.service-group[data-group="format"] > .routes > .route > .cover {height:auto;flex:none;}
+.service-group[data-group="format"] > .routes > .route > .body {display:flex;overflow:visible;flex:1 1 auto;}
 </style>
 <style id="format-no-shading">
 .service-group[data-group="format"] .route > .rshade {display:none!important;opacity:0!important;}
