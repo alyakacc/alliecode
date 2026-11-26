@@ -1417,9 +1417,9 @@ input,textarea,select{border-radius:var(--panel-radius)}
 
   // ===== Мягкие стеклянные звуки (Web Audio, без файлов). По умолчанию выключены =====
   (() => {
-    const btn = document.getElementById('snd'); if (!btn) return;
+    const btn = document.getElementById('snd');
     let on = true, ac = null;
-    try { on = localStorage.getItem('allie-snd') !== '0'; } catch (e) {}
+    try { if (btn) on = localStorage.getItem('allie-snd') !== '0'; } catch (e) {}
     const ctx = () => { if (!ac) { const C = window.AudioContext || window.webkitAudioContext; if (!C) return null; ac = new C(); } if (ac.state === 'suspended') ac.resume(); return ac; };
     const glass = (freq = 2300, vol = .05, dur = .22, delay = 0) => {
       const a = ctx(); if (!a) return; const t = a.currentTime + delay;
@@ -1433,8 +1433,10 @@ input,textarea,select{border-radius:var(--panel-radius)}
     const tap = () => on && glass(2300 + Math.random() * 300, .045, .16);
     const chime = () => { glass(1568, .05, .5); glass(1976, .045, .5, .09); glass(2349, .04, .7, .18); };
     const set = v => { on = v; btn.setAttribute('aria-pressed', on); btn.setAttribute('aria-label', on ? 'Выключить звуки' : 'Включить звуки'); try { localStorage.setItem('allie-snd', on ? '1' : '0'); } catch (e) {} };
-    set(on);
-    btn.addEventListener('click', () => { set(!on); if (on) chime(); });
+    if (btn) {
+      set(on);
+      btn.addEventListener('click', () => { set(!on); if (on) chime(); });
+    }
     document.addEventListener('click', e => {
       if (e.target.closest('#snd')) return;
       if (e.target.closest('.btn,.filters button,.q-opts button,.quiz-open,.q-again,summary,.menu a,.mbar a,.burger')) tap();
