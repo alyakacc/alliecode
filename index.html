@@ -1181,7 +1181,7 @@ input,textarea,select{border-radius:var(--panel-radius)}
 <a class="btn btn-bordo" href="#services">Смотреть услуги</a>
 <a class="btn btn-ghost" href="#contact">Обсудить проект</a>
 </div>
-<div class="hero-contacts">или напишите мне в <a data-tg="" href="#">Telegram</a> или <a href="mailto:alexandra.alliecode@protonmail.com">на почту</a></div>
+<div class="hero-contacts">напишите мне в <a data-tg="" href="#">Telegram</a> или <a href="mailto:alexandra.alliecode@protonmail.com">на почту</a></div>
 </div>
 <div class="hero-photo">
 <span aria-hidden="true" class="ph-glow"></span><div class="photo-emoji-badge photo-emoji-top"><span class="emoji-icon " aria-hidden="true" style="--emoji-size:18px" data-glow="true"><span class="emoji-fallback">🤝</span><img class="emoji-image" alt="" width="22" height="22" loading="eager" decoding="async" src="https://elk.sh/%F0%9F%A4%9D?style=apple" onload="this.parentElement.classList.add('emoji-ready')" onerror="this.hidden=true;this.parentElement.classList.remove('emoji-ready')"></span></div>
@@ -1703,7 +1703,8 @@ p, li, .eyebrow, .hr span, .route .body p, .service-list, .service-list li, .rv 
 #about .about-grid>.ab-ava{justify-self:center}
 
 /* Local approved hero composition and CTA */
-.hero-v2 .hero-photo .photo-emoji-top{display:none}
+.hero-v2 .hero-contacts{margin-left:0;padding-left:0;text-align:left;justify-content:flex-start}
+.hero-v2 .hero-ctas .btn:first-child{margin-left:0;transform:none}
 .hero-v2 .eyebrow.hero-brand-line{font-size:12.1px!important;margin-bottom:24px;letter-spacing:.24em}
 .hero-v2 h1{font-size:clamp(31.32px,4.002vw,52.2px);line-height:1.15}
 .hero-v2 .hero-rows .hr{padding:10px 14px}
@@ -1716,9 +1717,6 @@ p, li, .eyebrow, .hr span, .route .body p, .service-list, .service-list li, .rv 
 #top .nav-contact-link:hover{text-decoration:underline}
 @media(min-width:881px){
   .hero-v2 .hero-grid{grid-template-columns:minmax(0,55fr) minmax(0,45fr);gap:72px;align-items:stretch}
-  .hero-v2 .hero-photo{max-width:none;align-self:stretch;min-height:0;display:flex;flex-direction:column;padding-bottom:calc(var(--s4) + 1.5 * var(--type-small))}
-  .hero-v2 .ph-card{flex:1;min-height:0;aspect-ratio:auto;transform:none}
-  .hero-v2 .ph-card img{position:absolute;inset:0}
   .hero-v2 .hero-rows{max-width:760px}
 }
 @media(min-width:641px) and (max-width:880px){
