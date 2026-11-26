@@ -1153,6 +1153,7 @@ input,textarea,select{border-radius:var(--panel-radius)}
 </style>
 </head>
 <body>
+<script>if(new URLSearchParams(location.search).get("roadmap")==="3")document.body.classList.add("roadmap-staggered");</script>
 <div aria-hidden="true" class="rprog"></div>
 <div aria-hidden="true" class="lg-orbs"><i></i><i></i><i></i></div>
 <header id="top">
@@ -1758,6 +1759,11 @@ p, li, .eyebrow, .hr span, .route .body p, .service-list, .service-list li, .rv 
 @media(min-width:881px) and (max-width:1024px){.steps .step:nth-of-type(3){grid-column:2;grid-row:2}.steps .step:nth-of-type(4){grid-column:1;grid-row:2}.steps .step:nth-of-type(5){grid-column:1;grid-row:3}}
 @media(max-width:880px){.steps{padding-left:0;gap:32px}.steps .step{padding:0 0 0 70px}.steps .step>.panel-emoji{position:absolute;left:0;top:0;width:48px;height:48px}.steps .step .n{font-size:30px}.guar{margin-top:48px}}
 @media(max-width:640px){.guar li{padding:20px}.guar b{min-height:0}}
+
+/* Roadmap comparison */
+.steps .spath{display:none}.steps .step>.panel-emoji{position:relative;left:auto;top:auto;width:32px;height:32px;margin:0 0 12px;background:none;border:0;box-shadow:none}.steps .step .n{font-size:56px;color:rgba(244,230,200,.45);text-shadow:none}.steps .step{padding:0}
+@media(min-width:1025px){.steps{grid-template-columns:repeat(6,minmax(0,1fr));row-gap:48px}.steps .step:nth-of-type(n){grid-column:span 2;grid-row:auto}.steps .step:nth-of-type(4){grid-column:2/span 2;grid-row:2}.steps .step:nth-of-type(5){grid-column:4/span 2;grid-row:2}.roadmap-staggered .steps .step:nth-of-type(2),.roadmap-staggered .steps .step:nth-of-type(5){margin-top:24px}.roadmap-staggered .steps .step:nth-of-type(3){margin-top:48px}.roadmap-staggered .steps .step .n{font-size:34px;color:var(--n-gold)}}
+@media(min-width:881px) and (max-width:1024px){.steps .step:nth-of-type(n){grid-column:auto;grid-row:auto}}@media(max-width:880px){.steps .step{padding:0 0 0 48px}.steps .step>.panel-emoji{position:absolute;left:0;top:8px}.steps .step .n{font-size:36px}}
 </style>
 <script>
 /* Local service-card alignment: match headings and list starts within each visible grid row. */
