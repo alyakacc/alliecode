@@ -1902,10 +1902,13 @@ p, li, .eyebrow, .hr span, .route .body p, .service-list, .service-list li, .rv 
 
 /* Hero-only fire palette trial; preserve geometry and motion */
 .hero-v2 .ph-card{background:radial-gradient(ellipse at 48% 64%,#FF5E00 0%,#FF3B00 23%,#B5002A 58%,#380212 100%);box-shadow:-12px -8px 40px rgba(255,85,0,.35),12px 14px 50px rgba(214,0,54,.25),0 0 12px rgba(214,0,54,.45),24px 34px 60px -20px rgba(0,0,0,.75)}
-.hero-v2 .ph-card::before{background:linear-gradient(135deg,rgba(255,106,0,.32),transparent 42%),radial-gradient(ellipse at 48% 68%,rgba(255,59,0,.23),transparent 65%),linear-gradient(315deg,rgba(214,0,54,.22),transparent 45%);mix-blend-mode:screen}
+.hero-v2 .ph-card::before{display:none}
 .hero-v2 .ph-card::after{z-index:2;pointer-events:none;padding:1.5px;border-radius:inherit;background:linear-gradient(135deg,#FF6A00,#FF3B00 35%,#D60036 80%);mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude}
 .hero-v2 .hero-ctas .btn-bordo{background:linear-gradient(135deg,#FFF6E9,#FFD6BA);color:#1A050A;border-color:#FFD6BA}
 .hero-v2 .hero-ctas .btn-bordo:hover{background:linear-gradient(135deg,#FFE5CC,#FFB88C);color:#1A050A;border-color:#FFB88C;box-shadow:0 8px 25px rgba(255,110,40,.25)}
+
+/* White luminous header wordmark */
+#top .nav .logo{color:#fff;text-shadow:0 0 7px rgba(255,255,255,.65),0 0 20px rgba(255,255,255,.28)}
 </style>
 <script>
 /* Local service-card alignment: match headings and list starts within each visible grid row. */
