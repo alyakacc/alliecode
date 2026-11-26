@@ -1321,7 +1321,7 @@ input,textarea,select{border-radius:var(--panel-radius)}
 
   // Тест: сфера → что важнее → есть ли сайт → какие услуги
   const QUIZ = {
-    start:{title:'С чего хотите начать?',options:[['new','✨','Создать новый сайт или онлайн-сервис','type'],['redo','🎨','Обновить или доработать существующий сайт','redotype'],['grow','📈','Привлечь больше клиентов','growth'],['care','🛠️','Поддерживать сайт или чат-бот','support'],['bot','🤖','Автоматизировать общение и заявки','botstage'],['audit','🤝','Разобраться, что нужно моему бизнесу','auditstage']]},
+    start:{title:'Какая задача для вас сейчас наиболее приоритетна?',options:[['new','✨','Создать новый сайт или онлайн-сервис','type'],['redo','🎨','Обновить или доработать существующий сайт','redotype'],['grow','📈','Привлечь больше клиентов','growth'],['care','🛠️','Поддерживать сайт или чат-бот','support'],['bot','🤖','Автоматизировать общение и заявки','botstage'],['audit','🤝','Разобраться, что нужно моему бизнесу','auditstage']]},
     type:{title:'Что должен делать ваш сайт?',options:[['landing','🎯','Продавать одну услугу, продукт или предложение','extra'],['quiz','❔','Подбирать решение через вопросы и собирать заявки','extra'],['visit','💼','Представлять меня или мою компанию','extra'],['multi','📑','Представлять несколько направлений и услуг','extra'],['online','⚙️','Бронировать, рассчитывать стоимость или работать с личным кабинетом','extra'],['shop','🛍️','Продавать товары через каталог и корзину','extra'],['media','📰','Публиковать статьи и развивать бренд-медиа','extra'],['unsure','🤔','Пока не знаю','extra']]},
     redotype:{title:'Что хочется улучшить?',options:[['design','🎨','Дизайн, структуру и удобство','extra'],['function','⚙️','Функциональность, формы и интеграции','extra'],['conversion','📈','Конверсию и количество заявок','extra'],['unknown','🔍','Не знаю, нужен анализ сайта','extra']]},
     growth:{title:'Откуда хотите получать больше клиентов?',options:[['ads','📣','Из платной рекламы','presence'],['seo','🔍','Из органического поиска','presence'],['maps','🧭','Из Яндекс Карт или Google Бизнес','presence'],['all','📈','Из нескольких каналов','presence'],['unknown','🤝','Нужна помощь с выбором каналов','presence']]},
@@ -1329,7 +1329,7 @@ input,textarea,select{border-radius:var(--panel-radius)}
     support:{title:'Какая помощь нужна?',options:[['basic','🛠️','Исправлять ошибки и обновлять готовый контент','finish'],['standard','📝','Поддержка и SEO-статьи из моих материалов','finish'],['plus','🔍','Поддержка и экспертные SEO-статьи с нуля','finish'],['unknown','🤝','Пока не знаю, какой объём нужен','finish']]},
     botstage:{title:'У вас уже есть чат-бот?',options:[['none','✨','Нет, нужен новый','extra'],['old','🛠️','Есть, хочу улучшить или заменить','extra'],['ready','✅','Есть, нужна техническая поддержка','support']]},
     auditstage:{title:'Что хотите обсудить на консультации?',options:[['new','💻','Создание нового сайта','type'],['old','🔍','Аудит существующего сайта','finish'],['growth','📈','Продвижение и привлечение клиентов','growth'],['unknown','🤝','Хочу вместе определить приоритеты','finish']]},
-    extra:{title:'Нужна ли дополнительная помощь после запуска или доработки?',options:[['none','✅','Пока только основной проект','finish'],['basic','🛠️','Техническая поддержка','finish'],['standard','📝','Поддержка и SEO на основе моих материалов','finish'],['plus','🔍','Поддержка и SEO-контент с нуля','finish'],['ads','📣','Настройка контекстной рекламы','finish'],['maps','🧭','Настройка карточки компании на картах','finish'],['unknown','🤝','Хочу обсудить варианты','finish']]}
+    extra:{title:'Какие дополнительные задачи вы хотели бы решить?',options:[['basic','🛠️','Техническая поддержка'],['standard','📝','Поддержка и SEO-статьи из моих материалов'],['plus','🔍','Поддержка и экспертный SEO-контент с нуля'],['ads','📣','Настройка контекстной рекламы'],['maps','🧭','Продвижение на картах'],['bot','🤖','Автоматизация общения и заявок'],['redesign','🎨','Улучшение существующего сайта'],['turnkey','💻','Создание нового сайта'],['unknown','🤝','Консультация по развитию']]}
   };
   const qz=document.getElementById('quiz'),qOpen=qz.querySelector('.quiz-open'),qBox=qz.querySelector('.quiz-box'),qStep=qBox.querySelector('.quiz-step'),qRes=qBox.querySelector('.quiz-res'),qBack=qStep.querySelector('.q-back');
   let qHistory=[],qCurrent='start';
@@ -1354,14 +1354,19 @@ input,textarea,select{border-radius:var(--panel-radius)}
       if(['maps','all'].includes(ans.growth))add('maps',null,'Повысим видимость компании в локальном поиске.');
     }
     if(ans.support)add(qSupport[ans.support],null,'Подходящий объём регулярной помощи по вашим ответам.');
-    if(ans.extra&&ans.extra!=='none')add(qSupport[ans.extra]||ans.extra,null,'Дополнительная услуга по вашему выбору.');
     if(!out.length)add('audit',null,'Обсудим задачу и подберём решение.');
-    return out;
+    const primary=new Set(out.map(x=>x.id));
+    (ans.extra||[]).forEach(v=>add(qSupport[v]||v,null,'Дополнительная услуга по вашему выбору.'));
+    const tiers=['support','seo','plus'],best=tiers.reduce((n,id,i)=>out.some(x=>x.id===id)?i:n,-1);
+    if(best>=0&&tiers.some(id=>primary.has(id)))primary.add(tiers[best]);
+    return out.filter(x=>!tiers.includes(x.id)||x.id===tiers[best]).map(x=>({...x,primary:primary.has(x.id)})).sort((a,b)=>Number(b.primary)-Number(a.primary));
   }
   function qFinish(){
     const ans=Object.fromEntries(qHistory.map(x=>[x.key,x.value]));
     const list=qRes.querySelector('.q-res-list');list.replaceChildren();
-    qRecommend(ans).forEach(({id,title,reason})=>{
+    let group=null;
+    qRecommend(ans).forEach(({id,title,reason,primary})=>{
+      if(group!==primary){group=primary;const label=document.createElement('h3');label.className='q-result-group';label.textContent=primary?'Основное решение':'Рекомендуемые дополнения';list.appendChild(label);}
       const card=document.getElementById('r-'+id);if(!card)return;
       const el=document.createElement('div');el.className='q-card';
       el.innerHTML='<h4></h4><div class="q-meta"></div><div class="q-btns"><a class="btn btn-ghost">Подробнее</a><a class="btn btn-bordo" href="#contact">Обсудить</a></div>';
@@ -1371,6 +1376,7 @@ input,textarea,select{border-radius:var(--panel-radius)}
       link.addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();setFilter('all');card.scrollIntoView({behavior:'smooth',block:'center'});card.classList.add('pulse');setTimeout(()=>card.classList.remove('pulse'),2200);});
       list.appendChild(el);
     });
+    const cta=document.createElement('a');cta.className='btn btn-bordo q-complex';cta.href='#contact';cta.textContent='Обсудить комплексное решение';list.appendChild(cta);
     qStep.hidden=true;qRes.hidden=false;
   }
   function qShow(key,focus=true){
@@ -1378,14 +1384,30 @@ input,textarea,select{border-radius:var(--panel-radius)}
     const data=QUIZ[key];qStep.querySelector('.q-n').textContent='Вопрос '+(qHistory.length+1);
     const heading=qStep.querySelector('h3');heading.textContent=data.title;
     const opts=qStep.querySelector('.q-opts');opts.replaceChildren();
-    data.options.forEach(([value,emoji,label,next])=>{
+    if(key==='extra'){
+      const selected=new Set();
+      const ans=Object.fromEntries(qHistory.map(x=>[x.key,x.value]));
+      const main=qRecommend(ans).map(x=>x.id);
+      const hint=document.createElement('p');hint.className='q-multi-hint';hint.setAttribute('aria-live','polite');
+      const next=document.createElement('button');next.type='button';next.className='btn btn-bordo q-multi-next';
+      const choices=[];
+      const refresh=()=>{hint.textContent='Выбрано '+selected.size+' из 3 · Можно пропустить вопрос';next.textContent=selected.size?'Получить рекомендации':'Пропустить и получить рекомендации';choices.forEach(([v,b])=>{b.setAttribute('aria-pressed',String(selected.has(v)));b.disabled=!selected.has(v)&&selected.size>=3;});};
+      data.options.forEach(([v,emoji,label])=>{
+        if(main.includes(qSupport[v]||v)|| (v==='basic'&&main.some(id=>['seo','plus'].includes(id)))||(v==='standard'&&main.includes('plus')))return;
+        const b=document.createElement('button');b.type='button';b.className='q-multi-choice';
+        const icon=document.createElement('span');icon.className='emo';icon.setAttribute('aria-hidden','true');icon.textContent=emoji;
+        b.append(icon,document.createTextNode(label));b.addEventListener('click',()=>{if(selected.has(v))selected.delete(v);else if(selected.size<3)selected.add(v);refresh();});choices.push([v,b]);opts.appendChild(b);
+      });
+      next.addEventListener('click',()=>{qHistory.push({key,value:[...selected]});qFinish();});
+      opts.append(hint,next);refresh();
+    }else data.options.forEach(([value,emoji,label,next])=>{
       const btn=document.createElement('button');btn.type='button';
       const icon=document.createElement('span');icon.className='emo';icon.setAttribute('aria-hidden','true');icon.textContent=emoji;
       btn.append(icon,document.createTextNode(label));
       btn.addEventListener('click',()=>{
         qHistory.push({key,value});
         if(next==='growthnext'){const growth=qHistory.find(x=>x.key==='growth')?.value;next=['seo','all'].includes(growth)?'support':'finish';}
-        if(next==='finish')qFinish();else qShow(next);
+        if(next==='finish')qShow('extra');else qShow(next);
       });opts.appendChild(btn);
     });
     qBack.hidden=!qHistory.length;if(focus)heading.focus({preventScroll:true});
@@ -1841,6 +1863,14 @@ p, li, .eyebrow, .hr span, .route .body p, .service-list, .service-list li, .rv 
 #how .steps .spath path:first-child{visibility:hidden}
 #how .steps .spath path+path{stroke-dasharray:.12 2;stroke-dashoffset:.12;opacity:0;transition:none}
 @media(prefers-reduced-motion:reduce){#how .steps .spath{display:none}}
+
+/* Quiz priorities and optional multi-select */
+#quiz .q-multi-choice[aria-pressed="true"]{border-color:var(--gold-300);box-shadow:inset 0 0 0 1px var(--gold-300);background:rgba(244,230,200,.12)}
+#quiz .q-multi-choice[aria-pressed="true"]::after{content:"✓";margin-left:auto;color:var(--gold-300)}
+#quiz .q-multi-choice:disabled{opacity:.45;cursor:not-allowed}
+#quiz .q-multi-hint{font-size:14px;color:var(--gold-300)}
+#quiz .q-multi-next,#quiz .q-complex,#quiz .q-result-group{grid-column:1/-1}
+#quiz .q-result-group{font-size:18px;color:var(--gold-300);margin:12px 0 0}
 </style>
 <script>
 /* Local service-card alignment: match headings and list starts within each visible grid row. */
