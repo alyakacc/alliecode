@@ -765,7 +765,7 @@
   .lg-orbs{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
   .lg-orbs i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:orb 26s ease-in-out infinite alternate}
   .lg-orbs i:nth-child(1){width:46vmax;height:46vmax;left:-12vmax;top:10vh;background:radial-gradient(circle,rgba(192,22,63,.55),transparent 65%)}
-  .lg-orbs i:nth-child(2){width:38vmax;height:38vmax;right:-10vmax;top:45vh;background:radial-gradient(circle,rgba(181,0,42,.22),rgba(255,106,0,.045) 35%,transparent 65%);animation-duration:32s;animation-delay:-8s}
+  .lg-orbs i:nth-child(2){width:38vmax;height:38vmax;right:-10vmax;top:45vh;background:radial-gradient(circle,rgba(142,59,217,.4),transparent 65%);animation-duration:32s;animation-delay:-8s}
   .lg-orbs i:nth-child(3){width:30vmax;height:30vmax;left:30vw;bottom:-14vmax;background:radial-gradient(circle,rgba(244,230,200,.18),transparent 65%);animation-duration:38s;animation-delay:-15s}
   @keyframes orb{50%{translate:8vw -6vh;scale:1.12}100%{translate:-6vw 8vh;scale:.92}}
   .route,.rv,.fact,.page,details,.q-card,.quiz-box,.quiz-cta,.final-card,form,.snap,.hr,.guar li,.extras span,.occasions > span,.filters button,.q-opts button,.cert{
@@ -1169,7 +1169,6 @@ input,textarea,select{border-radius:var(--panel-radius)}
 <main>
 <!-- 1. Первый экран: портрет в круге -->
 <section class="hero hero-v2">
-<div class="hero-ambient-glow" aria-hidden="true"></div>
 <div class="wrap hero-grid">
 <div class="hero-text">
 <div class="eyebrow hero-brand-line">ALLIECODE · ДИЗАЙН, РАЗРАБОТКА, ПРОДВИЖЕНИЕ</div>
@@ -1902,27 +1901,18 @@ p, li, .eyebrow, .hr span, .route .body p, .service-list, .service-list li, .rv 
 #about .ab-ring>img{filter:contrast(1.12) saturate(.82)}
 #about .ab-ring::after{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;background:radial-gradient(ellipse at 49% 43%,transparent 42%,rgba(8,7,12,.08) 62%,rgba(8,7,12,.32) 100%)}
 
-/* Hero-only fire palette trial; preserve geometry and motion */
-.hero-v2 .ph-card{background:radial-gradient(ellipse at 48% 64%,#FF5E00 0%,#FF3B00 23%,#B5002A 58%,#380212 100%);box-shadow:-12px -8px 40px rgba(255,85,0,.35),12px 14px 50px rgba(214,0,54,.25),0 0 12px rgba(214,0,54,.45),24px 34px 60px -20px rgba(0,0,0,.75)}
-.hero-v2 .ph-card::before{display:none}
-.hero-v2 .ph-card::after{z-index:2;pointer-events:none;padding:1.5px;border-radius:inherit;background:linear-gradient(135deg,#FF6A00,#FF3B00 35%,#D60036 80%);mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude}
+/* Warm primary CTA */
 .hero-v2 .hero-ctas .btn-bordo{background:linear-gradient(135deg,#FFF6E9,#FFD6BA);color:#1A050A;border-color:#FFD6BA}
 .hero-v2 .hero-ctas .btn-bordo:hover{background:linear-gradient(135deg,#FFE5CC,#FFB88C);color:#1A050A;border-color:#FFB88C;box-shadow:0 8px 25px rgba(255,110,40,.25)}
 
 /* White luminous header wordmark */
 #top .nav .logo{color:#fff;text-shadow:0 0 7px rgba(255,255,255,.65),0 0 20px rgba(255,255,255,.28)}
 
-/* Ambient light at the upper-left edge of the first screen */
-.hero-v2 .hero-ambient-glow{position:absolute;top:-100px;left:-80px;width:550px;height:550px;border-radius:50%;background:radial-gradient(circle,rgba(232,181,167,.24) 0%,rgba(196,92,120,.12) 42%,transparent 72%);filter:blur(45px);pointer-events:none;z-index:0}
 .hero-v2 .hero-grid{position:relative;z-index:1}
 
-/* Champagne-gold accents linking the portrait to the primary CTA */
-.hero-v2 .ph-card{box-shadow:-12px -8px 40px rgba(244,230,200,.24),-5px 4px 32px rgba(255,85,0,.24),12px 14px 50px rgba(214,0,54,.25),0 0 12px rgba(214,0,54,.35),24px 34px 60px -20px rgba(0,0,0,.75)}
-.hero-v2 .ph-card::after{background:linear-gradient(135deg,#FFF6E9 0%,#F4E6C8 18%,#FFD6BA 32%,#FF6A00 52%,#D60036 85%)}
-.hero-v2 .photo-emoji-top{border:1px solid transparent;background:linear-gradient(#16090e,#16090e) padding-box,linear-gradient(135deg,#F4E6C8,#D9B98C 55%,#B88B70) border-box;box-shadow:0 0 12px rgba(244,230,200,.20),0 0 20px rgba(217,185,140,.10)}
 
 /* Unified section canvas and quiet pixel dissolution */
-main>.hero.hero-v2{margin-top:calc(-1 * var(--ac-header-height,77px));padding-top:calc(var(--ac-hero-top,var(--s12)) + var(--ac-header-height,77px));background:radial-gradient(ellipse at 85% 35%,rgba(196,92,120,.23),rgba(181,0,42,.08) 32%,transparent 55%),radial-gradient(ellipse at 0% 66%,rgba(125,26,53,.20),transparent 55%);background-repeat:no-repeat;background-size:100% 85%;background-position:top}
+main>.hero.hero-v2{margin-top:calc(-1 * var(--ac-header-height,77px));padding-top:calc(var(--ac-hero-top,var(--s12)) + var(--ac-header-height,77px));background:radial-gradient(ellipse at 80% 35%,rgba(142,59,217,.20),transparent 55%),radial-gradient(ellipse at 0% 66%,rgba(125,26,53,.20),transparent 55%);background-repeat:no-repeat;background-size:100% 85%;background-position:top}
 main>#services,main>.how,main>.about,main>.faq,#contact{background:transparent;border-top-color:transparent;border-bottom-color:transparent}
 main>.how::after{display:none}
 
