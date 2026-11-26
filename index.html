@@ -1888,6 +1888,10 @@ p, li, .eyebrow, .hr span, .route .body p, .service-list, .service-list li, .rv 
 #quiz .q-card .q-btns .btn,#quiz .q-complex,#quiz .q-again{min-width:0;max-width:100%;height:auto;white-space:normal;overflow-wrap:anywhere;box-sizing:border-box;line-height:1.4}
 #quiz .q-result-group{margin:12px 0 0}
 @media(max-width:880px){#quiz .q-opts,#quiz .q-res-list{grid-template-columns:minmax(0,1fr)}#quiz .q-opts button{flex-direction:row;text-align:left;align-items:center}#quiz .q-card .q-btns .btn{flex:1 1 100%}}
+
+/* Filled primary CTAs inside the quiz only */
+#quiz .quiz-box .q-multi-next,#quiz .quiz-box .q-complex,#quiz .quiz-box .q-card .btn-bordo{background:linear-gradient(135deg,#f4e6c8,#d9b879);color:#30121f;border:1px solid #e2c793;box-shadow:0 4px 16px rgba(226,199,147,.2);text-shadow:none}
+#quiz .quiz-box .q-multi-next:hover,#quiz .quiz-box .q-complex:hover,#quiz .quiz-box .q-card .btn-bordo:hover{background:linear-gradient(135deg,#fff0d2,#e2c793);color:#30121f;border-color:#f4e6c8;box-shadow:0 4px 20px rgba(226,199,147,.35)}
 </style>
 <script>
 /* Local service-card alignment: match headings and list starts within each visible grid row. */
