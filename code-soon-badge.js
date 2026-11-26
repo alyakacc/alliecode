@@ -12,9 +12,10 @@
   const motion=matchMedia('(prefers-reduced-motion: reduce)');
   const style=document.createElement('style');
   style.textContent=`
-    #r-app .body,#r-pr .body{position:relative;min-height:300px}
+    #r-app .body,#r-pr .body{position:relative;min-height:300px;display:flex;flex-direction:column}
+    #r-app .soon-stage,#r-pr .soon-stage{position:relative;display:grid;place-items:center;flex:1 1 auto;min-height:220px;order:-1}
     #r-app .body .foot,#r-pr .body .foot{position:relative;z-index:2}
-    .code-soon-badge{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:104px;height:76%;pointer-events:none;z-index:1;overflow:visible}
+    .code-soon-badge{inset:auto;transform:none;width:104px;height:100%;max-height:254px;position:relative;display:block;pointer-events:none;z-index:1;overflow:visible}
     .code-soon-badge text{font-family:monospace;font-weight:800;text-anchor:middle;dominant-baseline:central;filter:drop-shadow(0 0 1px currentColor)}
     .code-soon-badge .soon-code{opacity:0}
     .code-soon-badge .soon-letter{font-family:var(--serif);font-weight:300;font-style:italic;font-size:60px;fill:rgba(255,255,255,.12);filter:none;opacity:1}
@@ -42,6 +43,7 @@
   function mount(cover){
     const svg=document.createElementNS(ns,'svg');
     svg.setAttribute('viewBox','0 0 70 254');
+    svg.setAttribute('preserveAspectRatio','xMidYMid meet');
     svg.setAttribute('role','img');
     svg.setAttribute('aria-label','SOON — скоро');
     svg.classList.add('code-soon-badge');
@@ -69,7 +71,10 @@
       svg.append(t);
     });
     if(observer)svg.classList.add('is-pending');
-    cover.append(svg);
+    const stage=document.createElement("div");
+    stage.className="soon-stage";
+    stage.append(svg);
+    cover.prepend(stage);
     if(observer)observer.observe(svg);
   }
   document.querySelectorAll('#r-app .body,#r-pr .body').forEach(mount);
