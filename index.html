@@ -1897,6 +1897,8 @@ p, li, .eyebrow, .hr span, .route .body p, .service-list, .service-list li, .rv 
 /* About portrait: single gold rim */
 #about .ab-ring{padding:0;border:1.5px solid #F4E6C8;background:none;overflow:hidden;box-shadow:0 0 14px rgba(244,230,200,.35)}
 #about .ab-ring>img{inset:0;width:100%;height:100%;border:0;object-fit:cover;object-position:center;box-shadow:none}
+#about .ab-ring>img{filter:contrast(1.12) saturate(.82)}
+#about .ab-ring::after{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;background:radial-gradient(ellipse at 49% 43%,transparent 42%,rgba(8,7,12,.08) 62%,rgba(8,7,12,.32) 100%)}
 </style>
 <script>
 /* Local service-card alignment: match headings and list starts within each visible grid row. */
