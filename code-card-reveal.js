@@ -49,7 +49,7 @@
   function begin(el){
     if(seen.has(el)||stopped)return;
     const w=el.clientWidth,h=el.clientHeight;if(!w||!h)return;
-    seen.add(el);observer.unobserve(el);
+    seen.add(el);
     if(!el.closest('.hero-v2')||el.matches('.hero-rows .hr')){
       if(el.classList.contains('rv-up'))el.classList.add('in');
       const delay=Array.from(el.parentElement.children).filter(n=>n.matches(selector)).indexOf(el)%3*70+80;
@@ -73,7 +73,7 @@
     active.set(el,{canvas,ctx,w,h,cells,hero,start:performance.now(),duration:hero?850:780});
     if(!raf)raf=requestAnimationFrame(draw);
   }
-  const observer=new IntersectionObserver(entries=>{for(const e of entries)if(e.isIntersecting)begin(e.target);},{threshold:0,rootMargin:'0px 0px -24px 0px'});
+  const observer=new IntersectionObserver(entries=>{for(const e of entries){if(e.isIntersecting)begin(e.target);else{finish(e.target);seen.delete(e.target);}}},{threshold:0,rootMargin:'0px 0px -24px 0px'});
   function scan(){document.querySelectorAll(selector).forEach(el=>{if(!seen.has(el)&&!el.closest('[hidden]'))observer.observe(el);});}
   const mutations=new MutationObserver(records=>{if(records.some(r=>r.type==='attributes'||Array.from(r.addedNodes).some(n=>n.nodeType===1&&!n.classList.contains('code-card-canvas'))))scan();});
   function clear(){cancelAnimationFrame(raf);raf=0;for(const el of active.keys())finish(el);}
