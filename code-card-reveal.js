@@ -50,6 +50,17 @@
     if(seen.has(el)||stopped)return;
     const w=el.clientWidth,h=el.clientHeight;if(!w||!h)return;
     seen.add(el);observer.unobserve(el);
+    if(!el.closest('.hero-v2')){
+      if(el.classList.contains('rv-up'))el.classList.add('in');
+      const delay=Array.from(el.parentElement.children).filter(n=>n.matches(selector)).indexOf(el)%3*70+80;
+      if(typeof el.animate==='function'){
+        const animation=el.animate([{opacity:0,translate:'0 22px'},{opacity:1,translate:'0 0px'}],{duration:650,delay,easing:'cubic-bezier(.2,.7,.2,1)',fill:'backwards'});
+        const stop=()=>animation.cancel();
+        motion.addEventListener?.('change',stop,{once:true});
+        animation.finished.catch(()=>{}).finally(()=>motion.removeEventListener?.('change',stop));
+      }
+      return;
+    }
     const canvas=document.createElement('canvas'),ctx=canvas.getContext('2d');if(!ctx)return;
     const dpr=Math.min(devicePixelRatio||1,2),step=innerWidth<=640?30:23;
     canvas.width=Math.ceil(w*dpr);canvas.height=Math.ceil(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
