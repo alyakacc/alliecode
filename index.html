@@ -1574,6 +1574,16 @@ input,textarea,select{border-radius:var(--panel-radius)}
         path.setAttribute('viewBox','0 0 '+steps.clientWidth+' '+steps.clientHeight);
         path.querySelectorAll('path').forEach(el=>el.setAttribute('d',route));
         path.style.setProperty('--p', p.toFixed(3));
+        if(!path.dataset.played && r.top < H*.85 && r.bottom > 0 && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+          path.dataset.played='true';
+          const pulse=path.querySelector('path+path');
+          pulse.animate([
+            {strokeDashoffset:.12,opacity:0,offset:0},
+            {strokeDashoffset:0,opacity:1,offset:.1},
+            {strokeDashoffset:-.9,opacity:1,offset:.9},
+            {strokeDashoffset:-1.02,opacity:0,offset:1}
+          ],{duration:2800,easing:'linear',fill:'none'}).finished.then(()=>{path.style.display='none';}).catch(()=>{path.style.display='none';});
+        }
         stepEls.forEach((st, i) => { const at = vert ? st.offsetTop / steps.offsetHeight : i / stepEls.length; st.classList.toggle('done', p > at + .02); });
       }
       if (heroPh && FINE && innerWidth > 880) heroPh.style.transform = y < H * 1.2 ? 'translate3d(0,' + (y * .12).toFixed(1) + 'px,0)' : heroPh.style.transform;
@@ -1794,6 +1804,11 @@ p, li, .eyebrow, .hr span, .route .body p, .service-list, .service-list li, .rv 
 #how .steps .step:nth-of-type(4) h3 br{display:inline}
 #how .steps .step:nth-of-type(4) h3 br::after{content:none}
 @media(prefers-reduced-motion:reduce){#how .steps .spath path+path{transition:none;stroke-dashoffset:0}}
+
+/* Transient light pulse: no permanent thread */
+#how .steps .spath path:first-child{visibility:hidden}
+#how .steps .spath path+path{stroke-dasharray:.12 2;stroke-dashoffset:.12;opacity:0;transition:none}
+@media(prefers-reduced-motion:reduce){#how .steps .spath{display:none}}
 </style>
 <script>
 /* Local service-card alignment: match headings and list starts within each visible grid row. */
