@@ -42,6 +42,7 @@ disclosureCSS.textContent=`
 #services .ac-details-inner{min-height:0;overflow:hidden}
 #services .ac-details-inner .service-list{margin-bottom:12px}
 #services .ac-detail-toggle{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:8px 0;margin:0;background:none;border:0;color:inherit;font:inherit;font-size:.9em;text-align:left;cursor:pointer;opacity:.8}
+#services .ac-detail-toggle[hidden]{display:none!important}
 #services .ac-detail-toggle::after{content:'';width:7px;height:7px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(45deg);transition:transform .3s}
 #services .ac-open .ac-detail-toggle::after{transform:rotate(225deg)}
 #services .ac-detail-toggle:focus-visible{outline:1px solid currentColor;outline-offset:3px}
@@ -56,8 +57,8 @@ document.querySelectorAll('#services .service-group .route').forEach((card,i)=>{
  const label=heading.textContent.trim(),button=document.createElement('button'),panel=document.createElement('div'),inner=document.createElement('div');
  button.type='button';button.className='ac-detail-toggle';button.textContent=label;button.setAttribute('aria-expanded','false');
  panel.className='ac-details';panel.id='ac-service-details-'+i;button.setAttribute('aria-controls',panel.id);inner.className='ac-details-inner';
- heading.before(button,panel);panel.append(inner);inner.append(heading,list);heading.style.display='none';
- button.addEventListener('click',()=>{const open=card.classList.toggle('ac-open');button.setAttribute('aria-expanded',String(open));button.textContent=open?(collapseLabels[document.documentElement.lang.split('-')[0]]||collapseLabels.en):label;fitPreviews();});
+ heading.after(panel,button);panel.append(inner);inner.append(list);const more={ru:'Показать ещё',en:'Show more',it:'Mostra altro'};const moreLabel=()=>more[document.documentElement.lang.split('-')[0]]||more.en;button.textContent=moreLabel();button.hidden=list.querySelectorAll('li').length<=3;
+ button.addEventListener('click',()=>{const open=card.classList.toggle('ac-open');button.setAttribute('aria-expanded',String(open));button.textContent=open?(collapseLabels[document.documentElement.lang.split('-')[0]]||collapseLabels.en):moreLabel();fitPreviews();});
 });
 
 const tracks=[];
@@ -78,7 +79,7 @@ function fitPreviews(){
   // Use intrinsic compact content, not the stretched row height.
   for(const e of entries){const body=e.card.querySelector('.body'),cover=e.card.querySelector('.cover');if(!body||!cover)continue;const cs=getComputedStyle(body);const children=[...body.children].filter(n=>n!==e.panel&&getComputedStyle(n).display!=='none');e.base=cover.offsetHeight+children.reduce((sum,n)=>{const st=getComputedStyle(n);return sum+n.offsetHeight+(parseFloat(st.marginTop)||0)+(n.classList.contains('foot')?0:parseFloat(st.marginBottom)||0)},0)+(parseFloat(cs.paddingTop)||0)+(parseFloat(cs.paddingBottom)||0)+(parseFloat(cs.rowGap)||0)*Math.max(0,children.length-1)+2;}
   const target=Math.max(...entries.map(e=>e.base),0)+48;
-  for(const e of entries){if(!e.panel)continue;const items=[...e.inner.querySelectorAll('li')];const rect=e.inner.getBoundingClientRect();const budget=Math.max(0,target-e.base);let height=0;for(const li of items){const bottom=li.getBoundingClientRect().bottom-rect.top;const show=bottom<=budget;li.classList.toggle('ac-preview-hidden',!show);if(show)height=Math.max(height,bottom);}e.panel.style.setProperty('--ac-preview',Math.ceil(height)+'px');e.panel.style.setProperty('--ac-full',e.inner.scrollHeight+'px');}
+  for(const e of entries){if(!e.panel)continue;const items=[...e.inner.querySelectorAll('li')];const rect=e.inner.getBoundingClientRect();const budget=Math.max(0,target-e.base);let height=0;for(const [index,li] of items.entries()){const bottom=li.getBoundingClientRect().bottom-rect.top;const show=index<3;li.classList.toggle('ac-preview-hidden',!show);if(show)height=Math.max(height,bottom);}e.panel.style.setProperty('--ac-preview',Math.ceil(height)+'px');e.panel.style.setProperty('--ac-full',e.inner.scrollHeight+'px');}
  }
 }
 
