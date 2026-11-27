@@ -1529,15 +1529,7 @@ input,textarea,select{border-radius:var(--panel-radius)}
       });
     }
 
-    // --- первый экран: слова из размытия, затем всё остальное поднимается
-    const hero = $('.hero-v2');
-    if (hero && !RM) {
-      const h1 = $('h1', hero); let i = 0;
-      splitWords(h1, w => { const sp = document.createElement('span'); sp.className = 'hb-w'; sp.style.setProperty('--d', (.12 + i++ * .055).toFixed(3) + 's'); sp.textContent = w; return sp; });
-      const words = i * .055 + .12;
-      const seq = [['.eyebrow', 0], ['.lead', words - .15], ['.hero-rows', words], ['.hero-ctas', words + .12], ['.hero-contacts', words + .22], ['.hero-photo', .35]];
-      seq.forEach(([q, d]) => { const el = $(q, hero); if (!el) return; el.style.setProperty('--d', Math.max(0, d).toFixed(2) + 's'); el.classList.add('hb-rise'); el.addEventListener('animationend', () => el.classList.remove('hb-rise'), { once: true }); });
-    }
+    // Hero entrance is handled by CSS; keep the original heading text intact.
     root.classList.remove('pre');
 
     if (RM || !('IntersectionObserver' in window)) return;
@@ -2074,6 +2066,39 @@ main>.hero.hero-v2{min-height:100vh;min-height:100svh}
 .hero-v2 .hero-text{width:calc(100% + 32px);max-width:700px;align-self:center;top:12px;container-type:inline-size}
 .hero-v2 .hero-text h1{max-width:700px;font-size:clamp(36px,10.1cqi,62px);line-height:1.08;letter-spacing:-.02em;text-wrap:initial}
 .hero-v2 .hero-title-line{display:block;white-space:nowrap}
+}
+</style><style id="ac-hero-premium-motion">
+.hero-v2 h1 em{word-spacing:.08em}
+@keyframes acHeroFadeUp{from{opacity:0;translate:0 16px}to{opacity:1;translate:0 0}}
+@media(prefers-reduced-motion:no-preference){
+.hero-v2 .hero-text>.eyebrow,.hero-v2 .hero-text>h1,.hero-v2 .hero-text>.hero-ctas,.hero-v2 .hero-text>.hero-contacts,.hero-v2 .editorial-visual .hero-photo,.hero-v2 .editorial-visual .hr{animation:acHeroFadeUp .65s cubic-bezier(.22,1,.36,1) var(--ac-enter-delay,0s) both}
+.hero-v2 .hero-text>.eyebrow{--ac-enter-delay:.05s}
+.hero-v2 .hero-text>h1{--ac-enter-delay:.15s}
+.hero-v2 .hero-text>.hero-ctas,.hero-v2 .hero-text>.hero-contacts{--ac-enter-delay:.25s}
+.hero-v2 .editorial-visual .hero-photo{--ac-enter-delay:.2s}
+.hero-v2 .editorial-visual .hr:nth-child(1){--ac-enter-delay:.3s}
+.hero-v2 .editorial-visual .hr:nth-child(2){--ac-enter-delay:.38s}
+.hero-v2 .editorial-visual .hr:nth-child(3){--ac-enter-delay:.46s}
+}
+.hero-v2 .editorial-visual .hr{transition:background .3s ease,border-color .3s ease,transform .3s ease,box-shadow .3s ease}
+.hero-v2 .editorial-visual .photo-emoji-top{transition:scale .3s cubic-bezier(.22,1,.36,1)}
+.hero-v2 .hero-ctas .btn-bordo{transition:background .3s ease,box-shadow .3s ease,translate .3s ease}
+@media(hover:hover) and (pointer:fine){
+.hero-v2 .editorial-visual .hr:hover{border-color:rgba(255,255,255,.28);background:rgba(43,22,33,.92)}
+.hero-v2 .editorial-visual .hero-photo:hover .photo-emoji-top{scale:1.08}
+.hero-v2 .hero-ctas .btn-bordo:hover{box-shadow:0 5px 22px rgba(255,184,140,.32)}
+}
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+.hero-v2 .editorial-visual .hr:nth-child(1):hover{transform:translateY(-2px)}
+.hero-v2 .editorial-visual .hr:nth-child(2):hover{transform:translate(12px,-2px)}
+.hero-v2 .editorial-visual .hr:nth-child(3):hover{transform:translate(24px,-2px)}
+.hero-v2 .hero-ctas .btn-bordo:hover{translate:0 -1px}
+}
+@media(max-width:880px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){.hero-v2 .editorial-visual .hr:nth-child(n):hover{transform:translateY(-2px)}}
+@media(prefers-reduced-motion:reduce){
+.hero-v2 .hero-text>*,.hero-v2 .editorial-visual .hero-photo,.hero-v2 .editorial-visual .hr{animation:none!important;opacity:1!important}
+.hero-v2 .editorial-visual .hr,.hero-v2 .editorial-visual .photo-emoji-top,.hero-v2 .hero-ctas .btn-bordo{transition:none}
+.hero-v2 .editorial-visual .hero-photo:hover .photo-emoji-top{scale:1}
 }
 </style></body>
 </html>
