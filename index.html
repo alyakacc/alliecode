@@ -6,6 +6,7 @@
 <meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
 <meta content="only dark" name="color-scheme"/>
 <meta content="#0E0208" name="theme-color"/>
+<style>html{background-color:#0E0208}</style>
 <title>Alliecode Design &amp; Development</title>
 <meta content="Ваш сайт, которому доверяют с первого экрана и на любом языке" name="description"/>
 
@@ -936,7 +937,7 @@
   h2.in em,h2:not(.split) em{background-size:100% 1px}
 
   /* ================= BLUR-IN ПЕРВОГО ЭКРАНА ================= */
-  .pre .hero-v2 .hero-text>*,.pre .hero-v2 .hero-photo{opacity:0}
+
   .hb-w{display:inline-block;opacity:0;filter:blur(10px);translate:0 .22em;animation:hbIn .8s cubic-bezier(.2,.7,.2,1) var(--d,0s) forwards}
   @keyframes hbIn{to{opacity:1;filter:blur(0);translate:0 0}}
   .hb-rise{animation:hbRise .9s cubic-bezier(.2,.7,.2,1) var(--d,0s) both}
@@ -1437,7 +1438,7 @@ main>.hero.hero-v2{min-height:100vh;min-height:100svh}
 </style>
 <style id="ac-hero-premium-motion">
 .hero-v2 h1 em{word-spacing:.08em}
-@keyframes acHeroFadeUp{from{opacity:0;translate:0 16px}to{opacity:1;translate:0 0}}
+@keyframes acHeroFadeUp{from{opacity:.88;translate:0 8px}to{opacity:1;translate:0 0}}
 @media(prefers-reduced-motion:no-preference){
 .hero-v2 .hero-text>.eyebrow,.hero-v2 .hero-text>h1,.hero-v2 .hero-text>.hero-ctas,.hero-v2 .hero-text>.hero-contacts,.hero-v2 .editorial-visual .hero-photo,.hero-v2 .editorial-visual .hr{animation:acHeroFadeUp .65s cubic-bezier(.22,1,.36,1) var(--ac-enter-delay,0s) both}
 .hero-v2 .hero-text>.eyebrow{--ac-enter-delay:.05s}
@@ -2122,8 +2123,8 @@ main>.hero.hero-v2{min-height:100vh;min-height:100svh}
 </script>
 
 <script defer src="./code-card-reveal.js?v=hero-fix"></script>
-<script src="./code-soon-badge.js"></script>
-<script src="./code-rain-site-trial.js"></script>
+<script defer src="./code-soon-badge.js"></script>
+<script defer src="./code-rain-site-trial.js"></script>
 
 
 
