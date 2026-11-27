@@ -1511,7 +1511,19 @@ html.ac-intro-active #ac-intro{display:grid}
 #ac-intro.ac-intro-out{opacity:0;visibility:hidden}
 @keyframes acIntroMark{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){#ac-intro{display:none!important}}
-</style><script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('ac-intro-active');setTimeout(function(){document.documentElement.classList.remove('ac-intro-active')},3200)}</script><style id="ac-intro-logo-size">@media(max-width:375px){#ac-intro .logo{font-size:24px}#ac-intro .logo small{font-size:8px;letter-spacing:.12em}}</style></head>
+</style><script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('ac-intro-active');setTimeout(function(){document.documentElement.classList.remove('ac-intro-active')},3200)}</script><style id="ac-intro-logo-size">@media(max-width:375px){#ac-intro .logo{font-size:24px}#ac-intro .logo small{font-size:8px;letter-spacing:.12em}}</style><style id="ac-final-light-polish">
+#about .ab-ring img[src*="about-photo"]{filter:brightness(1.055) sepia(.075) saturate(1.025)}
+#about .ab-ring{position:relative}
+#about .ab-ring::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(ellipse at 48% 36%,rgba(255,222,175,.10),transparent 55%);mix-blend-mode:screen}
+#ac-intro .ac-progress i{background:linear-gradient(90deg,#9d7137,#d8b66f 68%,#fff0c9)}
+#ac-intro .ac-progress i::after{background:linear-gradient(90deg,transparent 45%,rgba(255,230,173,.35) 78%,#fff5d8 100%)}
+@media(min-width:1181px){#top .nav{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center}#top .nav>.logo{justify-self:start}#top .nav>.menu{grid-column:2;justify-self:center;margin:0}#top .nav>.nav-act:empty{display:none}#top .nav>.ac-lang{grid-column:3;justify-self:end}}
+@property --ac-frame-angle{syntax:"<angle>";inherits:false;initial-value:0deg}
+.hero-v2 .editorial-visual .ph-card>.ac-beam{display:none!important}
+.hero-v2 .editorial-visual .ph-card::after{background:conic-gradient(from var(--ac-frame-angle),transparent 0deg,rgba(255,226,192,.10) 12deg,rgba(255,243,218,.82) 27deg,rgba(255,210,169,.25) 43deg,transparent 65deg),linear-gradient(135deg,#FFF6E9,#FFD6BA 30%,#FF806F 52%,#D60036 85%);padding:1.5px;animation:acFrameLight 8s linear infinite}
+@keyframes acFrameLight{to{--ac-frame-angle:360deg}}
+@media(prefers-reduced-motion:reduce){.hero-v2 .editorial-visual .ph-card::after{animation:none}}
+</style></head>
 <body><div id="ac-intro" aria-hidden="true"><div class="ac-intro-inner"><span class="logo">Alliecode</span><div class="ac-progress"><i></i></div><span class="ac-percent">0%</span></div></div><script>(function(){var p=document.getElementById('ac-intro'),bar=p.querySelector('i'),num=p.querySelector('.ac-percent'),start=performance.now(),ready=false,finished=false;function font(){if(!document.fonts)return;document.fonts.load('600 48px "Cormorant Garamond"','Alliecode').then(function(f){if(f.length){p.classList.add('ac-font-ready');ready=true}}).catch(function(){})}font();document.addEventListener('DOMContentLoaded',font,{once:true});var retry=setInterval(function(){if(ready||finished)clearInterval(retry);else font()},100);function tick(t){if(finished)return;var elapsed=t-start,x=Math.min(1,Math.max(0,elapsed/1250)),progress=x*x*(3-2*x),v=Math.floor(progress*100);bar.style.transform='scaleX('+progress+')';bar.style.setProperty('--ac-light',String(.35+.65*Math.sin(Math.PI*x)));num.textContent=v+'%';if(x<1){requestAnimationFrame(tick);return}finished=true;clearInterval(retry);setTimeout(function(){p.classList.add('ac-intro-out');setTimeout(function(){document.documentElement.classList.remove('ac-intro-active');p.remove()},450)},100)}requestAnimationFrame(tick)})();</script>
 <script>if(new URLSearchParams(location.search).get("roadmap")==="3")document.body.classList.add("roadmap-staggered");</script>
 <div aria-hidden="true" class="rprog"></div>
