@@ -57,7 +57,7 @@ document.querySelectorAll('#services .service-group .route').forEach((card,i)=>{
  const label=heading.textContent.trim(),button=document.createElement('button'),panel=document.createElement('div'),inner=document.createElement('div');
  button.type='button';button.className='ac-detail-toggle';button.textContent=label;button.setAttribute('aria-expanded','false');
  panel.className='ac-details';panel.id='ac-service-details-'+i;button.setAttribute('aria-controls',panel.id);inner.className='ac-details-inner';
- heading.after(panel,button);panel.append(inner);inner.append(list);const more={ru:'Показать ещё',en:'Show more',it:'Mostra altro'};const moreLabel=()=>more[document.documentElement.lang.split('-')[0]]||more.en;button.textContent=moreLabel();button.hidden=list.querySelectorAll('li').length<=3;
+ heading.classList.add('ac-includes-heading');heading.after(panel,button);panel.append(inner);inner.append(list);const more={ru:'Показать ещё',en:'Show more',it:'Mostra altro'};const moreLabel=()=>more[document.documentElement.lang.split('-')[0]]||more.en;button.textContent=moreLabel();button.hidden=list.querySelectorAll('li').length<=3;
  button.addEventListener('click',()=>{const open=card.classList.toggle('ac-open');button.setAttribute('aria-expanded',String(open));button.textContent=open?(collapseLabels[document.documentElement.lang.split('-')[0]]||collapseLabels.en):moreLabel();fitPreviews();});
 });
 
@@ -121,6 +121,10 @@ alignment.textContent=`
 #services .ac-h-window > .routes > .route > .body > .foot{margin-top:0!important;padding-top:8px!important;flex:none!important}
 #services .ac-h-window > .routes > .route:not(:has(.ac-detail-toggle:not([hidden]))) > .body > .foot{margin-top:auto!important}
 #services .ac-h-window .route.ac-open{min-height:calc(var(--ac-closed-height,0px) + var(--ac-extra-height,0px))!important}
+`;
+alignment.textContent+=`
+#services .ac-h-window .route .ac-includes-heading{margin-top:auto!important;flex:none!important}
+#services .ac-h-window .route .ac-detail-toggle{margin-top:auto!important}
 `;
 document.head.append(alignment);
 function equalizeClosed(){
