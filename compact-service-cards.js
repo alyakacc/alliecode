@@ -113,11 +113,21 @@ let frame=0;
 function update(){frame=0;for(const s of tracks){if(!s.sticky||!s.section.getClientRects().length)continue;const x=clamp(s.top-s.section.getBoundingClientRect().top,s.max);if(x!==s.x){s.x=x;s.grid.style.transform='translate3d('+(-x)+'px,0,0)';paint(s)}}}
 function request(){if(!frame)frame=requestAnimationFrame(update)}
 function measure(){for(const s of tracks){if(!s.section.getClientRects().length)continue;const old=s.x;s.section.classList.remove('ac-h-sticky');s.section.style.height='';s.grid.style.transform='';s.grid.style.setProperty('--ac-h-width',Math.min(400,Math.max(280,(s.win.clientWidth-40)/3))+'px');s.max=Math.max(0,s.grid.scrollWidth-s.win.clientWidth);const h=s.pin.offsetHeight;const header=document.querySelector('#top .nav');const clearance=Math.max(80,header?.getBoundingClientRect().height||0)+12;s.top=Math.max(clearance,(innerHeight-h)/2);s.sticky=false;s.section.classList.toggle('ac-h-sticky',s.sticky);if(s.sticky){s.win.scrollLeft=0;s.section.style.setProperty('--ac-h-top',s.top+'px');s.section.style.height=(h+s.max)+'px';s.x=-1}else{s.x=clamp(old,s.max);s.win.scrollLeft=s.x;paint(s)}}fitPreviews();equalizeClosed();request()}
+const alignment=document.createElement('style');
+alignment.textContent=`
+#services .ac-h-window > .routes > .route:not(.hide){box-sizing:border-box;min-height:var(--ac-closed-height,0px)!important;align-self:flex-start!important}
+#services .ac-h-window > .routes > .route > .body{flex:1 1 auto!important;display:flex;flex-direction:column;gap:10px!important}
+#services .ac-h-window > .routes > .route > .body > .ac-detail-toggle{margin-top:auto!important;margin-bottom:0!important;padding:4px 0!important}
+#services .ac-h-window > .routes > .route > .body > .foot{margin-top:0!important;padding-top:8px!important;flex:none!important}
+#services .ac-h-window > .routes > .route:not(:has(.ac-detail-toggle:not([hidden]))) > .body > .foot{margin-top:auto!important}
+#services .ac-h-window .route.ac-open{min-height:calc(var(--ac-closed-height,0px) + var(--ac-extra-height,0px))!important}
+`;
+document.head.append(alignment);
 function equalizeClosed(){
  for(const s of tracks){
  const cards=[...s.grid.querySelectorAll('.route:not(.hide)')];
- for(const card of cards)card.style.removeProperty('--ac-closed-height');
- const heights=cards.map(card=>{const panel=card.querySelector('.ac-details');const preview=parseFloat(panel?.style.getPropertyValue('--ac-preview'))||0;return card.offsetHeight-(panel?panel.offsetHeight-preview:0)});
+ for(const card of cards){card.style.removeProperty('--ac-closed-height');card.style.removeProperty('--ac-extra-height');}
+ const heights=cards.map(card=>{const panel=card.querySelector('.ac-details');if(!panel)return card.offsetHeight;const preview=parseFloat(panel.style.getPropertyValue('--ac-preview'))||0;const full=parseFloat(panel.style.getPropertyValue('--ac-full'))||0;card.style.setProperty('--ac-extra-height',Math.max(0,full-preview)+'px');const previous=panel.style.height;const transition=panel.style.transition;panel.style.transition='none';panel.style.height=preview+'px';const h=card.offsetHeight;panel.style.height=previous;panel.style.transition=transition;return h;});
  const max=Math.ceil(Math.max(0,...heights));
  for(const card of cards)card.style.setProperty('--ac-closed-height',max+'px');
  }
