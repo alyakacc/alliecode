@@ -2100,32 +2100,22 @@ main>.hero.hero-v2{min-height:100vh;min-height:100svh}
 .hero-v2 .editorial-visual .hr,.hero-v2 .editorial-visual .photo-emoji-top,.hero-v2 .hero-ctas .btn-bordo{transition:none}
 .hero-v2 .editorial-visual .hero-photo:hover .photo-emoji-top{scale:1}
 }
-</style><style id="ac-pixel-dissolve-v3">
-.hero-v2 .ph-card>.ac-pixel-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0;border-radius:inherit}
-.hero-v2 .editorial-visual .ph-card.ac-pixel-active{animation:none;translate:none}
-@media(prefers-reduced-motion:reduce){.hero-v2 .ac-pixel-canvas{display:none}}
+</style><style id="ac-language-drift-v4">
+main>.hero.hero-v2{position:relative;isolation:isolate}
+.hero-v2>.code-rain-canvas{display:none!important}
+.hero-v2>.ac-language-drift{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;user-select:none;mask-image:linear-gradient(to bottom,transparent,#000 12%,#000 78%,transparent);-webkit-mask-image:linear-gradient(to bottom,transparent,#000 12%,#000 78%,transparent)}
+.hero-v2 .ac-language-drift>span{position:absolute;display:block;white-space:nowrap;font-family:ui-monospace,monospace,sans-serif;line-height:1;color:var(--ac-symbol-color);font-size:var(--ac-symbol-size);opacity:0;animation:acLanguageDrift var(--ac-duration) ease-in-out var(--ac-delay) infinite}
+@keyframes acLanguageDrift{0%,100%{opacity:0;transform:translate(0,0) rotate(var(--ac-angle))}22%{opacity:var(--ac-alpha)}65%{opacity:var(--ac-alpha)}90%{opacity:0}99.99%{transform:translate(var(--ac-x),var(--ac-y)) rotate(var(--ac-end-angle))}}
+.hero-v2>.ac-language-drift.ac-paused>span{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){.hero-v2>.ac-language-drift{display:none}}
 </style><script>
 (()=>{
-const photo=document.querySelector('.hero-v2 .editorial-visual .hero-photo'),card=photo?.querySelector('.ph-card'),img=card?.querySelector('img');if(!img)return;
-const canvas=document.createElement('canvas'),ctx=canvas.getContext('2d'),source=document.createElement('canvas'),sc=source.getContext('2d');if(!ctx||!sc)return;
-canvas.className='ac-pixel-canvas';canvas.setAttribute('aria-hidden','true');card.append(canvas);
-const rm=matchMedia('(prefers-reduced-motion: reduce)'),fine=matchMedia('(hover:hover) and (pointer:fine)'),mobile=matchMedia('(max-width:880px)');
-let tiles=[],w=0,h=0,ready=false,visible=true,hover=false,frame=0,last=0,time=0,amount=0,recover=0,from=0,floatBlend=1;
-const clamp=x=>Math.max(0,Math.min(1,x)),ease=x=>{x=clamp(x);return x*x*(3-2*x)};
-function size(){if(!img.naturalWidth)return;w=Math.max(1,Math.round(card.clientWidth));h=Math.max(1,Math.round(card.clientHeight));const d=Math.min(devicePixelRatio||1,mobile.matches?1:1.5);canvas.width=source.width=Math.round(w*d);canvas.height=source.height=Math.round(h*d);ctx.setTransform(d,0,0,d,0,0);sc.setTransform(d,0,0,d,0,0);const scale=Math.max(w/img.naturalWidth,h/img.naturalHeight),iw=img.naturalWidth*scale,ih=img.naturalHeight*scale;sc.drawImage(img,(w-iw)/2,0,iw,ih);tiles=[];const step=mobile.matches?22:16;for(let y=0;y<h;y+=step)for(let x=0;x<w;x+=step){const seed=Math.sin(x*12.9898+y*78.233)*43758.5453,n=seed-Math.floor(seed);tiles.push({x,y,tw:Math.min(step,w-x),th:Math.min(step,h-y),n,dx:(x-w/2)*.23+(n-.5)*44,dy:(y-h/2)*.13+(n-.5)*55})}if(amount>0)draw(amount)}
-function clear(){img.style.removeProperty('opacity');canvas.style.opacity='0';card.style.removeProperty('transform');card.classList.remove('ac-pixel-active')}
-function draw(a){if(!tiles.length||a<.001){img.style.removeProperty('opacity');canvas.style.opacity='0';return}canvas.style.opacity='1';img.style.opacity='0';ctx.clearRect(0,0,w,h);const d=canvas.width/w,dy=canvas.height/h;for(const t of tiles){const p=ease((a-t.n*.34)/.66),shrink=1-p*.44;ctx.globalAlpha=1-p*(.28+t.n*.65);ctx.drawImage(source,t.x*d,t.y*dy,t.tw*d,t.th*dy,t.x+t.dx*p+t.tw*(1-shrink)/2,t.y+t.dy*p+t.th*(1-shrink)/2,t.tw*shrink,t.th*shrink)}ctx.globalAlpha=1}
-function tick(t){frame=0;if(!ready||!visible||document.hidden||rm.matches){last=0;return}const dt=last?Math.min(t-last,50):0;last=t;if(hover){recover+=dt;amount=from*(1-ease(recover/300));floatBlend=Math.max(0,floatBlend-dt/300)}else{time=(time+dt)%9000;amount=time<6000?0:time<7500?ease((time-6000)/1500):1-ease((time-7500)/1500);floatBlend=Math.min(1,floatBlend+dt/300)}draw(amount);const base=mobile.matches?0:2.5,phase=time/6000*Math.PI*2;card.style.transform='translateY('+((mobile.matches?3:7)*Math.sin(phase)*floatBlend).toFixed(2)+'px) rotate('+(base+(mobile.matches?.35:.8)*Math.sin(phase)*floatBlend).toFixed(2)+'deg)';if(!hover||recover<300)frame=requestAnimationFrame(tick);else last=0}
-function start(){if(!ready||!visible||document.hidden||rm.matches||frame)return;card.classList.add('ac-pixel-active');frame=requestAnimationFrame(tick)}
-function stop(){cancelAnimationFrame(frame);frame=0;last=0;time=amount=0;clear()}
-function begin(){if(ready||!img.naturalWidth)return;size();ready=true;start()}
-photo.addEventListener('animationend',e=>{if(e.target===photo&&e.animationName==='acHeroFadeUp')begin()});setTimeout(()=>{if(img.complete)begin();else img.addEventListener('load',begin,{once:true})},1200);
-photo.addEventListener('pointerenter',e=>{if(!fine.matches||e.pointerType==='touch'||rm.matches)return;hover=true;from=amount;recover=0;start()});
-photo.addEventListener('pointerleave',()=>{if(!hover)return;hover=false;time=0;start()});
-if(window.ResizeObserver)new ResizeObserver(size).observe(card);else addEventListener('resize',size);
-rm.addEventListener('change',()=>{if(rm.matches)stop();else start()});
-document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();else start()});
-if(window.IntersectionObserver)new IntersectionObserver(([e])=>{visible=e.isIntersecting;if(!visible)stop();else start()}).observe(photo);
+const hero=document.querySelector('main>.hero.hero-v2');if(!hero)return;
+const layer=document.createElement('div');layer.className='ac-language-drift';layer.setAttribute('aria-hidden','true');hero.prepend(layer);
+const glyphs=['{ }','</>','A','Я','あ','漢','ة','Ñ','Ü','λ'];const rand=(a,b)=>a+Math.random()*(b-a);
+function place(el,i,initial){const col=i%5,row=Math.floor(i/5);el.textContent=glyphs[(i+Math.floor(Math.random()*glyphs.length))%glyphs.length];el.style.left=(col*19+rand(3,15))+'%';el.style.top=(row*23+rand(5,19))+'%';const vars={'--ac-symbol-size':rand(14,28)+'px','--ac-alpha':rand(.02,.05),'--ac-symbol-color':i%2?'#f4e6c8':'#e9a4b9','--ac-duration':rand(15,25)+'s','--ac-x':rand(-55,55)+'px','--ac-y':rand(-65,65)+'px','--ac-angle':rand(-12,12)+'deg','--ac-end-angle':rand(-22,22)+'deg'};if(initial)vars['--ac-delay']=-rand(0,15)+'s';for(const [k,v] of Object.entries(vars))el.style.setProperty(k,v)}
+for(let i=0;i<20;i++){const el=document.createElement('span');place(el,i,true);layer.append(el);el.addEventListener('animationiteration',()=>place(el,i,false))}
+let visible=true;const sync=()=>layer.classList.toggle('ac-paused',!visible||document.hidden);document.addEventListener('visibilitychange',sync);if(window.IntersectionObserver)new IntersectionObserver(([e])=>{visible=e.isIntersecting;sync()}).observe(hero);
 })();
 </script></body>
 </html>
