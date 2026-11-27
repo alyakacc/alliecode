@@ -1487,7 +1487,7 @@ main>.hero.hero-v2{min-height:100vh;min-height:100svh}
 @keyframes acAboutRimSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){#about .ab-ring::before{animation:none;background:#F4E6C8}}
 </style>
-</head>
+<style id="ac-language-switch">.ac-lang{display:inline-flex;align-items:center;gap:5px;font-size:12px;letter-spacing:.06em;white-space:nowrap;color:inherit;margin-left:auto;margin-right:12px}.ac-lang a{color:inherit;text-decoration:none;opacity:.65}.ac-lang a:hover{opacity:1}.ac-lang [aria-current]{opacity:1}@media(max-width:640px){.ac-lang{margin-right:8px}}</style><link rel="alternate" hreflang="ru" href="https://alyakacc.github.io/alliecode/"><link rel="alternate" hreflang="en-US" href="https://alyakacc.github.io/alliecode/en.html"></head>
 <body>
 <script>if(new URLSearchParams(location.search).get("roadmap")==="3")document.body.classList.add("roadmap-staggered");</script>
 <div aria-hidden="true" class="rprog"></div>
@@ -1498,7 +1498,7 @@ main>.hero.hero-v2{min-height:100vh;min-height:100svh}
 <nav class="menu" id="menu"><a href="#services">Сайты и услуги</a><a href="#how">Как проходит работа</a><a href="#about">Обо мне</a><a href="#faq">Частые вопросы</a></nav>
 <div class="nav-act">
 </div>
-<button aria-expanded="false" aria-label="Меню" class="burger" id="burger"><span></span><span></span></button>
+<div class="ac-lang"><span aria-current="page">RU</span><span>/</span><a href="./en.html" lang="en-US">EN</a></div><button aria-expanded="false" aria-label="Меню" class="burger" id="burger"><span></span><span></span></button>
 </div>
 </header>
 <script>(()=>{const h=document.getElementById("top");const measure=()=>document.documentElement.style.setProperty("--ac-header-height",h.offsetHeight+"px");measure();window.addEventListener("resize",measure,{passive:true});if(window.ResizeObserver)new ResizeObserver(measure).observe(h);const sync=()=>{h.dataset.headerScroll=window.scrollY>10?"yes":"no"};sync();window.addEventListener("scroll",sync,{passive:true});window.addEventListener("pageshow",sync);})();</script>
