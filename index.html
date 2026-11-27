@@ -2100,30 +2100,32 @@ main>.hero.hero-v2{min-height:100vh;min-height:100svh}
 .hero-v2 .editorial-visual .hr,.hero-v2 .editorial-visual .photo-emoji-top,.hero-v2 .hero-ctas .btn-bordo{transition:none}
 .hero-v2 .editorial-visual .hero-photo:hover .photo-emoji-top{scale:1}
 }
-</style><style id="ac-digital-scan-v2">
-.hero-v2 .ph-card>.ac-scan{position:absolute;inset:0;overflow:hidden;border-radius:inherit;pointer-events:none;z-index:3;opacity:0}
-.hero-v2 .ac-scan-track{position:absolute;inset:0;pointer-events:none;transform:translateY(-100%)}
-.hero-v2 .ac-scan-line{position:absolute;left:0;right:0;bottom:0;height:1.5px;background:linear-gradient(90deg,transparent,#ff547d 12%,#ffd0cb 50%,#ff547d 88%,transparent);box-shadow:0 0 7px rgba(255,65,110,.65)}
-.hero-v2 .ac-scan-grid{position:absolute;left:0;right:0;bottom:1.5px;height:33.333%;background-image:linear-gradient(rgba(255,170,188,.15) 1px,transparent 1px),linear-gradient(90deg,rgba(255,170,188,.15) 1px,transparent 1px);background-size:12px 12px;mask-image:linear-gradient(to bottom,transparent,rgba(0,0,0,.22) 35%,#000 100%);-webkit-mask-image:linear-gradient(to bottom,transparent,rgba(0,0,0,.22) 35%,#000 100%)}
-@keyframes acScanTravel{0%{transform:translateY(-100%)}15%{transform:translateY(0)}20%,100%{transform:translateY(33.333%)}}
-@keyframes acScanVisibility{0%{opacity:0}1%,14%{opacity:1}15%{opacity:.75}20%,100%{opacity:0}}
-@media(prefers-reduced-motion:no-preference){
-.hero-v2 .ph-card>.ac-scan.ac-scan-ready{animation:acScanVisibility 8s linear infinite;transition:visibility .2s}
-.hero-v2 .ac-scan-ready .ac-scan-track{animation:acScanTravel 8s linear infinite}
-.hero-v2 .ac-scan.ac-scan-offscreen,.hero-v2 .ac-scan.ac-scan-offscreen .ac-scan-track{animation-play-state:paused}
-}
-@media(hover:hover) and (pointer:fine){.hero-v2 .hero-photo:hover .ac-scan,.hero-v2 .hero-photo:hover .ac-scan-track{animation-play-state:paused;visibility:hidden}}
-@media(prefers-reduced-motion:reduce){.hero-v2 .ac-scan{display:none}}
+</style><style id="ac-pixel-dissolve-v3">
+.hero-v2 .ph-card>.ac-pixel-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0;border-radius:inherit}
+.hero-v2 .editorial-visual .ph-card.ac-pixel-active{animation:none;translate:none}
+@media(prefers-reduced-motion:reduce){.hero-v2 .ac-pixel-canvas{display:none}}
 </style><script>
 (()=>{
-const photo=document.querySelector('.hero-v2 .editorial-visual .hero-photo'),card=photo?.querySelector('.ph-card');if(!card)return;
-const scan=document.createElement('span');scan.className='ac-scan';scan.setAttribute('aria-hidden','true');scan.innerHTML='<span class="ac-scan-track"><span class="ac-scan-grid"></span><span class="ac-scan-line"></span></span>';card.append(scan);
-let started=false;function start(){if(started)return;started=true;scan.classList.add('ac-scan-ready')}
-photo.addEventListener('animationend',e=>{if(e.target===photo&&e.animationName==='acHeroFadeUp')start()});
-setTimeout(start,1100);
-let inView=true;function sync(){scan.classList.toggle('ac-scan-offscreen',!inView||document.hidden)}
-document.addEventListener('visibilitychange',sync);
-if(window.IntersectionObserver)new IntersectionObserver(([e])=>{inView=e.isIntersecting;sync()}).observe(photo);
+const photo=document.querySelector('.hero-v2 .editorial-visual .hero-photo'),card=photo?.querySelector('.ph-card'),img=card?.querySelector('img');if(!img)return;
+const canvas=document.createElement('canvas'),ctx=canvas.getContext('2d'),source=document.createElement('canvas'),sc=source.getContext('2d');if(!ctx||!sc)return;
+canvas.className='ac-pixel-canvas';canvas.setAttribute('aria-hidden','true');card.append(canvas);
+const rm=matchMedia('(prefers-reduced-motion: reduce)'),fine=matchMedia('(hover:hover) and (pointer:fine)'),mobile=matchMedia('(max-width:880px)');
+let tiles=[],w=0,h=0,ready=false,visible=true,hover=false,frame=0,last=0,time=0,amount=0,recover=0,from=0,floatBlend=1;
+const clamp=x=>Math.max(0,Math.min(1,x)),ease=x=>{x=clamp(x);return x*x*(3-2*x)};
+function size(){if(!img.naturalWidth)return;w=Math.max(1,Math.round(card.clientWidth));h=Math.max(1,Math.round(card.clientHeight));const d=Math.min(devicePixelRatio||1,mobile.matches?1:1.5);canvas.width=source.width=Math.round(w*d);canvas.height=source.height=Math.round(h*d);ctx.setTransform(d,0,0,d,0,0);sc.setTransform(d,0,0,d,0,0);const scale=Math.max(w/img.naturalWidth,h/img.naturalHeight),iw=img.naturalWidth*scale,ih=img.naturalHeight*scale;sc.drawImage(img,(w-iw)/2,0,iw,ih);tiles=[];const step=mobile.matches?22:16;for(let y=0;y<h;y+=step)for(let x=0;x<w;x+=step){const seed=Math.sin(x*12.9898+y*78.233)*43758.5453,n=seed-Math.floor(seed);tiles.push({x,y,tw:Math.min(step,w-x),th:Math.min(step,h-y),n,dx:(x-w/2)*.23+(n-.5)*44,dy:(y-h/2)*.13+(n-.5)*55})}if(amount>0)draw(amount)}
+function clear(){img.style.removeProperty('opacity');canvas.style.opacity='0';card.style.removeProperty('transform');card.classList.remove('ac-pixel-active')}
+function draw(a){if(!tiles.length||a<.001){img.style.removeProperty('opacity');canvas.style.opacity='0';return}canvas.style.opacity='1';img.style.opacity='0';ctx.clearRect(0,0,w,h);const d=canvas.width/w,dy=canvas.height/h;for(const t of tiles){const p=ease((a-t.n*.34)/.66),shrink=1-p*.44;ctx.globalAlpha=1-p*(.28+t.n*.65);ctx.drawImage(source,t.x*d,t.y*dy,t.tw*d,t.th*dy,t.x+t.dx*p+t.tw*(1-shrink)/2,t.y+t.dy*p+t.th*(1-shrink)/2,t.tw*shrink,t.th*shrink)}ctx.globalAlpha=1}
+function tick(t){frame=0;if(!ready||!visible||document.hidden||rm.matches){last=0;return}const dt=last?Math.min(t-last,50):0;last=t;if(hover){recover+=dt;amount=from*(1-ease(recover/300));floatBlend=Math.max(0,floatBlend-dt/300)}else{time=(time+dt)%9000;amount=time<6000?0:time<7500?ease((time-6000)/1500):1-ease((time-7500)/1500);floatBlend=Math.min(1,floatBlend+dt/300)}draw(amount);const base=mobile.matches?0:2.5,phase=time/6000*Math.PI*2;card.style.transform='translateY('+((mobile.matches?3:7)*Math.sin(phase)*floatBlend).toFixed(2)+'px) rotate('+(base+(mobile.matches?.35:.8)*Math.sin(phase)*floatBlend).toFixed(2)+'deg)';if(!hover||recover<300)frame=requestAnimationFrame(tick);else last=0}
+function start(){if(!ready||!visible||document.hidden||rm.matches||frame)return;card.classList.add('ac-pixel-active');frame=requestAnimationFrame(tick)}
+function stop(){cancelAnimationFrame(frame);frame=0;last=0;time=amount=0;clear()}
+function begin(){if(ready||!img.naturalWidth)return;size();ready=true;start()}
+photo.addEventListener('animationend',e=>{if(e.target===photo&&e.animationName==='acHeroFadeUp')begin()});setTimeout(()=>{if(img.complete)begin();else img.addEventListener('load',begin,{once:true})},1200);
+photo.addEventListener('pointerenter',e=>{if(!fine.matches||e.pointerType==='touch'||rm.matches)return;hover=true;from=amount;recover=0;start()});
+photo.addEventListener('pointerleave',()=>{if(!hover)return;hover=false;time=0;start()});
+if(window.ResizeObserver)new ResizeObserver(size).observe(card);else addEventListener('resize',size);
+rm.addEventListener('change',()=>{if(rm.matches)stop();else start()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();else start()});
+if(window.IntersectionObserver)new IntersectionObserver(([e])=>{visible=e.isIntersecting;if(!visible)stop();else start()}).observe(photo);
 })();
 </script></body>
 </html>
