@@ -2177,5 +2177,11 @@ if(window.IntersectionObserver)new IntersectionObserver(([e])=>{visible=e.isInte
   border-radius: 0 0 var(--card-radius, 20px) var(--card-radius, 20px);
 }
 </style>
+<style id="ac-disable-portrait-hover-glare">
+.hero-v2 .ph-card > .ac-glare,
+.hero-v2 .ph-card.ac-hover > .ac-glare { display:none!important; opacity:0!important; }
+.hero-v2 .editorial-visual .ph-card::before { display:none!important; }
+.hero-v2 .editorial-visual .ph-card img { filter:none!important; }
+</style>
 </body>
 </html>
