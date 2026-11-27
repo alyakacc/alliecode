@@ -1487,7 +1487,7 @@ main>.hero.hero-v2{min-height:100vh;min-height:100svh}
 @keyframes acAboutRimSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){#about .ab-ring::before{animation:none;background:#F4E6C8}}
 </style>
-</head>
+<style id="ac-language-switch">.ac-lang{display:inline-flex;align-items:center;gap:5px;font-size:12px;letter-spacing:.06em;white-space:nowrap;color:inherit;margin-left:auto;margin-right:12px}.ac-lang a{color:inherit;text-decoration:none;opacity:.65}.ac-lang a:hover{opacity:1}.ac-lang [aria-current]{opacity:1}@media(max-width:640px){.ac-lang{margin-right:8px}}</style></head>
 <body>
 <script>if(new URLSearchParams(location.search).get("roadmap")==="3")document.body.classList.add("roadmap-staggered");</script>
 <div aria-hidden="true" class="rprog"></div>
@@ -1496,9 +1496,9 @@ main>.hero.hero-v2{min-height:100vh;min-height:100svh}
 <div class="wrap nav">
 <a aria-label="Alliecode Design &amp; Development" class="logo" href="./en.html" onclick="event.preventDefault();history.replaceState(null,'',location.pathname+location.search);window.scrollTo(0,0);location.reload()">Alliecode</a>
 <nav class="menu" id="menu"><a href="#services">Websites &amp; Services</a><a href="#how">My Process</a><a href="#about">About Me</a><a href="#faq">FAQ</a></nav>
-<div class="nav-act"><a href="./" lang="ru" style="font-size:12px;color:inherit;white-space:nowrap">RU</a><span style="font-size:12px;opacity:.65"> / EN</span>
+<div class="nav-act">
 </div>
-<button aria-expanded="false" aria-label="Menu" class="burger" id="burger"><span></span><span></span></button>
+<div class="ac-lang"><a href="./" lang="ru">RU</a><span>/</span><span aria-current="page">EN</span></div><button aria-expanded="false" aria-label="Menu" class="burger" id="burger"><span></span><span></span></button>
 </div>
 </header>
 <script>(()=>{const h=document.getElementById("top");const measure=()=>document.documentElement.style.setProperty("--ac-header-height",h.offsetHeight+"px");measure();window.addEventListener("resize",measure,{passive:true});if(window.ResizeObserver)new ResizeObserver(measure).observe(h);const sync=()=>{h.dataset.headerScroll=window.scrollY>10?"yes":"no"};sync();window.addEventListener("scroll",sync,{passive:true});window.addEventListener("pageshow",sync);})();</script>
@@ -1665,8 +1665,8 @@ main>.hero.hero-v2{min-height:100vh;min-height:100svh}
     presence:{title:'Do you already have a website or chatbot to capture leads?',options:[['ready','✅','Yes, it is working','growthnext'],['old','🛠️','Yes, but it needs improvement','growthnext'],['none','✨','Not yet','growthnext']]},
     support:{title:'What kind of help do you need?',options:[['basic','🛠️','Fix issues and update existing content','finish'],['standard','📝','Support and SEO articles based on my materials','finish'],['plus','🔍','Support and original expert SEO articles','finish'],['unknown','🤝','Not sure what level of support I need','finish']]},
     botstage:{title:'Do you already have a chatbot?',options:[['none','✨','No, I need a new one','extra'],['old','🛠️','Yes, I want to improve or replace it','extra'],['ready','✅','Yes, I need technical support','support']]},
-    auditstage:{title:'What would you like to discuss during the consultation?',options:[['new','💻','Building a new website','type'],['old','🔍','Аудит of an Existing Website','finish'],['growth','📈','Marketing and customer acquisition','growth'],['unknown','🤝','I want help identifying priorities','finish']]},
-    extra:{title:'What additional goals would you like to address?',options:[['basic','🛠️','Technical support'],['standard','📝','Support and SEO articles based on my materials'],['plus','🔍','Support and original expert SEO content'],['ads','📣','Paid search campaign setup'],['maps','🧭','Local map listing optimization'],['bot','🤖','Communication and lead capture automation'],['redesign','🎨','Улучшение of an Existing Website'],['turnkey','💻','Building a new website'],['unknown','🤝','Growth consultation']]}
+    auditstage:{title:'What would you like to discuss during the consultation?',options:[['new','💻','Building a new website','type'],['old','🔍','Auditing an existing website','finish'],['growth','📈','Marketing and customer acquisition','growth'],['unknown','🤝','I want help identifying priorities','finish']]},
+    extra:{title:'What additional goals would you like to address?',options:[['basic','🛠️','Technical support'],['standard','📝','Support and SEO articles based on my materials'],['plus','🔍','Support and original expert SEO content'],['ads','📣','Paid search campaign setup'],['maps','🧭','Local map listing optimization'],['bot','🤖','Communication and lead capture automation'],['redesign','🎨','Improving an existing website'],['turnkey','💻','Building a new website'],['unknown','🤝','Growth consultation']]}
   };
   const qz=document.getElementById('quiz'),qOpen=qz.querySelector('.quiz-open'),qBox=qz.querySelector('.quiz-box'),qStep=qBox.querySelector('.quiz-step'),qRes=qBox.querySelector('.quiz-res'),qBack=qStep.querySelector('.q-back');
   let qHistory=[],qCurrent='start';
