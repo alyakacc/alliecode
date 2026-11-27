@@ -2056,5 +2056,17 @@ main>.hero.hero-v2::before{content:"";position:absolute;inset:0;z-index:-1;point
 .hero-v2 .hero-text h1{font-size:clamp(30px,3.45vw,40px)}
 }
 @media(max-width:880px){.hero-v2 .hero-title-line{display:inline;white-space:normal}}
+</style><style id="ac-section-rhythm">
+/* Shared inter-section spacing: two half-gaps form one consistent interval. */
+:root{--ac-section-half:40px}
+main>section:not(.hero){padding-block:var(--ac-section-half);margin-block:0}
+main>.hero.hero-v2{min-height:0;padding-bottom:var(--ac-section-half)}
+main>#services{padding-top:var(--ac-section-half)}
+footer#contact{padding-top:var(--ac-section-half)}
+@media(min-width:881px){
+main>.hero.hero-v2{padding-top:clamp(64px,8vh,96px)}
+}
+@media(max-width:880px){:root{--ac-section-half:32px}}
+@media(max-width:640px){:root{--ac-section-half:24px}}
 </style></body>
 </html>
