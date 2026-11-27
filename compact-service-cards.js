@@ -17,12 +17,12 @@ css.textContent=`
 .ac-h-nav button:focus-visible,.ac-h-window:focus-visible{outline:2px solid #e13b5a;outline-offset:3px}
 #services .ac-h-window{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;padding:8px 0 14px;touch-action:pan-x pan-y}
 #services .ac-h-window::-webkit-scrollbar{display:none}
-#services .ac-h-window > .routes{display:flex!important;flex-wrap:nowrap;align-items:stretch;gap:20px;width:max-content;max-width:none;margin:0!important;transform:translate3d(0,0,0)}
+#services .ac-h-window > .routes{display:flex!important;flex-wrap:nowrap;align-items:flex-start;gap:20px;width:max-content;max-width:none;margin:0!important;transform:translate3d(0,0,0)}
 #services .ac-h-window .route:not(.hide){position:relative!important;top:auto!important;display:flex;flex-direction:column;flex:0 0 var(--ac-h-width,420px);width:var(--ac-h-width,420px);max-width:none;min-width:0;height:auto!important;margin:0!important;scroll-snap-align:start;transform:none;transition:translate .25s ease,box-shadow .25s ease,border-color .25s ease}
 #services .ac-h-window .route.hide{display:none!important}
 #services .ac-h-window .route .body{overflow:visible;flex:1 1 auto}
 #services .ac-h-window .route .cover{flex:none;height:auto}
-#services .ac-h-window .route .foot{margin-top:auto}
+#services .ac-h-window .route .foot{margin-top:0!important;padding-top:12px}
 #services .ac-h-window .route .rshade{display:none}
 #services .ac-h-sticky .ac-h-window{overflow:hidden;scroll-snap-type:none;cursor:grab}
 #services .ac-h-window.ac-drag{cursor:grabbing;user-select:none;scroll-snap-type:none}
@@ -69,7 +69,12 @@ previewStyle.textContent=`
 #services .ac-details-inner .service-list{margin-top:0}
 #services .ac-details-inner li.ac-preview-hidden{visibility:hidden}
 #services .ac-open .ac-details-inner li.ac-preview-hidden{visibility:visible}
-#services .ac-h-window .route .body{display:flex;flex-direction:column}
+#services .ac-h-window .route .body{display:flex;flex-direction:column;flex:0 0 auto!important;gap:10px!important}
+#services .ac-h-window .route .body > p{flex:none!important;margin:0!important}
+#services .ac-h-window .route:not(.hide){align-self:flex-start!important;min-height:0!important}
+#services .ac-h-window .route .ac-detail-toggle{padding:4px 0;margin:0!important;flex:none}
+#services .ac-h-window .route .ac-details-inner{height:auto;min-height:0}
+#services .ac-h-window .route .ac-details-inner .service-list{margin-bottom:0}
 `;
 document.head.append(previewStyle);
 function fitPreviews(){
