@@ -2100,40 +2100,30 @@ main>.hero.hero-v2{min-height:100vh;min-height:100svh}
 .hero-v2 .editorial-visual .hr,.hero-v2 .editorial-visual .photo-emoji-top,.hero-v2 .hero-ctas .btn-bordo{transition:none}
 .hero-v2 .editorial-visual .hero-photo:hover .photo-emoji-top{scale:1}
 }
-</style><style id="ac-floating-variant-one">
-.hero-v2 .ph-card>.ac-glare{position:absolute;inset:0;pointer-events:none;z-index:3;border-radius:inherit;overflow:hidden;opacity:0;transition:opacity .35s ease}
-.ac-glare::before{content:"";position:absolute;inset:-50%;background:radial-gradient(ellipse,rgba(255,240,220,.19),transparent 48%);transform:translate(var(--gx,0px),var(--gy,0px))}
-.hero-v2 .ph-card>.ac-beam{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4;overflow:visible;opacity:0}
-.ac-beam rect{fill:none;stroke:#fff0d7;stroke-width:1.6;stroke-linecap:round;stroke-dasharray:7 93;filter:drop-shadow(0 0 3px #ffb7aa)}
+</style><style id="ac-digital-scan-v2">
+.hero-v2 .ph-card>.ac-scan{position:absolute;inset:0;overflow:hidden;border-radius:inherit;pointer-events:none;z-index:3;opacity:0}
+.hero-v2 .ac-scan-track{position:absolute;inset:0;pointer-events:none;transform:translateY(-100%)}
+.hero-v2 .ac-scan-line{position:absolute;left:0;right:0;bottom:0;height:1.5px;background:linear-gradient(90deg,transparent,#ff547d 12%,#ffd0cb 50%,#ff547d 88%,transparent);box-shadow:0 0 7px rgba(255,65,110,.65)}
+.hero-v2 .ac-scan-grid{position:absolute;left:0;right:0;bottom:1.5px;height:33.333%;background-image:linear-gradient(rgba(255,170,188,.15) 1px,transparent 1px),linear-gradient(90deg,rgba(255,170,188,.15) 1px,transparent 1px);background-size:12px 12px;mask-image:linear-gradient(to bottom,transparent,rgba(0,0,0,.22) 35%,#000 100%);-webkit-mask-image:linear-gradient(to bottom,transparent,rgba(0,0,0,.22) 35%,#000 100%)}
+@keyframes acScanTravel{0%{transform:translateY(-100%)}15%{transform:translateY(0)}20%,100%{transform:translateY(33.333%)}}
+@keyframes acScanVisibility{0%{opacity:0}1%,14%{opacity:1}15%{opacity:.75}20%,100%{opacity:0}}
 @media(prefers-reduced-motion:no-preference){
-.hero-v2 .editorial-visual .ph-card.ac-floating{animation:none;translate:none;will-change:transform}
-.hero-v2 .ph-card.ac-floating>.ac-beam{opacity:.85}
-.hero-v2 .ph-card.ac-hover>.ac-glare{opacity:1}
+.hero-v2 .ph-card>.ac-scan.ac-scan-ready{animation:acScanVisibility 8s linear infinite;transition:visibility .2s}
+.hero-v2 .ac-scan-ready .ac-scan-track{animation:acScanTravel 8s linear infinite}
+.hero-v2 .ac-scan.ac-scan-offscreen,.hero-v2 .ac-scan.ac-scan-offscreen .ac-scan-track{animation-play-state:paused}
 }
+@media(hover:hover) and (pointer:fine){.hero-v2 .hero-photo:hover .ac-scan,.hero-v2 .hero-photo:hover .ac-scan-track{animation-play-state:paused;visibility:hidden}}
+@media(prefers-reduced-motion:reduce){.hero-v2 .ac-scan{display:none}}
 </style><script>
 (()=>{
-const hero=document.querySelector('.hero-v2'),photo=hero?.querySelector('.editorial-visual .hero-photo'),card=photo?.querySelector('.ph-card');
-if(!card)return;
-const rows=[...hero.querySelectorAll('.editorial-visual .hr')],rm=matchMedia('(prefers-reduced-motion: reduce)'),fine=matchMedia('(hover:hover) and (pointer:fine)'),mobile=matchMedia('(max-width:880px)');
-const glare=document.createElement('span');glare.className='ac-glare';glare.setAttribute('aria-hidden','true');card.append(glare);
-const ns='http://www.w3.org/2000/svg',beam=document.createElementNS(ns,'svg'),rect=document.createElementNS(ns,'rect');beam.classList.add('ac-beam');beam.setAttribute('aria-hidden','true');rect.setAttribute('pathLength','100');beam.append(rect);card.append(beam);
-function size(){const w=card.clientWidth,h=card.clientHeight;if(!w||!h)return;beam.setAttribute('viewBox','0 0 '+w+' '+h);for(const [k,v] of Object.entries({x:1,y:1,width:w-2,height:h-2,rx:parseFloat(getComputedStyle(card).borderTopLeftRadius)||26}))rect.setAttribute(k,v)}
-size();if(window.ResizeObserver)new ResizeObserver(size).observe(card);
-let active=false,hover=false,px=0,py=0,blend=0,rx=0,ry=0,phase=0,last=0,elapsed=0,frame=0,visible=true;
-const ready=new Set();
-function mark(e){if(e.animationName==='acHeroFadeUp'&&e.target===e.currentTarget)ready.add(e.currentTarget)}
-[photo,...rows].forEach(el=>el.addEventListener('animationend',mark));
-function move(e){if(!fine.matches||rm.matches||e.pointerType==='touch')return;const b=photo.getBoundingClientRect();px=Math.max(-1,Math.min(1,(e.clientX-b.left)/b.width*2-1));py=Math.max(-1,Math.min(1,(e.clientY-b.top)/b.height*2-1));hover=true;card.classList.add('ac-hover')}
-photo.addEventListener('pointerenter',move);photo.addEventListener('pointermove',move);photo.addEventListener('pointerleave',()=>{hover=false;card.classList.remove('ac-hover')});
-function reset(){cancelAnimationFrame(frame);frame=0;last=0;hover=false;blend=rx=ry=0;card.classList.remove('ac-floating','ac-hover');card.style.removeProperty('transform');rows.forEach(r=>r.style.removeProperty('translate'))}
-function tick(t){frame=0;if(rm.matches||!visible||document.hidden){last=0;return}const dt=last?Math.min(t-last,40):0;last=t;elapsed+=dt;const over=hover&&fine.matches;const k=1-Math.exp(-dt/170);blend+=(Number(over)-blend)*k;rx+=((over?-py*6:0)-rx)*k;ry+=((over?px*6:0)-ry)*k;if(!over)phase+=dt;const p=phase/6000*Math.PI*2;const base=mobile.matches?0:2.5;const y=(mobile.matches?4:9)*Math.sin(p)*(1-blend),z=(base+(mobile.matches?.6:1.5)*Math.sin(p))*(1-blend);card.style.transform='perspective(900px) translateY('+y.toFixed(3)+'px) rotateZ('+z.toFixed(3)+'deg) rotateX('+rx.toFixed(3)+'deg) rotateY('+ry.toFixed(3)+'deg) scale('+(1+.03*blend).toFixed(4)+')';glare.style.setProperty('--gx',(ry*12)+'px');glare.style.setProperty('--gy',(-rx*12)+'px');rect.style.strokeDashoffset=String(-elapsed/70%100);rows.forEach((r,i)=>{if(ready.has(r))r.style.translate='0 '+((mobile.matches?2:4)*Math.sin(p-i*.65)).toFixed(3)+'px'});frame=requestAnimationFrame(tick)}
-function start(){if(rm.matches||!visible||document.hidden||frame)return;card.classList.add('ac-floating');frame=requestAnimationFrame(tick)}
-function begin(){active=true;ready.add(photo);start()}
-photo.addEventListener('animationend',e=>{if(e.target===photo&&e.animationName==='acHeroFadeUp')begin()});
-setTimeout(()=>{[photo,...rows].forEach(r=>ready.add(r));if(!active)begin()},1200);
-rm.addEventListener('change',()=>{if(rm.matches)reset();else if(active)start()});
-document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;last=0}else if(active)start()});
-if(window.IntersectionObserver)new IntersectionObserver(([e])=>{visible=e.isIntersecting;if(!visible){cancelAnimationFrame(frame);frame=0;last=0}else if(active)start()}).observe(hero);
+const photo=document.querySelector('.hero-v2 .editorial-visual .hero-photo'),card=photo?.querySelector('.ph-card');if(!card)return;
+const scan=document.createElement('span');scan.className='ac-scan';scan.setAttribute('aria-hidden','true');scan.innerHTML='<span class="ac-scan-track"><span class="ac-scan-grid"></span><span class="ac-scan-line"></span></span>';card.append(scan);
+let started=false;function start(){if(started)return;started=true;scan.classList.add('ac-scan-ready')}
+photo.addEventListener('animationend',e=>{if(e.target===photo&&e.animationName==='acHeroFadeUp')start()});
+setTimeout(start,1100);
+let inView=true;function sync(){scan.classList.toggle('ac-scan-offscreen',!inView||document.hidden)}
+document.addEventListener('visibilitychange',sync);
+if(window.IntersectionObserver)new IntersectionObserver(([e])=>{inView=e.isIntersecting;sync()}).observe(photo);
 })();
 </script></body>
 </html>
