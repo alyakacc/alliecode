@@ -1,59 +1,66 @@
-/* Shared hover disclosure for EN, RU, IT service cards. */
+/* Shared horizontal service tracks: EN / RU / IT. */
 (()=>{
 'use strict';
-const labels={ru:['Подробнее','Свернуть'],en:['More details','Show less'],it:['Scopri di più','Mostra meno']};
+const mq=matchMedia('(min-width:768px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)');
+const labels={ru:['Назад','Вперёд','Карточки услуг'],en:['Previous','Next','Service cards'],it:['Indietro','Avanti','Schede dei servizi']};
 const words=()=>labels[document.documentElement.lang.split('-')[0]]||labels.en;
-const desktop=matchMedia('(min-width:1024px) and (hover:hover) and (pointer:fine)');
 const css=document.createElement('style');
 css.textContent=`
-#services .service-group > .routes{align-items:stretch;overflow:visible}
-#services .service-group,#services{overflow:visible}
-#services .route.ac-compact{position:relative;overflow:visible;isolation:auto}
-#services .route.ac-compact > .cover{border-radius:inherit;border-bottom-left-radius:0;border-bottom-right-radius:0;overflow:hidden}
-#services .route.ac-compact > .body{overflow:visible}
-#services .route .ac-toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;background:transparent;color:inherit;border:0;border-bottom:1px solid rgba(244,230,200,.25);padding:5px 0;font:inherit;font-size:13px;text-align:start;cursor:pointer}
-.ac-toggle:focus-visible{outline:2px solid #f4e6c8;outline-offset:3px}
-.ac-toggle::after{content:'';width:8px;height:8px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(45deg);transition:transform .38s cubic-bezier(.22,1,.36,1)}
-.ac-expanded .ac-toggle::after{transform:rotate(225deg)}
-#services .ac-detail{display:grid;grid-template-rows:0fr;opacity:0;overflow:hidden;pointer-events:none;transition:grid-template-rows .38s cubic-bezier(.22,1,.36,1),opacity .38s cubic-bezier(.22,1,.36,1)}
-#services .ac-expanded .ac-detail{grid-template-rows:1fr;opacity:1;pointer-events:auto}
-.ac-detail-inner{min-height:0;overflow:hidden}
-#services .ac-detail-inner > p{margin-top:0}
-#services .ac-detail-inner > ul{margin-bottom:0}
-@media(min-width:1024px) and (hover:hover) and (pointer:fine){
- #services .route.ac-compact .ac-detail{position:absolute;top:calc(100% - 1px);left:-1px;right:-1px;z-index:5;background:#260b19;border:1px solid transparent;border-top:0;border-radius:0 0 var(--r,18px) var(--r,18px);box-shadow:none}
- #services .route.ac-compact .ac-detail-inner > p{margin:16px 22px 10px}
- #services .route.ac-compact .ac-detail-inner > ul{margin:0 22px 22px;padding-left:1.2em}
- #services .route.ac-expanded{z-index:100;border-color:rgba(244,230,200,.48);box-shadow:0 12px 35px rgba(0,0,0,.42);border-bottom-left-radius:0;border-bottom-right-radius:0}
- #services .route.ac-expanded .ac-detail{border-color:rgba(244,230,200,.48);box-shadow:0 24px 40px rgba(0,0,0,.48)}
- #services .route.ac-dim{opacity:.75}
- #services .route.ac-compact{transition:opacity .38s,box-shadow .38s,border-color .38s}
- #services .route.ac-compact > .body{gap:10px}
-}
-@media(max-width:1023px),(hover:none),(pointer:coarse){
- #services .route.ac-compact .ac-detail{position:static}
- #services .route.ac-compact:not(.ac-expanded) .ac-detail{margin-top:-16px}
-}
-@media(max-width:767px){#services .service-group > .routes{grid-template-columns:1fr}}
-@media(prefers-reduced-motion:reduce){#services .ac-detail,#services .route.ac-compact,.ac-toggle::after{transition:none!important}}
+#services .service-group.ac-horizontal{position:relative;overflow:visible}
+#services .ac-h-pin{position:relative;min-width:0}
+#services .ac-h-sticky .ac-h-pin{position:sticky;top:var(--ac-h-top,90px)}
+#services .ac-h-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
+#services .ac-h-head h3{margin:0}
+.ac-h-nav{display:flex;gap:8px;flex:none}
+.ac-h-nav button{width:40px;height:40px;border:1px solid rgba(244,230,200,.35);border-radius:50%;background:transparent;color:inherit;font-size:22px;cursor:pointer}
+.ac-h-nav button:disabled{opacity:.3;cursor:default}
+.ac-h-nav button:focus-visible,.ac-h-window:focus-visible{outline:2px solid #e13b5a;outline-offset:3px}
+#services .ac-h-window{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;padding:8px 0 14px;touch-action:pan-x pan-y}
+#services .ac-h-window::-webkit-scrollbar{display:none}
+#services .ac-h-window > .routes{display:flex!important;flex-wrap:nowrap;align-items:stretch;gap:20px;width:max-content;max-width:none;margin:0!important;transform:translate3d(0,0,0)}
+#services .ac-h-window .route:not(.hide){position:relative!important;top:auto!important;display:flex;flex-direction:column;flex:0 0 var(--ac-h-width,420px);width:var(--ac-h-width,420px);max-width:none;min-width:0;height:auto!important;margin:0!important;scroll-snap-align:start;transform:none;transition:translate .25s ease,box-shadow .25s ease,border-color .25s ease}
+#services .ac-h-window .route.hide{display:none!important}
+#services .ac-h-window .route .body{overflow:visible;flex:1 1 auto}
+#services .ac-h-window .route .cover{flex:none;height:auto}
+#services .ac-h-window .route .foot{margin-top:auto}
+#services .ac-h-window .route .rshade{display:none}
+#services .ac-h-sticky .ac-h-window{overflow:hidden;scroll-snap-type:none;cursor:grab}
+#services .ac-h-window.ac-drag{cursor:grabbing;user-select:none;scroll-snap-type:none}
+.ac-h-progress{height:2px;background:rgba(244,230,200,.16);margin-top:8px;border-radius:2px;overflow:hidden}
+.ac-h-progress span{display:block;height:100%;width:100%;background:linear-gradient(90deg,#a92b50,#ef6682);transform-origin:left;transform:scaleX(0)}
+@media(hover:hover){#services .ac-h-window .route:not(.hide):hover{translate:0 -5px;border-color:rgba(225,59,90,.65);box-shadow:0 5px 20px rgba(225,59,90,.18)}}
+@media(max-width:767px){#services .ac-h-window .route:not(.hide){flex-basis:min(82vw,420px);width:min(82vw,420px)}#services .ac-h-head{gap:8px}.ac-h-nav button{width:34px;height:34px}}
+@media(prefers-reduced-motion:reduce){#services .ac-h-window .route{transition:none!important}}
 `;
 document.head.append(css);
-const states=[];
-function dim(s,on){const top=s.card.offsetTop;for(const other of states){if(other!==s&&other.card.parentElement===s.card.parentElement&&Math.abs(other.card.offsetTop-top)<8)other.card.classList.toggle('ac-dim',on)}}
-function set(s,open){clearTimeout(s.timer);if(open&&desktop.matches){for(const other of states)if(other!==s&&other.open)set(other,false)}s.open=open;s.card.classList.toggle('ac-expanded',open);s.button.setAttribute('aria-expanded',String(open));s.button.textContent=words()[+open];s.panel.style.pointerEvents=open?'':'none';if(desktop.matches)dim(s,open)}
-document.querySelectorAll('.service-group[data-group="format"] .route,.service-group[data-group="site"] .route,.service-group[data-group="care"] .route').forEach((card,i)=>{
- const list=card.querySelector('.body > .service-list');if(!list)return;
- const heading=list.previousElementSibling;if(!heading||heading.tagName!=='P')return;
- const panel=document.createElement('div'),inner=document.createElement('div'),button=document.createElement('button');
- panel.className='ac-detail';inner.className='ac-detail-inner';panel.id='ac-detail-'+(card.id||i);button.className='ac-toggle';button.type='button';button.setAttribute('aria-controls',panel.id);
- heading.before(button,panel);panel.append(inner);inner.append(heading,list);
- const s={card,panel,button,open:false,timer:0};states.push(s);card.classList.add('ac-compact');set(s,false);
- card.addEventListener('pointerenter',e=>{if(desktop.matches&&e.pointerType==='mouse')set(s,true)});
- card.addEventListener('pointerleave',()=>{if(desktop.matches)s.timer=setTimeout(()=>{if(!card.matches(':hover')&&!card.contains(document.activeElement))set(s,false)},130)});
- button.addEventListener('click',()=>set(s,!s.open));
- card.addEventListener('focusout',()=>{if(desktop.matches)s.timer=setTimeout(()=>{if(!card.matches(':hover')&&!card.contains(document.activeElement))set(s,false)},130)});
- card.addEventListener('keydown',e=>{if(e.key==='Escape'&&s.open){set(s,false);button.focus()}});
-});
-desktop.addEventListener?.('change',()=>states.forEach(s=>{set(s,false);s.card.classList.remove('ac-dim')}));
-new MutationObserver(()=>states.forEach(s=>s.button.textContent=words()[+s.open])).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+const tracks=[];
+for(const section of document.querySelectorAll('.service-group[data-group="format"],.service-group[data-group="site"],.service-group[data-group="care"]')){
+ const grid=section.querySelector(':scope > .routes'),heading=section.querySelector(':scope > h3');if(!grid||!heading)continue;
+ const pin=document.createElement('div'),head=document.createElement('div'),nav=document.createElement('div'),win=document.createElement('div'),progress=document.createElement('div'),bar=document.createElement('span');
+ pin.className='ac-h-pin';head.className='ac-h-head';nav.className='ac-h-nav';win.className='ac-h-window';progress.className='ac-h-progress';progress.setAttribute('aria-hidden','true');progress.append(bar);
+ const buttons=['←','→'].map((symbol,i)=>{const b=document.createElement('button');b.type='button';b.textContent=symbol;b.setAttribute('aria-label',words()[i]);nav.append(b);return b});
+ win.tabIndex=0;win.setAttribute('role','region');win.setAttribute('aria-label',heading.textContent+' — '+words()[2]);
+ section.insertBefore(pin,heading);head.append(heading,nav);win.append(grid);pin.append(head,win,progress);section.classList.add('ac-horizontal');grid.classList.remove('stack');
+ const s={section,pin,grid,win,bar,buttons,max:0,x:0,sticky:false,top:90,drag:null};tracks.push(s);
+ buttons.forEach((b,i)=>b.addEventListener('click',()=>move(s,s.x+(i?1:-1)*step(s),true)));
+ win.addEventListener('scroll',()=>{if(!s.sticky){s.x=win.scrollLeft;paint(s)}},{passive:true});
+ win.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();move(s,s.x+(e.key==='ArrowRight'?1:-1)*step(s),true)}});
+ win.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'||e.button!==0||e.target.closest('a,button,input'))return;s.drag={id:e.pointerId,start:e.clientX,x:s.x,moved:false};});
+ win.addEventListener('pointermove',e=>{const d=s.drag;if(!d||d.id!==e.pointerId)return;const delta=d.start-e.clientX;if(!d.moved&&Math.abs(delta)<6)return;if(!d.moved){d.moved=true;win.setPointerCapture(e.pointerId);win.classList.add('ac-drag')}e.preventDefault();move(s,d.x+delta,false)});
+ const end=()=>{s.drag=null;win.classList.remove('ac-drag')};win.addEventListener('pointerup',end);win.addEventListener('pointercancel',end);win.addEventListener('lostpointercapture',end);
+}
+const clamp=(x,max)=>Math.max(0,Math.min(max,x));
+function step(s){return (s.grid.querySelector('.route:not(.hide)')?.offsetWidth||400)+20}
+function paint(s){s.bar.style.transform='scaleX('+(s.max?s.x/s.max:1)+')';s.buttons[0].disabled=s.x<=1;s.buttons[1].disabled=s.x>=s.max-1}
+function move(s,x,smooth){x=clamp(x,s.max);if(s.sticky){const y=scrollY+s.section.getBoundingClientRect().top-s.top+x;window.scrollTo({top:y,behavior:smooth?'smooth':'instant'});s.x=x;s.grid.style.transform='translate3d('+(-x)+'px,0,0)';paint(s)}else{s.win.scrollTo({left:x,behavior:smooth&&!matchMedia('(prefers-reduced-motion:reduce)').matches?'smooth':'instant'})}}
+let frame=0;
+function update(){frame=0;for(const s of tracks){if(!s.sticky||!s.section.getClientRects().length)continue;const x=clamp(s.top-s.section.getBoundingClientRect().top,s.max);if(x!==s.x){s.x=x;s.grid.style.transform='translate3d('+(-x)+'px,0,0)';paint(s)}}}
+function request(){if(!frame)frame=requestAnimationFrame(update)}
+function measure(){for(const s of tracks){if(!s.section.getClientRects().length)continue;const old=s.x;s.section.classList.remove('ac-h-sticky');s.section.style.height='';s.grid.style.transform='';s.grid.style.setProperty('--ac-h-width',Math.min(440,Math.max(380,s.win.clientWidth*.39))+'px');s.max=Math.max(0,s.grid.scrollWidth-s.win.clientWidth);const h=s.pin.offsetHeight;const header=document.querySelector('#top .nav');const clearance=Math.max(80,header?.getBoundingClientRect().height||0)+12;s.top=Math.max(clearance,(innerHeight-h)/2);s.sticky=mq.matches&&s.max>1&&h+s.top<=innerHeight-8;s.section.classList.toggle('ac-h-sticky',s.sticky);if(s.sticky){s.win.scrollLeft=0;s.section.style.setProperty('--ac-h-top',s.top+'px');s.section.style.height=(h+s.max)+'px';s.x=-1}else{s.x=clamp(old,s.max);s.win.scrollLeft=s.x;paint(s)}}request()}
+let timer;function schedule(){clearTimeout(timer);timer=setTimeout(measure,100)}
+addEventListener('scroll',request,{passive:true});addEventListener('resize',schedule,{passive:true});mq.addEventListener?.('change',schedule);document.fonts?.ready.then(schedule);
+if('ResizeObserver'in window){const ro=new ResizeObserver(schedule);tracks.forEach(s=>ro.observe(s.pin))}
+new MutationObserver(()=>{tracks.forEach(s=>{s.buttons.forEach((b,i)=>b.setAttribute('aria-label',words()[i]));});schedule()}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',schedule));
+measure();
 })();
