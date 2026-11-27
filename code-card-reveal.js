@@ -3,7 +3,7 @@
   'use strict';
   const motion=matchMedia('(prefers-reduced-motion: reduce)');
   if(motion.matches||!('IntersectionObserver' in window))return;
-  const selector='.hero-rows .hr,.route,.fact,.step,.faq-list details,.quiz-cta,.quiz-box,.q-card,.ab-ava,.final-card,.rv,.page,.cert,.guar li';
+  const selector='.route,.fact,.step,.faq-list details,.quiz-cta,.quiz-box,.q-card,.ab-ava,.final-card,.rv,.page,.cert,.guar li';
   const glyphs=['0','1','{','}','</>','=>','*','#','const','return',';'];
   const active=new Map(),seen=new WeakSet();
   let raf=0,stopped=false;
