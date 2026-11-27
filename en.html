@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en-US">
-<head>
+<head><link rel="alternate" hreflang="ru" href="https://alyakacc.github.io/alliecode/"><link rel="alternate" hreflang="en-US" href="https://alyakacc.github.io/alliecode/en.html">
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
 <meta content="only dark" name="color-scheme"/>
@@ -1494,9 +1494,9 @@ main>.hero.hero-v2{min-height:100vh;min-height:100svh}
 <div aria-hidden="true" class="lg-orbs"><i></i><i></i><i></i></div>
 <header id="top">
 <div class="wrap nav">
-<a aria-label="Alliecode Design &amp; Development" class="logo" href="./" onclick="event.preventDefault();history.replaceState(null,'',location.pathname+location.search);window.scrollTo(0,0);location.reload()">Alliecode</a>
+<a aria-label="Alliecode Design &amp; Development" class="logo" href="./en.html" onclick="event.preventDefault();history.replaceState(null,'',location.pathname+location.search);window.scrollTo(0,0);location.reload()">Alliecode</a>
 <nav class="menu" id="menu"><a href="#services">Websites &amp; Services</a><a href="#how">My Process</a><a href="#about">About Me</a><a href="#faq">FAQ</a></nav>
-<div class="nav-act">
+<div class="nav-act"><a href="./" lang="ru" style="font-size:12px;color:inherit;white-space:nowrap">RU</a><span style="font-size:12px;opacity:.65"> / EN</span>
 </div>
 <button aria-expanded="false" aria-label="Menu" class="burger" id="burger"><span></span><span></span></button>
 </div>
@@ -1515,7 +1515,7 @@ main>.hero.hero-v2{min-height:100vh;min-height:100svh}
 <a class="btn btn-bordo" href="#services">Explore Services</a>
 <a class="btn btn-ghost" href="#contact">Discuss Your Project</a>
 </div>
-<div class="hero-contacts">message me on <a data-tg="" href="#">Telegram</a> или <a href="mailto:alexandra.alliecode@protonmail.com">by email</a></div>
+<div class="hero-contacts">message me on <a data-tg="" href="#">Telegram</a> or <a href="mailto:alexandra.alliecode@protonmail.com">by email</a></div>
 </div>
 <div class="editorial-visual"><div class="hero-photo">
 <span aria-hidden="true" class="ph-glow"></span><div class="photo-emoji-badge photo-emoji-top"><span class="emoji-icon " aria-hidden="true" style="--emoji-size:18px" data-glow="true"><span class="emoji-fallback">🤝</span><img class="emoji-image" alt="" width="22" height="22" loading="eager" decoding="async" src="https://elk.sh/%F0%9F%A4%9D?style=apple" onload="this.parentElement.classList.add('emoji-ready')" onerror="this.hidden=true;this.parentElement.classList.remove('emoji-ready')"></span></div>
@@ -1658,42 +1658,42 @@ main>.hero.hero-v2{min-height:100vh;min-height:100svh}
 
   // Тест: сфера → что важнее → есть ли сайт → какие услуги
   const QUIZ = {
-    start:{title:'Какая задача для вас сейчас наиболее приоритетна?',options:[['new','✨','Создать новый сайт или онлайн-сервис','type'],['redo','🎨','Обновить или доработать существующий сайт','redotype'],['grow','📈','Привлечь больше клиентов','growth'],['care','🛠️','Поддерживать сайт или чат-бот','support'],['bot','🤖','Автоматизировать общение и заявки','botstage'],['audit','🤝','Разобраться, что нужно моему бизнесу','auditstage']]},
-    type:{title:'Что должен делать ваш сайт?',options:[['landing','🎯','Продавать одну услугу, продукт или предложение','extra'],['quiz','❔','Подбирать решение через вопросы и собирать заявки','extra'],['visit','💼','Представлять меня или мою компанию','extra'],['multi','📑','Представлять несколько направлений и услуг','extra'],['online','⚙️','Бронировать, рассчитывать стоимость или работать с личным кабинетом','extra'],['shop','🛍️','Продавать товары через каталог и корзину','extra'],['media','📰','Публиковать статьи и развивать бренд-медиа','extra'],['unsure','🤔','Пока не знаю','extra']]},
-    redotype:{title:'Что хочется улучшить?',options:[['design','🎨','Дизайн, структуру и удобство','extra'],['function','⚙️','Функциональность, формы и интеграции','extra'],['conversion','📈','Конверсию и количество заявок','extra'],['unknown','🔍','Не знаю, нужен анализ сайта','extra']]},
-    growth:{title:'Откуда хотите получать больше клиентов?',options:[['ads','📣','Из платной рекламы','presence'],['seo','🔍','Из органического поиска','presence'],['maps','🧭','Из Яндекс Карт или Google Business Profile','presence'],['all','📈','Из нескольких каналов','presence'],['unknown','🤝','Нужна помощь с выбором каналов','presence']]},
-    presence:{title:'У вас уже есть сайт или чат-бот для приёма заявок?',options:[['ready','✅','Да, работает','growthnext'],['old','🛠️','Есть, но требует доработки','growthnext'],['none','✨','Пока нет','growthnext']]},
-    support:{title:'Какая помощь нужна?',options:[['basic','🛠️','Исправлять ошибки и обновлять готовый контент','finish'],['standard','📝','Поддержка и SEO-статьи из моих материалов','finish'],['plus','🔍','Поддержка и экспертные SEO-статьи с нуля','finish'],['unknown','🤝','Пока не знаю, какой объём нужен','finish']]},
-    botstage:{title:'У вас уже есть чат-бот?',options:[['none','✨','Нет, нужен новый','extra'],['old','🛠️','Есть, хочу улучшить или заменить','extra'],['ready','✅','Есть, нужна техническая поддержка','support']]},
-    auditstage:{title:'Что хотите обсудить на консультации?',options:[['new','💻','Создание нового сайта','type'],['old','🔍','Аудит of an Existing Website','finish'],['growth','📈','Продвижение и привлечение клиентов','growth'],['unknown','🤝','Хочу вместе определить приоритеты','finish']]},
-    extra:{title:'Какие дополнительные задачи вы хотели бы решить?',options:[['basic','🛠️','Техническая поддержка'],['standard','📝','Поддержка и SEO-статьи из моих материалов'],['plus','🔍','Поддержка и экспертный SEO-контент с нуля'],['ads','📣','Настройка контекстной рекламы'],['maps','🧭','Продвижение на картах'],['bot','🤖','Автоматизация общения и заявок'],['redesign','🎨','Улучшение of an Existing Website'],['turnkey','💻','Создание нового сайта'],['unknown','🤝','Консультация по развитию']]}
+    start:{title:'What is your top priority right now?',options:[['new','✨','Build a new website or online service','type'],['redo','🎨','Update or improve an existing website','redotype'],['grow','📈','Attract more customers','growth'],['care','🛠️','Maintain a website or chatbot','support'],['bot','🤖','Automate communication and lead capture','botstage'],['audit','🤝','Figure out what my business needs','auditstage']]},
+    type:{title:'What should your website do?',options:[['landing','🎯','Sell one service, product, or offer','extra'],['quiz','❔','Recommend solutions through questions and capture leads','extra'],['visit','💼','Introduce me or my company','extra'],['multi','📑','Showcase multiple business areas and services','extra'],['online','⚙️','Handle bookings, price calculations, or user accounts','extra'],['shop','🛍️','Sell products through a catalog and cart','extra'],['media','📰','Publish articles and build branded media','extra'],['unsure','🤔','Not sure yet','extra']]},
+    redotype:{title:'What would you like to improve?',options:[['design','🎨','Design, structure, and usability','extra'],['function','⚙️','Features, forms, and integrations','extra'],['conversion','📈','Conversions and lead volume','extra'],['unknown','🔍','Not sure; I need a website audit','extra']]},
+    growth:{title:'Where would you like to attract more customers from?',options:[['ads','📣','Paid advertising','presence'],['seo','🔍','Organic search','presence'],['maps','🧭','Yandex Maps or Google Business Profile','presence'],['all','📈','Multiple channels','presence'],['unknown','🤝','I need help choosing channels','presence']]},
+    presence:{title:'Do you already have a website or chatbot to capture leads?',options:[['ready','✅','Yes, it is working','growthnext'],['old','🛠️','Yes, but it needs improvement','growthnext'],['none','✨','Not yet','growthnext']]},
+    support:{title:'What kind of help do you need?',options:[['basic','🛠️','Fix issues and update existing content','finish'],['standard','📝','Support and SEO articles based on my materials','finish'],['plus','🔍','Support and original expert SEO articles','finish'],['unknown','🤝','Not sure what level of support I need','finish']]},
+    botstage:{title:'Do you already have a chatbot?',options:[['none','✨','No, I need a new one','extra'],['old','🛠️','Yes, I want to improve or replace it','extra'],['ready','✅','Yes, I need technical support','support']]},
+    auditstage:{title:'What would you like to discuss during the consultation?',options:[['new','💻','Building a new website','type'],['old','🔍','Аудит of an Existing Website','finish'],['growth','📈','Marketing and customer acquisition','growth'],['unknown','🤝','I want help identifying priorities','finish']]},
+    extra:{title:'What additional goals would you like to address?',options:[['basic','🛠️','Technical support'],['standard','📝','Support and SEO articles based on my materials'],['plus','🔍','Support and original expert SEO content'],['ads','📣','Paid search campaign setup'],['maps','🧭','Local map listing optimization'],['bot','🤖','Communication and lead capture automation'],['redesign','🎨','Улучшение of an Existing Website'],['turnkey','💻','Building a new website'],['unknown','🤝','Growth consultation']]}
   };
   const qz=document.getElementById('quiz'),qOpen=qz.querySelector('.quiz-open'),qBox=qz.querySelector('.quiz-box'),qStep=qBox.querySelector('.quiz-step'),qRes=qBox.querySelector('.quiz-res'),qBack=qStep.querySelector('.q-back');
   let qHistory=[],qCurrent='start';
-  const qTypes={landing:'Landing Page',quiz:'Single-Page Quiz Website',visit:'Personal or Business Website',multi:'Multi-Page Website сайт',online:'Online Service'};
+  const qTypes={landing:'Landing Page',quiz:'Single-Page Quiz Website',visit:'Personal or Business Website',multi:'Multi-Page Website',online:'Online Service'};
   const qSupport={basic:'support',standard:'seo',plus:'plus',unknown:'audit'};
   function qRecommend(ans){
     const out=[];
     const add=(id,title,reason)=>{if(!out.some(x=>x.id===id))out.push({id,title,reason});};
     const type=ans.type;
-    if(ans.start==='audit')add('audit',null,'Поможет определить приоритеты и объём работ до старта.');
+    if(ans.start==='audit')add('audit',null,'Helps identify priorities and scope before work begins.');
     if(type){
-      if(type==='unsure')add('audit',null,'Помогу выбрать подходящую структуру и функциональность.');
-      else {add('turnkey',null,'Проектирование, дизайн, разработка и запуск нового сайта.');add(qTypes[type]?'classic':type,qTypes[type]||null,'Подходит под выбранную задачу вашего сайта.');}
+      if(type==='unsure')add('audit',null,'I will help you choose the right structure and features.');
+      else {add('turnkey',null,'Planning, design, development, and launch of a new website.');add(qTypes[type]?'classic':type,qTypes[type]||null,'Fits your selected website goal.');}
     }
-    if(ans.start==='redo')add(ans.redotype==='unknown'?'audit':'redesign',null,'Начнём с вашей текущей версии сайта и определим необходимые улучшения.');
-    if(ans.start==='bot'&&ans.botstage!=='ready')add('bot',null,ans.botstage==='old'?'Проработаем улучшение или замену текущего бота.':'Автоматизируем ответы, запись и приём заявок.');
+    if(ans.start==='redo')add(ans.redotype==='unknown'?'audit':'redesign',null,'We will review your current website and identify improvements.');
+    if(ans.start==='bot'&&ans.botstage!=='ready')add('bot',null,ans.botstage==='old'?'We will plan improvements or a replacement for your current chatbot.':'We will automate replies, bookings, and lead capture.');
     if(ans.growth){
-      if(ans.growth==='unknown'||ans.growth==='all')add('audit',null,'Определим приоритетные каналы привлечения клиентов.');
-      if(ans.presence==='old')add('redesign',null,'Подготовим существующий сайт к приёму заявок.');
-      if(ans.presence==='none'&&ans.growth!=='maps')add('turnkey',null,'Подберём посадочную страницу для приёма заявок перед продвижением.');
-      if(['ads','all'].includes(ans.growth))add('ads',null,'Настроим платное привлечение целевых клиентов.');
-      if(['maps','all'].includes(ans.growth))add('maps',null,'Повысим видимость компании в локальном поиске.');
+      if(ans.growth==='unknown'||ans.growth==='all')add('audit',null,'We will identify the best customer acquisition channels.');
+      if(ans.presence==='old')add('redesign',null,'We will prepare your existing website to capture leads.');
+      if(ans.presence==='none'&&ans.growth!=='maps')add('turnkey',null,'We will choose a landing page to capture leads before marketing begins.');
+      if(['ads','all'].includes(ans.growth))add('ads',null,'We will set up paid campaigns to reach your target customers.');
+      if(['maps','all'].includes(ans.growth))add('maps',null,'We will improve your local search visibility.');
     }
-    if(ans.support)add(qSupport[ans.support],null,'Подходящий объём регулярной помощи по вашим ответам.');
-    if(!out.length)add('audit',null,'Обсудим задачу и подберём решение.');
+    if(ans.support)add(qSupport[ans.support],null,'Ongoing support tailored to your answers.');
+    if(!out.length)add('audit',null,'We will discuss your goals and find the right solution.');
     const primary=new Set(out.map(x=>x.id));
-    (ans.extra||[]).forEach(v=>add(qSupport[v]||v,null,'Дополнительная услуга по вашему выбору.'));
+    (ans.extra||[]).forEach(v=>add(qSupport[v]||v,null,'An additional service of your choice.'));
     const tiers=['support','seo','plus'],best=tiers.reduce((n,id,i)=>out.some(x=>x.id===id)?i:n,-1);
     if(best>=0&&tiers.some(id=>primary.has(id)))primary.add(tiers[best]);
     return out.filter(x=>!tiers.includes(x.id)||x.id===tiers[best]).map(x=>({...x,primary:primary.has(x.id)})).sort((a,b)=>Number(b.primary)-Number(a.primary));
@@ -1703,22 +1703,22 @@ main>.hero.hero-v2{min-height:100vh;min-height:100svh}
     const list=qRes.querySelector('.q-res-list');list.replaceChildren();
     let group=null;
     qRecommend(ans).forEach(({id,title,reason,primary})=>{
-      if(group!==primary){group=primary;const label=document.createElement('h3');label.className='q-result-group';label.textContent=primary?'Основное решение':'Рекомендуемые дополнения';list.appendChild(label);}
+      if(group!==primary){group=primary;const label=document.createElement('h3');label.className='q-result-group';label.textContent=primary?'Primary Recommendation':'Recommended Add-ons';list.appendChild(label);}
       const card=document.getElementById('r-'+id);if(!card)return;
       const el=document.createElement('div');el.className='q-card';
-      el.innerHTML='<h4></h4><div class="q-meta"></div><div class="q-btns"><a class="btn btn-ghost">Подробнее</a><a class="btn btn-bordo" href="#contact">Let’s Talk</a></div>';
+      el.innerHTML='<h4></h4><div class="q-meta"></div><div class="q-btns"><a class="btn btn-ghost">Learn More</a><a class="btn btn-bordo" href="#contact">Let’s Talk</a></div>';
       el.querySelector('h4').textContent=title||card.querySelector('h3').innerText.replace(/\s+/g,' ');
       el.querySelector('.q-meta').textContent=reason;
       const link=el.querySelector('.btn-ghost');link.href='#r-'+id;
       link.addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();setFilter('all');card.scrollIntoView({behavior:'smooth',block:'center'});card.classList.add('pulse');setTimeout(()=>card.classList.remove('pulse'),2200);});
       list.appendChild(el);
     });
-    const cta=document.createElement('a');cta.className='btn btn-bordo q-complex';cta.href='#contact';cta.textContent='Обсудить комплексное решение';list.appendChild(cta);
+    const cta=document.createElement('a');cta.className='btn btn-bordo q-complex';cta.href='#contact';cta.textContent='Discuss a Complete Solution';list.appendChild(cta);
     qStep.hidden=true;qRes.hidden=false;
   }
   function qShow(key,focus=true){
     qCurrent=key;qStep.hidden=false;qRes.hidden=true;
-    const data=QUIZ[key];qStep.querySelector('.q-n').textContent='Вопрос '+(qHistory.length+1);
+    const data=QUIZ[key];qStep.querySelector('.q-n').textContent='Question '+(qHistory.length+1);
     const heading=qStep.querySelector('h3');heading.textContent=data.title;
     const opts=qStep.querySelector('.q-opts');opts.replaceChildren();
     if(key==='extra'){
@@ -1728,7 +1728,7 @@ main>.hero.hero-v2{min-height:100vh;min-height:100svh}
       const hint=document.createElement('p');hint.className='q-multi-hint';hint.setAttribute('aria-live','polite');
       const next=document.createElement('button');next.type='button';next.className='btn btn-bordo q-multi-next';
       const choices=[];
-      const refresh=()=>{hint.textContent='Выбрано '+selected.size+' из 3 · Можно пропустить вопрос';next.textContent=selected.size?'Получить рекомендации':'Пропустить и получить рекомендации';choices.forEach(([v,b])=>{b.setAttribute('aria-pressed',String(selected.has(v)));b.disabled=!selected.has(v)&&selected.size>=3;});};
+      const refresh=()=>{hint.textContent='Selected '+selected.size+' of 3 · You can skip this question';next.textContent=selected.size?'Get Recommendations':'Skip and Get Recommendations';choices.forEach(([v,b])=>{b.setAttribute('aria-pressed',String(selected.has(v)));b.disabled=!selected.has(v)&&selected.size>=3;});};
       data.options.forEach(([v,emoji,label])=>{
         if(main.includes(qSupport[v]||v)|| (v==='basic'&&main.some(id=>['seo','plus'].includes(id)))||(v==='standard'&&main.includes('plus')))return;
         const b=document.createElement('button');b.type='button';b.className='q-multi-choice';
@@ -1823,7 +1823,7 @@ main>.hero.hero-v2{min-height:100vh;min-height:100svh}
     };
     const tap = () => on && glass(2300 + Math.random() * 300, .045, .16);
     const chime = () => { glass(1568, .05, .5); glass(1976, .045, .5, .09); glass(2349, .04, .7, .18); };
-    const set = v => { on = v; btn.setAttribute('aria-pressed', on); btn.setAttribute('aria-label', on ? 'Выключить звуки' : 'Включить звуки'); try { localStorage.setItem('allie-snd', on ? '1' : '0'); } catch (e) {} };
+    const set = v => { on = v; btn.setAttribute('aria-pressed', on); btn.setAttribute('aria-label', on ? 'Turn sounds off' : 'Turn sounds on'); try { localStorage.setItem('allie-snd', on ? '1' : '0'); } catch (e) {} };
     if (btn) {
       set(on);
       btn.addEventListener('click', () => { set(!on); if (on) chime(); });
@@ -1977,7 +1977,7 @@ main>.hero.hero-v2{min-height:100vh;min-height:100svh}
     // --- ИИ-чат: диалог печатается, пока карточка на экране
     const chatB = $('.chat-b');
     if (chatB) {
-      const D = [['u', 'Здравствуйте! Есть экскурсия по старому городу на завтра для двоих?'], ['b', 'Добрый день! Да, на завтра есть два времени: утренняя прогулка в 9:00 и закатная в 17:30 ✨ Какую забронировать?'], ['u', 'Закатную, пожалуйста'], ['b', 'Готово! Подтверждение уже в Telegram, гид напишет вам сегодня вечером 🌅']];
+      const D = [['u', 'Hi! Is there an old town tour for two tomorrow?'], ['b', 'Hello! Yes, tomorrow has two options: a morning walk at 9 AM and a sunset tour at 5:30 PM ✨ Which would you like to book?'], ['u', 'The sunset tour, please'], ['b', 'All set! Your confirmation is in Telegram, and your guide will message you this evening 🌅']];
       let run = 0, visible = false;
       const wait = ms => new Promise(r => setTimeout(r, ms));
       const play = async id => {
