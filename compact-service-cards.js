@@ -128,8 +128,9 @@ alignment.textContent+=`
 `;
 document.head.append(alignment);
 function equalizeClosed(){
- for(const s of tracks){
- const cards=[...s.grid.querySelectorAll('.route:not(.hide)')];
+ const groups=[tracks.filter(s=>s.section.dataset.group==='format'),tracks.filter(s=>['site','care'].includes(s.section.dataset.group))];
+ for(const group of groups){
+ const cards=group.flatMap(s=>[...s.grid.querySelectorAll('.route:not(.hide)')]).filter(card=>card.getClientRects().length);
  for(const card of cards){card.style.removeProperty('--ac-closed-height');card.style.removeProperty('--ac-extra-height');}
  const heights=cards.map(card=>{const panel=card.querySelector('.ac-details');if(!panel)return card.offsetHeight;const preview=parseFloat(panel.style.getPropertyValue('--ac-preview'))||0;const full=parseFloat(panel.style.getPropertyValue('--ac-full'))||0;card.style.setProperty('--ac-extra-height',Math.max(0,full-preview)+'px');const previous=panel.style.height;const transition=panel.style.transition;panel.style.transition='none';panel.style.height=preview+'px';const h=card.offsetHeight;panel.style.height=previous;panel.style.transition=transition;return h;});
  const max=Math.ceil(Math.max(0,...heights));
