@@ -37,7 +37,7 @@ document.head.append(css);
 // Compact cards with explicit, localized disclosure; original text remains in DOM.
 const disclosureCSS=document.createElement('style');
 disclosureCSS.textContent=`
-#services .ac-h-window .route .ac-details{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .38s cubic-bezier(.22,1,.36,1),opacity .3s;overflow:hidden}
+#services .ac-h-window .route .ac-details{display:grid;grid-template-rows:1fr;opacity:1;transition:height .38s cubic-bezier(.22,1,.36,1);overflow:hidden}
 #services .ac-h-window .route.ac-open .ac-details{grid-template-rows:1fr;opacity:1}
 #services .ac-details-inner{min-height:0;overflow:hidden}
 #services .ac-details-inner .service-list{margin-bottom:12px}
@@ -55,12 +55,33 @@ document.querySelectorAll('#services .service-group .route').forEach((card,i)=>{
  const heading=list.previousElementSibling;if(!heading||heading.tagName!=='P')return;
  const label=heading.textContent.trim(),button=document.createElement('button'),panel=document.createElement('div'),inner=document.createElement('div');
  button.type='button';button.className='ac-detail-toggle';button.textContent=label;button.setAttribute('aria-expanded','false');
- panel.className='ac-details';panel.id='ac-service-details-'+i;panel.inert=true;button.setAttribute('aria-controls',panel.id);inner.className='ac-details-inner';
+ panel.className='ac-details';panel.id='ac-service-details-'+i;button.setAttribute('aria-controls',panel.id);inner.className='ac-details-inner';
  heading.before(button,panel);panel.append(inner);inner.append(heading,list);heading.style.display='none';
- button.addEventListener('click',()=>{const open=card.classList.toggle('ac-open');button.setAttribute('aria-expanded',String(open));panel.inert=!open;button.textContent=open?(collapseLabels[document.documentElement.lang.split('-')[0]]||collapseLabels.en):label;});
+ button.addEventListener('click',()=>{const open=card.classList.toggle('ac-open');button.setAttribute('aria-expanded',String(open));button.textContent=open?(collapseLabels[document.documentElement.lang.split('-')[0]]||collapseLabels.en):label;fitPreviews();});
 });
 
 const tracks=[];
+const previewStyle=document.createElement('style');
+previewStyle.textContent=`
+#services .ac-h-window .route .ac-details{display:block;flex:none;height:var(--ac-preview,0px)}
+#services .ac-h-window .route.ac-open .ac-details{height:var(--ac-full,0px)}
+#services .ac-details-inner .service-list{margin-top:0}
+#services .ac-details-inner li.ac-preview-hidden{visibility:hidden}
+#services .ac-open .ac-details-inner li.ac-preview-hidden{visibility:visible}
+#services .ac-h-window .route .body{display:flex;flex-direction:column}
+`;
+document.head.append(previewStyle);
+function fitPreviews(){
+ for(const s of tracks){
+  const cards=[...s.grid.querySelectorAll('.route:not(.hide)')];
+  const entries=cards.map(card=>{const panel=card.querySelector('.ac-details');return {card,panel,inner:panel?.firstElementChild,base:card.getBoundingClientRect().height-(panel?.getBoundingClientRect().height||0)}});
+  // Use intrinsic compact content, not the stretched row height.
+  for(const e of entries){const body=e.card.querySelector('.body'),cover=e.card.querySelector('.cover');if(!body||!cover)continue;const cs=getComputedStyle(body);const children=[...body.children].filter(n=>n!==e.panel&&getComputedStyle(n).display!=='none');e.base=cover.offsetHeight+children.reduce((sum,n)=>{const st=getComputedStyle(n);return sum+n.offsetHeight+(parseFloat(st.marginTop)||0)+(n.classList.contains('foot')?0:parseFloat(st.marginBottom)||0)},0)+(parseFloat(cs.paddingTop)||0)+(parseFloat(cs.paddingBottom)||0)+(parseFloat(cs.rowGap)||0)*Math.max(0,children.length-1)+2;}
+  const target=Math.max(...entries.map(e=>e.base),0)+48;
+  for(const e of entries){if(!e.panel)continue;const items=[...e.inner.querySelectorAll('li')];const rect=e.inner.getBoundingClientRect();const budget=Math.max(0,target-e.base);let height=0;for(const li of items){const bottom=li.getBoundingClientRect().bottom-rect.top;const show=bottom<=budget;li.classList.toggle('ac-preview-hidden',!show);if(show)height=Math.max(height,bottom);}e.panel.style.setProperty('--ac-preview',Math.ceil(height)+'px');e.panel.style.setProperty('--ac-full',e.inner.scrollHeight+'px');}
+ }
+}
+
 for(const section of document.querySelectorAll('.service-group[data-group="format"],.service-group[data-group="site"],.service-group[data-group="care"]')){
  const grid=section.querySelector(':scope > .routes'),heading=section.querySelector(':scope > h3');if(!grid||!heading)continue;
  const pin=document.createElement('div'),head=document.createElement('div'),nav=document.createElement('div'),win=document.createElement('div'),progress=document.createElement('div'),bar=document.createElement('span');
@@ -83,7 +104,7 @@ function move(s,x,smooth){x=clamp(x,s.max);if(s.sticky){const y=scrollY+s.sectio
 let frame=0;
 function update(){frame=0;for(const s of tracks){if(!s.sticky||!s.section.getClientRects().length)continue;const x=clamp(s.top-s.section.getBoundingClientRect().top,s.max);if(x!==s.x){s.x=x;s.grid.style.transform='translate3d('+(-x)+'px,0,0)';paint(s)}}}
 function request(){if(!frame)frame=requestAnimationFrame(update)}
-function measure(){for(const s of tracks){if(!s.section.getClientRects().length)continue;const old=s.x;s.section.classList.remove('ac-h-sticky');s.section.style.height='';s.grid.style.transform='';s.grid.style.setProperty('--ac-h-width',Math.min(400,Math.max(280,(s.win.clientWidth-40)/3))+'px');s.max=Math.max(0,s.grid.scrollWidth-s.win.clientWidth);const h=s.pin.offsetHeight;const header=document.querySelector('#top .nav');const clearance=Math.max(80,header?.getBoundingClientRect().height||0)+12;s.top=Math.max(clearance,(innerHeight-h)/2);s.sticky=false;s.section.classList.toggle('ac-h-sticky',s.sticky);if(s.sticky){s.win.scrollLeft=0;s.section.style.setProperty('--ac-h-top',s.top+'px');s.section.style.height=(h+s.max)+'px';s.x=-1}else{s.x=clamp(old,s.max);s.win.scrollLeft=s.x;paint(s)}}request()}
+function measure(){for(const s of tracks){if(!s.section.getClientRects().length)continue;const old=s.x;s.section.classList.remove('ac-h-sticky');s.section.style.height='';s.grid.style.transform='';s.grid.style.setProperty('--ac-h-width',Math.min(400,Math.max(280,(s.win.clientWidth-40)/3))+'px');s.max=Math.max(0,s.grid.scrollWidth-s.win.clientWidth);const h=s.pin.offsetHeight;const header=document.querySelector('#top .nav');const clearance=Math.max(80,header?.getBoundingClientRect().height||0)+12;s.top=Math.max(clearance,(innerHeight-h)/2);s.sticky=false;s.section.classList.toggle('ac-h-sticky',s.sticky);if(s.sticky){s.win.scrollLeft=0;s.section.style.setProperty('--ac-h-top',s.top+'px');s.section.style.height=(h+s.max)+'px';s.x=-1}else{s.x=clamp(old,s.max);s.win.scrollLeft=s.x;paint(s)}}fitPreviews();request()}
 let timer;function schedule(){clearTimeout(timer);timer=setTimeout(measure,100)}
 addEventListener('scroll',request,{passive:true});addEventListener('resize',schedule,{passive:true});mq.addEventListener?.('change',schedule);document.fonts?.ready.then(schedule);
 if('ResizeObserver'in window){const ro=new ResizeObserver(schedule);tracks.forEach(s=>ro.observe(s.pin))}
