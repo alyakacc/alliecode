@@ -1502,7 +1502,7 @@ html[data-hero-trial="solar"] main>.hero.hero-v2::before{background-image:linear
 #ac-intro{position:fixed;inset:0;z-index:2147483646;display:none;place-items:center;background:radial-gradient(ellipse at 75% 10%,rgba(125,26,53,.24),transparent 65%),linear-gradient(160deg,var(--night,#14040e),#190510);pointer-events:none;opacity:1;transition:opacity .42s ease,visibility .42s}
 html.ac-intro-active #ac-intro{display:grid}
 #ac-intro .ac-intro-inner{display:grid;justify-items:center;gap:18px;width:min(72vw,240px)}
-#ac-intro .logo{font-size:clamp(28px,5vw,46px);color:#fff;text-shadow:0 0 12px rgba(255,255,255,.4);visibility:hidden}
+#ac-intro .logo{font-size:27px;color:#fff;text-shadow:0 0 12px rgba(255,255,255,.4);visibility:hidden}
 #ac-intro.ac-font-ready .logo{visibility:visible;animation:acIntroMark .3s ease both}
 #ac-intro .ac-progress{height:2px;width:100%;background:rgba(255,255,255,.13);overflow:hidden;border-radius:2px}
 #ac-intro .ac-progress i{display:block;position:relative;height:100%;width:100%;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,#a62b50,#d68b99 68%,#f4e6c8);will-change:transform}
@@ -2108,45 +2108,7 @@ html.ac-intro-active #ac-intro{display:grid}
 
 
 
-<script>
-/* Local service-card alignment: match headings and list starts within each visible grid row. */
-(() => {
-  const grids = [...document.querySelectorAll('.service-group .routes')];
-  let frame;
-  function align() {
-    const entries = grids.flatMap(grid => [...grid.querySelectorAll('.route')].map(card => {
-      const list = card.querySelector('.service-list');
-      const heading = [...card.querySelectorAll('.body > p')].find(p => p.textContent.trim() === 'Cosa include');
-      return {card, list, heading};
-    }).filter(e => e.list && e.heading));
-    entries.forEach(({heading,list}) => { heading.style.removeProperty('margin-top'); list.style.removeProperty('margin-top'); });
-    if (matchMedia('(max-width:640px)').matches) return;
-    grids.forEach(grid => {
-      const rows = new Map();
-      entries.filter(e => grid.contains(e.card) && e.card.getClientRects().length).forEach(e => {
-        const key = Math.round(e.card.getBoundingClientRect().top);
-        if (!rows.has(key)) rows.set(key, []);
-        rows.get(key).push(e);
-      });
-      rows.forEach(row => {
-        if (row.length < 2) return;
-        for (const field of ['heading','list']) {
-          const tops = row.map(e => e[field].getBoundingClientRect().top - e.card.getBoundingClientRect().top);
-          const max = Math.max(...tops);
-          row.forEach((e,i) => { if (max-tops[i] > .5) e[field].style.marginTop = `${parseFloat(getComputedStyle(e[field]).marginTop || 0) + max-tops[i]}px`; });
-        }
-      });
-    });
-  }
-  function schedule() { cancelAnimationFrame(frame); frame = requestAnimationFrame(align); }
-  addEventListener('resize', schedule);
-  const observer = new MutationObserver(schedule);
-  grids.forEach(grid => grid.querySelectorAll('.route').forEach(card => observer.observe(card,{attributes:true,attributeFilter:['class','hidden','style']})));
-  if (document.fonts) document.fonts.ready.then(schedule);
-  addEventListener('load', schedule);
-  schedule();
-})();
-</script>
+<script src="./compact-service-cards.js?v=1dec95c" ></script>
 
 <script defer src="./code-card-reveal.js?v=hero-fix"></script>
 <script defer src="./code-soon-badge.js?v=italiano-1"></script>
