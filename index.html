@@ -1171,7 +1171,7 @@ input,textarea,select{border-radius:var(--panel-radius)}
 <div class="wrap hero-grid">
 <div class="hero-text">
 <div class="eyebrow hero-brand-line">ALLIECODE · ДИЗАЙН, РАЗРАБОТКА, ПРОДВИЖЕНИЕ</div>
-<h1>Ваш сайт, которому доверяют <em>с первого экрана и на любом языке</em></h1>
+<h1><span class="hero-title-line">Ваш сайт, которому</span> <span class="hero-title-line">доверяют <em>с первого</em></span> <span class="hero-title-line"><em>экрана и на любом языке</em></span></h1>
 
 
 <div class="hero-ctas">
@@ -2044,5 +2044,17 @@ main>.hero.hero-v2::before{content:"";position:absolute;inset:0;z-index:-1;point
 .hero-v2 .hero-ctas .btn{padding:17px 25px;font-size:16px;min-height:48px}
 .hero-v2 .hero-contacts{margin-top:13px;color:rgba(255,240,246,.72)}
 }
+</style><style id="ac-hero-three-lines">
+@media(min-width:881px){
+.hero-v2 .hero-text{width:calc(100% + 24px);max-width:680px;top:36px}
+.hero-v2 .hero-text h1{width:100%;max-width:680px;font-size:clamp(34px,3.65vw,56px);line-height:1.12;margin:0;text-wrap:initial}
+.hero-v2 .hero-title-line{display:block;white-space:nowrap}
+.hero-v2 .hero-ctas{margin-top:38px}
+.hero-v2 .hero-contacts{margin-top:20px}
+}
+@media(min-width:881px) and (max-width:1150px){
+.hero-v2 .hero-text h1{font-size:clamp(30px,3.45vw,40px)}
+}
+@media(max-width:880px){.hero-v2 .hero-title-line{display:inline;white-space:normal}}
 </style></body>
 </html>
