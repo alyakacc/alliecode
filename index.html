@@ -1480,6 +1480,10 @@ main>.hero.hero-v2{min-height:100vh;min-height:100svh}
 .hero-v2 .ph-card.ac-hover>.ac-glare{opacity:1}
 }
 </style>
+<style id="ac-about-portrait-frame">
+#about .ab-ring{border:0;box-shadow:0 0 0 1px rgba(230,75,105,.65),0 0 16px rgba(214,0,54,.48),0 0 38px rgba(192,22,63,.27),0 28px 60px rgba(0,0,0,.48)}
+#about .ab-ring::before{content:"";position:absolute;inset:0;z-index:3;border-radius:inherit;pointer-events:none;background:linear-gradient(135deg,#FFF6E9,#FFD6BA 30%,#FF806F 52%,#D60036 85%);padding:1.5px;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude}
+</style>
 </head>
 <body>
 <script>if(new URLSearchParams(location.search).get("roadmap")==="3")document.body.classList.add("roadmap-staggered");</script>
