@@ -19,8 +19,8 @@
     const dpr=Math.min(devicePixelRatio||1,1.5);
     layer.width=Math.round(w*dpr);layer.height=Math.round(h*dpr);
     ctx.setTransform(dpr,0,0,dpr,0,0);
-    particles=Array.from({length:w<=640?18:32},(_,i)=>({
-      x:rand(0,Math.max(1,w-40)),y:rand(0,h),speed:rand(12,27),
+    particles=Array.from({length:w<=640?18:Math.max(32,Math.round(w/30))},(_,i)=>({
+      x:rand(0,Math.max(1,w-12)),y:rand(0,h),speed:rand(12,27),
       alpha:i%9===0?.26:rand(.12,.22),
       char:glyphs[Math.floor(rand(0,glyphs.length))],color:colors[i%3]
     }));
