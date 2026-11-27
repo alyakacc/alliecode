@@ -1491,7 +1491,14 @@ main>.hero.hero-v2{min-height:100vh;min-height:100svh}
 h1,h2,.quiz-cta h3{font-family:"DM Sans",sans-serif!important;font-weight:600;font-variation-settings:normal;letter-spacing:-.045em}
 h1 em,h2 em,.quiz-cta h3 em{font-family:"Allura",cursive!important;font-style:normal!important;font-weight:400!important;font-variation-settings:normal;letter-spacing:0;display:inline-block;transform:scaleX(1.05);transform-origin:left center}
 h2 .eyebrow{font-family:"Jost",sans-serif}
-</style></head>
+</style><script>try{var acBg=new URLSearchParams(location.search).get('hero');if(acBg==='crimson'||acBg==='solar')document.documentElement.dataset.heroTrial=acBg}catch(e){}</script><style id="ac-hero-background-experiments">
+html[data-hero-trial] main>.hero.hero-v2::before{mask-image:linear-gradient(to bottom,#000 0%,#000 55%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 55%,transparent 100%)}
+html[data-hero-trial="crimson"] main>.hero.hero-v2::before{background:radial-gradient(ellipse at 82% 26%,#ed1739 0%,#a60824 30%,transparent 67%),radial-gradient(ellipse at 5% 48%,#78091e 0%,transparent 65%),linear-gradient(115deg,#350510,#a50824 65%,#470510)}
+html[data-hero-trial="solar"] main>.hero.hero-v2::before{background:radial-gradient(ellipse at 75% 32%,#ffac25 0%,#f56b08 24%,#d90b30 51%,transparent 75%),radial-gradient(ellipse at 0% 12%,#a80b2c,transparent 70%),linear-gradient(115deg,#410717 5%,#a82a16 60%,#ed0839)}
+html[data-hero-trial] main>.hero.hero-v2{background:none}
+html[data-hero-trial] main>.hero.hero-v2::before{background-repeat:no-repeat}
+html[data-hero-trial="solar"] main>.hero.hero-v2::before{background-image:linear-gradient(90deg,rgba(30,2,12,.65),rgba(30,2,12,.35) 44%,transparent 75%),radial-gradient(ellipse at 75% 32%,#ffac25 0%,#f56b08 24%,#d90b30 51%,transparent 75%),linear-gradient(115deg,#410717 5%,#a82a16 60%,#ed0839)}
+</style><script>document.addEventListener('DOMContentLoaded',function(){var t=document.documentElement.dataset.heroTrial;if(!t)return;document.querySelectorAll('.ac-lang a').forEach(function(a){var u=new URL(a.href);u.searchParams.set('hero',t);a.href=u.href})})</script></head>
 <body>
 <script>if(new URLSearchParams(location.search).get("roadmap")==="3")document.body.classList.add("roadmap-staggered");</script>
 <div aria-hidden="true" class="rprog"></div>
