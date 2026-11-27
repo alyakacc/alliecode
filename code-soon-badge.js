@@ -15,19 +15,23 @@
     @media(prefers-reduced-motion:reduce){.code-soon-badge .soon-letter{animation:none!important;opacity:1!important}.code-soon-badge .soon-code{animation:none!important;opacity:0!important}}
   `;
   document.head.append(style);
+  const isItalian = document.documentElement.lang === 'it';
+  const label = isItalian ? 'A BREVE' : 'SOON';
+  const letters = label.replace(' ', '');
   function mount(cover){
     const svg=document.createElementNS(ns,'svg');
     svg.setAttribute('viewBox','0 0 70 254');
     svg.setAttribute('preserveAspectRatio','xMidYMid meet');
     svg.setAttribute('role','img');
-    svg.setAttribute('aria-label','SOON — скоро');
+    svg.setAttribute('aria-label', isItalian ? label : 'SOON — скоро');
     svg.classList.add('code-soon-badge');
-    Array.from('SOON').forEach((letter,k)=>{
+    Array.from(letters).forEach((letter,k)=>{
       const t=document.createElementNS(ns,'text');
       t.classList.add('soon-letter');
       t.setAttribute('x','35');
-      t.setAttribute('y',String(31+k*64));
+      t.setAttribute('y',String(isItalian ? 23 + k * 42 : 31 + k * 64));
       t.style.setProperty('--soon-delay',String((cover.closest('#r-pr')?1400:0)+k*180)+'ms');
+      if (isItalian) t.style.fontSize = '42px';
       t.textContent=letter;
       svg.append(t);
     });
