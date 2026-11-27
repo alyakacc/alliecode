@@ -2170,5 +2170,12 @@ rm.addEventListener('change',()=>{if(rm.matches)reset();else if(active)start()})
 document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;last=0}else if(active)start()});
 if(window.IntersectionObserver)new IntersectionObserver(([e])=>{visible=e.isIntersecting;if(!visible){cancelAnimationFrame(frame);frame=0;last=0}else if(active)start()}).observe(hero);
 })();
-</script></body>
+</script><style id="ac-service-body-wine">
+.service-group[data-group="site"] .route > .body,
+.service-group[data-group="care"] .route > .body {
+  background-color: rgba(77, 19, 43, .48);
+  border-radius: 0 0 var(--card-radius, 20px) var(--card-radius, 20px);
+}
+</style>
+</body>
 </html>
