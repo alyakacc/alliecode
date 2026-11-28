@@ -2133,7 +2133,7 @@ html.ac-intro-active #ac-intro{display:grid}
 
 
 
-<script src="./compact-service-cards.js?v=1dec95c" ></script>
+
 
 <script defer src="./code-card-reveal.js?v=hero-fix"></script>
 <script defer src="./code-soon-badge.js?v=italiano-1"></script>
@@ -2183,5 +2183,22 @@ if(window.IntersectionObserver)new IntersectionObserver(([e])=>{visible=e.isInte
 .hero-v2 .editorial-visual .ph-card::before { display:none!important; }
 .hero-v2 .editorial-visual .ph-card img { filter:none!important; }
 </style>
-</body>
+<style id="ac-reference-service-grid">
+#services .service-group .routes{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:22px!important;align-items:stretch!important;overflow:visible!important}
+#services .service-group .route:not(.hide){display:flex!important;flex-direction:column!important;position:relative!important;top:auto!important;height:auto!important;min-height:0!important;margin:0!important;transform:none!important;border:1px solid rgba(231,176,134,.29)!important;border-radius:24px!important;background:linear-gradient(145deg,#2b101f,#170710 72%)!important;box-shadow:none!important;overflow:hidden}
+#services .service-group .route:nth-child(even):not(.hide){background:radial-gradient(ellipse at 100% 100%,rgba(184,68,71,.43),transparent 68%),radial-gradient(ellipse at 0% 0%,rgba(145,42,72,.42),transparent 65%),#210b18!important;border-color:rgba(239,189,135,.48)!important}
+#services .service-group .route>.cover{position:relative!important;display:flex!important;align-items:flex-start!important;flex-direction:column!important;gap:16px!important;background:transparent!important;min-height:0!important;height:auto!important;aspect-ratio:auto!important;padding:26px 28px 12px!important;border:0!important}
+#services .service-group .route>.cover::before,#services .service-group .route>.cover::after,#services .service-group .route .rshade{display:none!important}
+#services .service-group .route .cover .service-emoji{position:relative!important;inset:auto!important}
+#services .service-group .route .cover h3{position:relative!important;inset:auto!important;width:auto!important;font-size:clamp(23px,2.3vw,32px)!important;line-height:1.2!important;letter-spacing:0!important;text-transform:none!important;font-weight:500!important;margin:0!important}
+#services .service-group .route>.body{background:transparent!important;display:flex!important;flex:1 1 auto!important;padding:0 28px 28px!important;gap:16px!important;overflow:visible!important}
+#services .service-group .route>.body .for{font-weight:500!important;font-size:18px!important;line-height:1.45!important}
+#services .service-group .route .service-list{list-style:none!important;padding:0!important;margin:0!important;font-size:16px!important;line-height:1.55!important}
+#services .service-group .route .service-list li{position:relative;padding-left:25px;margin:0 0 12px!important}
+#services .service-group .route .service-list li::before{content:"✓";position:absolute;left:0;color:#f3d3a0;font-weight:500}
+#services .service-group .route .foot{margin-top:auto!important;padding-top:16px!important}
+#services .service-group .route .foot .btn{width:100%;justify-content:center;background:rgba(239,189,135,.10)!important;border:1px solid rgba(239,189,135,.38)!important;border-radius:10px!important;color:#ffe4b8!important}
+#services .service-group .route .foot .btn:hover{background:rgba(239,189,135,.22)!important}
+@media(max-width:640px){#services .service-group .routes{grid-template-columns:minmax(0,1fr)!important;gap:16px!important}#services .service-group .route>.cover{padding:22px 20px 12px!important}#services .service-group .route>.body{padding:0 20px 22px!important}}
+</style></body>
 </html>
