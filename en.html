@@ -2196,5 +2196,20 @@ if(window.IntersectionObserver)new IntersectionObserver(([e])=>{visible=e.isInte
 .hero-v2 .editorial-visual .ph-card::before { display:none!important; }
 .hero-v2 .editorial-visual .ph-card img { filter:none!important; }
 </style>
-</body>
+<style id="ac-polish-foundation">/* Allie Novak — Final UX/UI Polish v1.0 / stage 1 */
+:root{--type-label:.75rem;--type-small:.875rem;--type-body:1rem;--type-lead:1.25rem;--type-h3:clamp(1.25rem,2vw,1.5625rem);--type-h2:clamp(1.5625rem,3vw,2.4414rem);--type-h1:clamp(2.25rem,4.2vw,3.875rem);--leading-body:1.6;--leading-heading:1.15;--measure:65ch;--section-space:80px;--ac-section-half:calc(var(--section-space)/2)}
+body{font-size:var(--type-body);line-height:var(--leading-body);font-weight:400}
+main :is(.lead,.section-intro,.sub){max-inline-size:var(--measure)}
+main :is(.route .body,.fact,details) p{line-height:var(--leading-body)}
+main h2{font-size:var(--type-h2);line-height:var(--leading-heading)}
+main h2 em{letter-spacing:normal}
+main .service-group>h3,main .step h3{font-size:var(--type-h3);line-height:1.2}
+#services .service-group .route .service-list{line-height:var(--leading-body)!important}
+#services .service-group .route .cover h3{font-size:var(--type-h3)!important;line-height:1.2!important}
+main>section:not(.hero){padding-block:var(--ac-section-half);margin-block:0}
+main>.hero.hero-v2{padding-bottom:var(--ac-section-half)}
+main>#services,footer#contact{padding-top:var(--ac-section-half)}
+@media(max-width:880px){:root{--section-space:64px}}
+@media(max-width:640px){:root{--section-space:48px;--type-lead:1rem;--type-h3:1.375rem}}
+</style></body>
 </html>
